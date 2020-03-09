@@ -2,21 +2,26 @@ package com.excilys.model;
 
 public class Company {
 
-	public int id;
+	public long id;
 	public String name;
 	
 	public Company() {
 	}
 	
-	public Company(String name) {
+	public Company(long id, String name) {
+		this.id = id;
 		this.name=name;
 	}
 
-	public int getId() {
+	public String toString() {
+		return this.id + " | " + this.name; 
+	}
+	
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

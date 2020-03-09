@@ -57,10 +57,10 @@ public class MySQLConnect {
    * @return boolean
    * @throws SQLException
    */
-  public int insert(String insertQuery) throws SQLException {
+  public void insert(String insertQuery) throws SQLException {
       statement = db.conn.createStatement();
-      int result = statement.executeUpdate(insertQuery);
-      return result;
+      statement.executeUpdate(insertQuery);
 
   }
+
 }
