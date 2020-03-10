@@ -7,58 +7,85 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import com.excilys.mapper.Mapper;
-import com.excilys.model.Computer;
+import com.excilys.model.*;
 import com.excilys.persistence.MySQLConnect;
 
 public class DAOcomputer {
 
-	MySQLConnect mysql = MySQLConnect.getDbCon();
+	static DAOcompany daocompany = new DAOcompany();
 	private final static String getComputers = "SELECT id,name,introduced,discontinued,company_id FROM computer";
 	private final static String getComputerById = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id=?";
 	private final static String createComputer = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
-	private final static String deleteComputer = "DELETE FROM computer WHERE id=";
-	
-	
+	private final static String updateComputer = "UPDATE computer SET  name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE Id = ?";
+	private final static String deleteComputer = "DELETE FROM computer WHERE id=?";
+
+
 	public ArrayList<Computer> getComputers() throws SQLException{
 		ResultSet allComputerRes;
 		ArrayList<Computer> listComputers = new ArrayList<Computer>();
-		
-		PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputers);
-		allComputerRes = st.executeQuery();
-		Computer computer = Mapper.computerMapper(allComputerRes);
-		listComputers.add(computer);
+
+		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputers)){
+			allComputerRes = st.executeQuery();
+			listComputers = Mapper.computerListeMapper(allComputerRes);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return listComputers;
 	}
-	
-	public Computer getComputerById(int id) throws SQLException {
+
+	public Computer getComputerById(long id) throws SQLException {
 		ResultSet ComputerRes;
-		
-		PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputerById);
-		st.setLong(1, id);
-		ComputerRes = st.executeQuery(); 
-		Computer computer = Mapper.computerMapper(ComputerRes);
-		return computer;
+		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputerById)){
+			st.setLong(1, id);
+			ComputerRes = st.executeQuery(); 
+			Computer computer = Mapper.computerMapper(ComputerRes);
+			return computer;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
-	
+
 	public void createComputer(Computer computer) throws SQLException {
-		PreparedStatement st = MySQLConnect.conn.prepareStatement(createComputer);
-		st.setString(1, computer.getName());
-		st.setTimestamp(2, computer.getIntroduced() != null ? Timestamp.valueOf(computer.getIntroduced()) : null);
-		st.setTimestamp(3, computer.getDiscontinued() != null ? Timestamp.valueOf(computer.getDiscontinued()) : null);
-		st.setLong(4, computer.getCompany_id());
-		st.executeUpdate();
+		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(createComputer);){
+			st.setString(1, computer.getName());
+			st.setTimestamp(2, computer.getIntroduced() != null 
+					? Timestamp.valueOf(computer.getIntroduced()) : null);
+			st.setTimestamp(3, computer.getDiscontinued() != null 
+					? Timestamp.valueOf(computer.getDiscontinued()) : null);
+			Company company = computer.getCompany();
+			st.setLong(4, company.id);
+			st.setLong(5, computer.id);
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public boolean updateComputer(Computer computer) {
-		boolean update = false;
-		
-		return update;
+
+	public void updateComputer(Computer computer) throws SQLException {
+		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(updateComputer)){
+			st.setString(1, computer.getName());
+			st.setTimestamp(2, computer.getIntroduced() != null 
+					? Timestamp.valueOf(computer.getIntroduced()) : null);
+			st.setTimestamp(3, computer.getDiscontinued() != null 
+					? Timestamp.valueOf(computer.getDiscontinued()) : null);
+			Company company = computer.getCompany();
+			st.setLong(4, company.id);
+			st.setLong(5, computer.id);
+			st.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public boolean deleteComputer(long id) throws SQLException {
-		boolean delete = false;
-		mysql.insert(deleteComputer+id);
-		return delete;
+
+	public void deleteComputer(long id) throws SQLException {
+		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(deleteComputer)){
+			st.setLong(1, id);
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 }
