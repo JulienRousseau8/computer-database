@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class MySQLConnect {
 
-	public Connection conn;
+	public static Connection conn;
     private Statement statement;
     public static MySQLConnect db;
     private String url= "jdbc:mysql://localhost:3306/computer-database-db";
@@ -54,13 +54,14 @@ public class MySQLConnect {
   /**
    * @desc Method to insert data to a table
    * @param insertQuery String The Insert query
+ * @return 
    * @return boolean
    * @throws SQLException
    */
-  public void insert(String insertQuery) throws SQLException {
+  public int insert(String insertQuery) throws SQLException {
       statement = db.conn.createStatement();
-      statement.executeUpdate(insertQuery);
-
+      int result = statement.executeUpdate(insertQuery);
+      return result;
   }
 
 }

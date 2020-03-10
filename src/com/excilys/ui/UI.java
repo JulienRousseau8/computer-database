@@ -1,23 +1,19 @@
 package com.excilys.ui;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
 import java.util.Scanner;
 
-import com.excilys.DAO.*;
-import com.excilys.persistence.*;
-import com.excilys.model.*;
-public class Test {	
+import com.excilys.DAO.DAOcompany;
+import com.excilys.DAO.DAOcomputer;
+import com.excilys.model.Company;
+import com.excilys.model.Computer;
+
+public class UI {
 
 	public static void main(String[] args) throws SQLException {
-		
-		MySQLConnect mysql = MySQLConnect.getDbCon();
 		DAOcompany company = new DAOcompany();
 		DAOcomputer computer = new DAOcomputer();
-		ArrayList<Company> listCompanies = new ArrayList<Company>();
-		ArrayList<Computer> listComputers = new ArrayList<Computer>();
+		ActionsMenu actionsmenu = new ActionsMenu();
 		
 		System.out.println("1 - Afficher la liste des entreprises");
 		System.out.println("2 - Afficher la liste des ordinateurs");
@@ -33,44 +29,41 @@ public class Test {
 		switch(CliMenu.menuChoice(choice)) {
 		
 		case LISTCOMPANIES :
-			listCompanies = company.getCompanies();
-			for(Company _companies : listCompanies) {
+			//System.out.println(company.getCompanies());
+			for(Company _companies : company.getCompanies()) {
 				System.out.println(_companies.toString());
 			}
 			break;
 				
 		case LISTCOMPUTERS : 
-			listComputers = computer.getComputers();
-			for(Computer _computer : listComputers) {
+			//System.out.println(computer.getComputers());
+			for(Computer _computer : computer.getComputers()) {
 				System.out.println(_computer.toString());
 			}
 			break;
 			
 		case SHOWDETAILS :
-			System.out.println("Entrer un ID");
-			int detailId = sc.nextInt();
-			Optional<Computer> _computer = computer.getComputerById(detailId);
-			System.out.println(_computer.toString());;
+			actionsmenu.showDetails();
 			break;
 			
 		case CREATECOMPUTER :
-			System.out.println("Entrer un nom");
-			String name = sc.nextLine();
-			Date introduced = null;
-			Date discontinued = null;
-			long company_id = 3;
-			computer.createComputer(name, introduced, discontinued, company_id);
+			actionsmenu.createComputer();
+			break;
+			
 		case UPDATECOMPUTER :
 			
 			
 		case DELETECOMPUTER :
-			
+			actionsmenu.deleteComputer();
+			break;
 			
 		case QUIT :
+			break;
 			
 		default :
-			System.out.println("Invalid choice");
+			break;
 		}
+
 	}	
-		
 }
+
