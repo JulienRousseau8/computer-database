@@ -1,9 +1,9 @@
 package com.excilys.DAO;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -38,7 +38,6 @@ public class DAOcomputer {
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputers)){
 			allComputerRes = st.executeQuery();
 			listComputers = Mapper.computerListeMapper(allComputerRes);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -61,10 +60,10 @@ public class DAOcomputer {
 	public void createComputer(Computer computer) throws SQLException {
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(createComputer);){
 			st.setString(1, computer.getName());
-			st.setTimestamp(2, computer.getIntroduced() != null 
-					? Timestamp.valueOf(computer.getIntroduced()) : null);
-			st.setTimestamp(3, computer.getDiscontinued() != null 
-					? Timestamp.valueOf(computer.getDiscontinued()) : null);
+			st.setDate(2, computer.getIntroduced() != null 
+					? Date.valueOf(computer.getIntroduced()) : null);
+			st.setDate(3, computer.getDiscontinued() != null 
+					? Date.valueOf(computer.getDiscontinued()) : null);
 			Company company = computer.getCompany();
 			st.setLong(4, company.id);
 			st.executeUpdate();
@@ -76,10 +75,10 @@ public class DAOcomputer {
 	public void updateComputer(Computer computer) throws SQLException {
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(updateComputer)){
 			st.setString(1, computer.getName());
-			st.setTimestamp(2, computer.getIntroduced() != null 
-					? Timestamp.valueOf(computer.getIntroduced()) : null);
-			st.setTimestamp(3, computer.getDiscontinued() != null 
-					? Timestamp.valueOf(computer.getDiscontinued()) : null);
+			st.setDate(2, computer.getIntroduced() != null 
+					? Date.valueOf(computer.getIntroduced()) : null);
+			st.setDate(3, computer.getDiscontinued() != null 
+					? Date.valueOf(computer.getDiscontinued()) : null);
 			Company company = computer.getCompany();
 			st.setLong(4, company.id);
 			st.setLong(5, computer.id);
