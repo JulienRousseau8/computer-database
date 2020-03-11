@@ -9,22 +9,22 @@ public class Computer {
 	public LocalDate introduced;
 	public LocalDate discontinued;
 	public Company company;
-	
+
 	public Computer() {
 	}
-	
-	public Computer(long id, String name, LocalDate introduced, LocalDate discontinued, Company company) {
-		this.id = id;
-		this.name = name;
-		this.introduced = introduced;
-		this.discontinued = discontinued;
-		this.company = company;
+
+	private Computer(ComputerBuilder computerBuilder) {
+		this.id = computerBuilder.id;
+		this.name = computerBuilder.name;
+		this.introduced = computerBuilder.introduced;
+		this.discontinued = computerBuilder.discontinued;
+		this.company = computerBuilder.company;
 	}
 
 	public String toString() {
 		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -64,5 +64,43 @@ public class Computer {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-	
+
+	public static class ComputerBuilder {
+		
+		public long id;
+		public String name;
+		public LocalDate introduced;
+		public LocalDate discontinued;
+		public Company company;
+		public long getId() {
+			return id;
+		}
+
+		public Computer build() {
+			return new Computer(this);
+		}
+		
+		public ComputerBuilder setId(long id) {
+			this.id = id;
+			return this;
+		}
+		public ComputerBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+		public ComputerBuilder setIntroduced(LocalDate introduced) {
+			this.introduced = introduced;
+			return this;
+		}
+		public ComputerBuilder setDiscontinued(LocalDate discontinued) {
+			this.discontinued = discontinued;
+			return this;
+		}
+		public ComputerBuilder setCompany(Company company) {
+			this.company = company;
+			return this;
+		}
+		
+		
+	}
 }

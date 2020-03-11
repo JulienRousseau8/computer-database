@@ -14,7 +14,7 @@ import com.excilys.persistence.MySQLConnect;
 public class DAOcomputer {
 
 	public static DAOcomputer daoComputer;
-	
+
 	private final static String getComputers = "SELECT id,name,introduced,discontinued,company_id FROM computer";
 	private final static String getComputerById = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id=?";
 	private final static String createComputer = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
@@ -23,14 +23,14 @@ public class DAOcomputer {
 
 	private DAOcomputer() {
 	}
-	
+
 	public static DAOcomputer getInstance() {
 		if (daoComputer == null) {
 			daoComputer = new DAOcomputer();
 		}
 		return daoComputer;
 	}
-	
+
 	public ArrayList<Computer> getComputers() throws SQLException{
 		ResultSet allComputerRes;
 		ArrayList<Computer> listComputers = new ArrayList<Computer>();
@@ -49,8 +49,8 @@ public class DAOcomputer {
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputerById)){
 			st.setLong(1, id);
 			ComputerRes = st.executeQuery(); 
-			Computer computer = Mapper.computerMapper(ComputerRes);
-			return Optional.of(computer);
+			Optional<Computer> computer = Mapper.computerMapper(ComputerRes);
+			return computer;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

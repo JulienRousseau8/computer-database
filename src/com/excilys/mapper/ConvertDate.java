@@ -14,5 +14,5 @@ public class ConvertDate {
 		LocalDate localDateTime = LocalDate.parse(date, formatter);
 		return localDateTime;
 	}
-	
+
 }

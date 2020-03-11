@@ -26,41 +26,34 @@ public class UI {
 		int choice = sc.nextInt();
 		
 		switch(CliMenu.menuChoice(choice)) {
-		case LISTCOMPANIES :
-			//System.out.println(company.getCompanies());
-			for(Company companies : DAOcompany.getInstance().getCompanies()) {
-				System.out.println(companies.toString());
-			}
-			break;
-				
-		case LISTCOMPUTERS : 
-			//System.out.println(computer.getComputers());
-			for(Computer computer : DAOcomputer.getInstance().getComputers()) {
-				System.out.println(computer.toString());
-			}
-			break;
-			
-		case SHOWDETAILS :
-			ActionsMenu.getInstance().showDetails();
-			break;
-			
-		case CREATECOMPUTER :
-			ActionsMenu.getInstance().createComputer();
-			break;
-			
-		case UPDATECOMPUTER :
-			ActionsMenu.getInstance().updateComputer();
-			break;
-			
-		case DELETECOMPUTER :
-			ActionsMenu.getInstance().deleteComputer();
-			break;
-			
-		case QUIT :
-			break;
-			
-		default :
-			break;
+			case LISTCOMPANIES :
+				//System.out.println(company.getCompanies());
+				for(Company companies : DAOcompany.getInstance().getCompanies()) {
+					System.out.println(companies.toString());
+				}
+				break;
+			case LISTCOMPUTERS : 
+				//System.out.println(computer.getComputers());
+				for(Computer computer : DAOcomputer.getInstance().getComputers()) {
+					System.out.println(computer.toString());
+				}
+				break;
+			case SHOWDETAILS :
+				ActionsMenu.getInstance().showDetails();
+				break;	
+			case CREATECOMPUTER :
+				ActionsMenu.getInstance().createComputer();
+				break;
+			case UPDATECOMPUTER :
+				ActionsMenu.getInstance().updateComputer();
+				break;		
+			case DELETECOMPUTER :
+				ActionsMenu.getInstance().deleteComputer();
+				break;	
+			case QUIT :
+				break;	
+			default :
+				break;
 		}
 		sc.close();
 	}
