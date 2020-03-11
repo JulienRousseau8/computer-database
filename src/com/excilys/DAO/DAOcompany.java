@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.excilys.model.Company;
 import com.excilys.persistence.MySQLConnect;
@@ -45,7 +46,7 @@ public class DAOcompany {
 		return listCompanies;
 	}
 	
-	public Company getCompanyById(long id) throws SQLException {
+	public Optional<Company> getCompanyById(long id) throws SQLException {
 		ResultSet CompanyRes;
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getCompanyById)){
 			st.setLong(1, id);
@@ -56,11 +57,11 @@ public class DAOcompany {
 				String name = CompanyRes.getString("name");;
 				
 				Company company = new Company(computerid, name); 
-				return company;
+				return Optional.of(company);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return Optional.empty();
 	}
 }

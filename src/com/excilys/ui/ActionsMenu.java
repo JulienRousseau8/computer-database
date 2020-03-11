@@ -1,6 +1,7 @@
 package com.excilys.ui;
 
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import com.excilys.DAO.*;
@@ -25,7 +26,7 @@ public class ActionsMenu {
 	public void showDetails() throws SQLException {
 		System.out.println("Entrer un ID");
 		int detailId = scan.nextInt();
-		Computer computer = DAOcomputer.getInstance().getComputerById(detailId);
+		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(detailId);
 		System.out.println(computer.toString());
 	}
 
@@ -42,9 +43,13 @@ public class ActionsMenu {
 		computer.setDiscontinued(ConvertDate.convert(scan.nextLine()));
 
 		System.out.println("ID de l'entreprise");
-		Company company = DAOcompany.getInstance().getCompanyById(scan.nextInt());
-
-		computer.setCompany(company);
+		Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(scan.nextInt());
+		if(optionalCompany.isPresent()){	
+			Company company = optionalCompany.get();
+			computer.setCompany(company);
+			DAOcomputer.getInstance().updateComputer(computer);
+			computer.setCompany(company);
+		}
 		DAOcomputer.getInstance().createComputer(computer);
 	}
 
@@ -52,23 +57,28 @@ public class ActionsMenu {
 		System.out.println("Entrer un ID a modifier");
 		long majId = scan.nextLong();
 		scan.nextLine();
-		Computer computer = DAOcomputer.getInstance().getComputerById(majId);
-		System.out.println(computer.toString());
-
+		Optional<Computer> optionnalComputer = DAOcomputer.getInstance().getComputerById(majId);
+		System.out.println(optionnalComputer.toString());
 		System.out.println("nouveau nom :");
-		computer.setName(scan.nextLine());
-
-		System.out.println("nouvelle date d'introduction : (yyyy-MM-dd)");
-		computer.setIntroduced(ConvertDate.convert(scan.nextLine()));
-
-		System.out.println("Date d'arret : (yyyy-MM-dd)");
-		computer.setDiscontinued(ConvertDate.convert(scan.nextLine()));
-
-		System.out.println("modifier ID de l'entreprise : ");
-		Company company = DAOcompany.getInstance().getCompanyById(scan.nextLong());
-
-		computer.setCompany(company);
-		DAOcomputer.getInstance().updateComputer(computer);
+		if(optionnalComputer.isPresent()){
+			Computer computer = optionnalComputer.get();
+			
+			computer.setName(scan.nextLine());
+	
+			System.out.println("nouvelle date d'introduction : (yyyy-MM-dd)");
+			computer.setIntroduced(ConvertDate.convert(scan.nextLine()));
+	
+			System.out.println("Date d'arret : (yyyy-MM-dd)");
+			computer.setDiscontinued(ConvertDate.convert(scan.nextLine()));
+	
+			System.out.println("modifier ID de l'entreprise : ");
+			Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(scan.nextLong());
+			if(optionalCompany.isPresent()){	
+				Company company = optionalCompany.get();
+				computer.setCompany(company);
+				DAOcomputer.getInstance().updateComputer(computer);
+			}
+		}
 	}
 
 	public void deleteComputer() throws SQLException {

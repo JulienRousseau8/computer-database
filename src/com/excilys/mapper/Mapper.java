@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.excilys.DAO.DAOcompany;
 import com.excilys.model.*;
@@ -20,9 +21,11 @@ public class Mapper {
 			LocalDateTime discontinued = (rs.getTimestamp("discontinued") != null 
 										? rs.getTimestamp("discontinued").toLocalDateTime() : null);
 			long company_id = rs.getLong("company_id");
-			Company company = new Company();
-			company = DAOcompany.getInstance().getCompanyById(company_id);
-			Computer computer = new Computer(id, name, introduced, discontinued, company);
+			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
+			Computer computer = new Computer(id, name, introduced, discontinued, null);
+			if (company.isPresent()) {
+				computer= new Computer(id, name, introduced, discontinued, company.get());
+			}	
 			listComputers.add(computer);
 		}
 		return listComputers;
@@ -38,9 +41,11 @@ public class Mapper {
 			LocalDateTime discontinued = (rs.getTimestamp("discontinued") != null 
 										? rs.getTimestamp("discontinued").toLocalDateTime() : null);
 			long company_id = rs.getLong("company_id");
-			Company company = new Company();
-			company = DAOcompany.getInstance().getCompanyById(company_id);
-			Computer computer = new Computer(id, name, introduced, discontinued, company);
+			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
+			Computer computer = new Computer(id, name, introduced, discontinued, null);
+			if (company.isPresent()) {
+				computer= new Computer(id, name, introduced, discontinued, company.get());
+			}	
 			return computer;
 		}
 		return null;

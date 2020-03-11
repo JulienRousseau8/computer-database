@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.excilys.mapper.Mapper;
 import com.excilys.model.*;
@@ -44,17 +45,17 @@ public class DAOcomputer {
 		return listComputers;
 	}
 
-	public Computer getComputerById(long id) throws SQLException {
+	public Optional<Computer> getComputerById(long id) throws SQLException {
 		ResultSet ComputerRes;
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputerById)){
 			st.setLong(1, id);
 			ComputerRes = st.executeQuery(); 
 			Computer computer = Mapper.computerMapper(ComputerRes);
-			return computer;
+			return Optional.of(computer);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	public void createComputer(Computer computer) throws SQLException {
