@@ -9,15 +9,23 @@ import com.excilys.model.*;
 
 public class ActionsMenu {
 
-	public Scanner scan = new Scanner(System.in);
-	DAOcomputer daocomputer = new DAOcomputer();
-	DAOcompany daocompany = new DAOcompany();
-
-
+	private Scanner scan = new Scanner(System.in);
+	public static ActionsMenu actionMenu;
+	
+	private ActionsMenu() {
+	}
+	
+	public static ActionsMenu getInstance() {
+		if(actionMenu == null) {
+			actionMenu = new ActionsMenu();
+		}
+		return actionMenu;
+	}
+	
 	public void showDetails() throws SQLException {
 		System.out.println("Entrer un ID");
 		int detailId = scan.nextInt();
-		Computer computer = daocomputer.getComputerById(detailId);
+		Computer computer = DAOcomputer.getInstance().getComputerById(detailId);
 		System.out.println(computer.toString());
 	}
 
@@ -34,39 +42,39 @@ public class ActionsMenu {
 		computer.setDiscontinued(ConvertDate.convert(scan.nextLine()));
 
 		System.out.println("ID de l'entreprise");
-		Company company = daocompany.getCompanyById(scan.nextInt());
+		Company company = DAOcompany.getInstance().getCompanyById(scan.nextInt());
 
 		computer.setCompany(company);
-		daocomputer.createComputer(computer);
+		DAOcomputer.getInstance().createComputer(computer);
 	}
 
 	public void updateComputer() throws SQLException {
-
 		System.out.println("Entrer un ID a modifier");
 		long majId = scan.nextLong();
-		Computer computer = daocomputer.getComputerById(majId);
+		scan.nextLine();
+		Computer computer = DAOcomputer.getInstance().getComputerById(majId);
 		System.out.println(computer.toString());
 
 		System.out.println("nouveau nom :");
 		computer.setName(scan.nextLine());
-		
+
 		System.out.println("nouvelle date d'introduction : (yyyy-MM-dd)");
 		computer.setIntroduced(ConvertDate.convert(scan.nextLine()));
-		
+
 		System.out.println("Date d'arret : (yyyy-MM-dd)");
 		computer.setDiscontinued(ConvertDate.convert(scan.nextLine()));
 
 		System.out.println("modifier ID de l'entreprise : ");
-		Company company = daocompany.getCompanyById(scan.nextLong());
+		Company company = DAOcompany.getInstance().getCompanyById(scan.nextLong());
 
 		computer.setCompany(company);
-		daocomputer.updateComputer(computer);
+		DAOcomputer.getInstance().updateComputer(computer);
 	}
 
 	public void deleteComputer() throws SQLException {
 		System.out.println("Entrer un ID");
 		int suppId = scan.nextInt();
-		daocomputer.deleteComputer(suppId);
+		DAOcomputer.getInstance().deleteComputer(suppId);
 	}
 
 }

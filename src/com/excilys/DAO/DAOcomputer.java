@@ -12,14 +12,24 @@ import com.excilys.persistence.MySQLConnect;
 
 public class DAOcomputer {
 
-	static DAOcompany daocompany = new DAOcompany();
+	public static DAOcomputer daoComputer;
+	
 	private final static String getComputers = "SELECT id,name,introduced,discontinued,company_id FROM computer";
 	private final static String getComputerById = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id=?";
 	private final static String createComputer = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
 	private final static String updateComputer = "UPDATE computer SET  name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE Id = ?";
 	private final static String deleteComputer = "DELETE FROM computer WHERE id=?";
 
-
+	private DAOcomputer() {
+	}
+	
+	public static DAOcomputer getInstance() {
+		if (daoComputer == null) {
+			daoComputer = new DAOcomputer();
+		}
+		return daoComputer;
+	}
+	
 	public ArrayList<Computer> getComputers() throws SQLException{
 		ResultSet allComputerRes;
 		ArrayList<Computer> listComputers = new ArrayList<Computer>();
@@ -56,7 +66,6 @@ public class DAOcomputer {
 					? Timestamp.valueOf(computer.getDiscontinued()) : null);
 			Company company = computer.getCompany();
 			st.setLong(4, company.id);
-			st.setLong(5, computer.id);
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

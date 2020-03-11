@@ -10,10 +10,21 @@ import com.excilys.persistence.MySQLConnect;
 
 public class DAOcompany {
 
-	MySQLConnect mysql = MySQLConnect.getDbCon();
+	public static DAOcompany daoCompany;
+	
 	private static final String getCompanies = "SELECT id,name FROM company";
 	private static final String getCompanyById = "SELECT id, name FROM company WHERE id=?";
 
+	private DAOcompany() {
+	}
+	
+	public static DAOcompany getInstance() {
+		if(daoCompany == null) {
+			daoCompany = new DAOcompany();
+		}
+		return daoCompany;
+	}
+	
 	public ArrayList<Company> getCompanies() throws SQLException {
 		ResultSet allCompaniesRes;
 		ArrayList<Company> listCompanies = new ArrayList<Company>();
@@ -40,7 +51,7 @@ public class DAOcompany {
 			st.setLong(1, id);
 			CompanyRes = st.executeQuery();
 			
-			while(CompanyRes.first()) {
+			if(CompanyRes.first()) {
 				long computerid = CompanyRes.getLong("id");
 				String name = CompanyRes.getString("name");;
 				

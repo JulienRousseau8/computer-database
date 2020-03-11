@@ -9,8 +9,6 @@ import com.excilys.DAO.DAOcompany;
 import com.excilys.model.*;
 
 public class Mapper {
-
-	static DAOcompany daocompany = new DAOcompany();
 	
 	public static ArrayList<Computer> computerListeMapper(ResultSet rs) throws SQLException {
 		ArrayList<Computer> listComputers = new ArrayList<Computer>();
@@ -23,7 +21,7 @@ public class Mapper {
 										? rs.getTimestamp("discontinued").toLocalDateTime() : null);
 			long company_id = rs.getLong("company_id");
 			Company company = new Company();
-			company = daocompany.getCompanyById(company_id);
+			company = DAOcompany.getInstance().getCompanyById(company_id);
 			Computer computer = new Computer(id, name, introduced, discontinued, company);
 			listComputers.add(computer);
 		}
@@ -32,7 +30,7 @@ public class Mapper {
 	
 	public static Computer computerMapper(ResultSet rs) throws SQLException {
 		
-		while(rs.first()) {
+		if(rs.first()) {
 			long id = rs.getLong("id");
 			String name = rs.getString("name");
 			LocalDateTime introduced = (rs.getTimestamp("introduced") != null 
@@ -41,7 +39,7 @@ public class Mapper {
 										? rs.getTimestamp("discontinued").toLocalDateTime() : null);
 			long company_id = rs.getLong("company_id");
 			Company company = new Company();
-			company = daocompany.getCompanyById(company_id);
+			company = DAOcompany.getInstance().getCompanyById(company_id);
 			Computer computer = new Computer(id, name, introduced, discontinued, company);
 			return computer;
 		}

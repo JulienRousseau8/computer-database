@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.excilys.DAO.*;
 import com.excilys.model.*;
+import com.excilys.persistence.MySQLConnect;
 
 public class UI {
 
@@ -24,40 +25,35 @@ public class UI {
 		Scanner sc = new Scanner(System.in);
 		int choice = sc.nextInt();
 		
-		DAOcompany company = new DAOcompany();
-		DAOcomputer computer = new DAOcomputer();
-		ActionsMenu actionsmenu = new ActionsMenu();
-		
 		switch(CliMenu.menuChoice(choice)) {
-		
 		case LISTCOMPANIES :
 			//System.out.println(company.getCompanies());
-			for(Company _companies : company.getCompanies()) {
-				System.out.println(_companies.toString());
+			for(Company companies : DAOcompany.getInstance().getCompanies()) {
+				System.out.println(companies.toString());
 			}
 			break;
 				
 		case LISTCOMPUTERS : 
 			//System.out.println(computer.getComputers());
-			for(Computer _computer : computer.getComputers()) {
-				System.out.println(_computer.toString());
+			for(Computer computer : DAOcomputer.getInstance().getComputers()) {
+				System.out.println(computer.toString());
 			}
 			break;
 			
 		case SHOWDETAILS :
-			actionsmenu.showDetails();
+			ActionsMenu.getInstance().showDetails();
 			break;
 			
 		case CREATECOMPUTER :
-			actionsmenu.createComputer();
+			ActionsMenu.getInstance().createComputer();
 			break;
 			
 		case UPDATECOMPUTER :
-			actionsmenu.updateComputer();
+			ActionsMenu.getInstance().updateComputer();
 			break;
 			
 		case DELETECOMPUTER :
-			actionsmenu.deleteComputer();
+			ActionsMenu.getInstance().deleteComputer();
 			break;
 			
 		case QUIT :
@@ -70,6 +66,7 @@ public class UI {
 	}
 	
 	public static void main(String[] args) throws SQLException {
+		MySQLConnect.getDbCon();
 		afficherMenu();
 		actionsMenu();
 		
