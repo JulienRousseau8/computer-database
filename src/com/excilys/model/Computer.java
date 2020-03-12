@@ -67,15 +67,12 @@ public class Computer {
 
 	public static class ComputerBuilder {
 		
-		public long id;
-		public String name;
-		public LocalDate introduced;
-		public LocalDate discontinued;
-		public Company company;
-		public long getId() {
-			return id;
-		}
-
+		private long id;
+		private String name;
+		private LocalDate introduced;
+		private LocalDate discontinued;
+		private Company company;
+		
 		public Computer build() {
 			return new Computer(this);
 		}

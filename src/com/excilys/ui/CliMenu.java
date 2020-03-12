@@ -8,6 +8,7 @@ public enum CliMenu
 	CREATECOMPUTER,
 	UPDATECOMPUTER,
 	DELETECOMPUTER,
+	PAGINATION,
 	QUIT;
 
 	public static CliMenu menuChoice(int choice) {
@@ -24,7 +25,9 @@ public enum CliMenu
 				return UPDATECOMPUTER;
 			case 6:
 				return DELETECOMPUTER;
-			case 7: 
+			case 7:
+				return PAGINATION;
+			case 8: 
 				return QUIT;
 			default:
 				return QUIT;

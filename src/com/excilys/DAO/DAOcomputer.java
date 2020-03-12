@@ -20,6 +20,13 @@ public class DAOcomputer {
 	private final static String createComputer = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
 	private final static String updateComputer = "UPDATE computer SET  name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE Id = ?";
 	private final static String deleteComputer = "DELETE FROM computer WHERE id=?";
+	private final static String countComputers = "SELECT COUNT(id) AS rowcount FROM computer";
+	private final static String getPageComputers = "SELECT computer.name, computer.id, computer.introduced, computer.discontinued, computer.company_id, comp.name "
+											   + "FROM computer AS computer "
+											   + "LEFT JOIN company AS comp ON "
+											   + "comp.id = computer.company_id "
+											   + "ORDER BY computer.id "
+											   + "LIMIT ?, ?";
 
 	private DAOcomputer() {
 	}
@@ -81,7 +88,7 @@ public class DAOcomputer {
 					? Date.valueOf(computer.getDiscontinued()) : null);
 			Company company = computer.getCompany();
 			st.setLong(4, company.id);
-			st.setLong(5, computer.id);
+			st.setLong(5, computer.getId());
 			st.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -96,5 +103,27 @@ public class DAOcomputer {
 			e.printStackTrace();
 		}
 	}
+	
+	public int countAllComputer() {
+		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(countComputers)){
+			ResultSet res1 = st.executeQuery();
+			if(res1.next()) {return res1.getInt("rowcount");}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
+	public ArrayList<Computer> getPageComputers(Pagination page) {
+		ArrayList<Computer> computerPages = new ArrayList<Computer>();
+		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(getPageComputers)){
+			st.setInt(1, page.getPageNum()*page.getPageTaille());
+			st.setInt(2, page.getPageTaille());
+			ResultSet computerResPages = st.executeQuery();
+			computerPages = Mapper.computerListeMapper(computerResPages);
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return computerPages;
+	}
 }

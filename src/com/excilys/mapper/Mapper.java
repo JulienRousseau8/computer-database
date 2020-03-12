@@ -54,6 +54,15 @@ public class Mapper {
 		return Optional.empty();
 	}
 
+//	public static ArrayList<Computer> computerPagesMapper(ResultSet rs) throws SQLException{
+//		ArrayList<Computer> computerPages = new ArrayList<Computer>();
+//		while(rs.next()) {
+//			Computer computer = new Computer.ComputerBuilder()
+//			computerPages.add(computer);
+//			}
+//		return computerPages;
+//	}
+	
 	public static ArrayList<Company> companyListeMapper(ResultSet rs) throws SQLException {
 		ArrayList<Company> listCompanies = new ArrayList<Company>();
 		while(rs.next()) {

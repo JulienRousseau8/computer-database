@@ -1,6 +1,7 @@
 package com.excilys.ui;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -112,6 +113,36 @@ public class ActionsMenu {
 		int suppId = scan.nextInt();
 		DAOcomputer.getInstance().deleteComputer(suppId);
 		
+	}
+	
+	public void pagination() {
+		Pagination page = new Pagination(DAOcomputer.getInstance().countAllComputer());
+		ArrayList<Computer> computerPage = new ArrayList<Computer>();
+		computerPage = DAOcomputer.getInstance().getPageComputers(page);
+		page.displayPageContent(computerPage);
+		
+		boolean quit = true;
+		while(quit) {
+			System.out.println("prev page : p | page " + page.getPageNum() + "/" + page.getPageMax() + " | next page : n | quit q");
+			String input = scan.nextLine();
+				switch(input) {
+				case "p" :
+					page.prevPage();
+					computerPage = DAOcomputer.getInstance().getPageComputers(page);
+					page.displayPageContent(computerPage);
+					break;
+				case "n" :
+					page.nextPage();
+					computerPage = DAOcomputer.getInstance().getPageComputers(page);
+					page.displayPageContent(computerPage);
+					break;
+				case "q" :
+					quit = false;
+					break;
+				default :
+					System.out.println("Entrée incorecte");
+				}
+		}
 	}
 
 }

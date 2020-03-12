@@ -17,7 +17,8 @@ public class UI {
 		System.out.println("	4 - Ajouter un ordinateur");
 		System.out.println("	5 - Mettre à jour un ordinateur");
 		System.out.println("	6 - Supprimer un ordinateur");
-		System.out.println("	7 - Quitter");
+		System.out.println("	7 - Pagination ordinateur");
+		System.out.println("	8 - Quitter");
 		System.out.println("*************************************************");
 	}
 	
@@ -50,6 +51,8 @@ public class UI {
 			case DELETECOMPUTER :
 				ActionsMenu.getInstance().deleteComputer();
 				break;	
+			case PAGINATION : 
+				ActionsMenu.getInstance().pagination();
 			case QUIT :
 				break;	
 			default :
