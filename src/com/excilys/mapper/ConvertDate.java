@@ -11,8 +11,8 @@ public class ConvertDate {
 			return null;
 		}
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate localDateTime = LocalDate.parse(date, formatter);
-		return localDateTime;
+		LocalDate localDate = LocalDate.parse(date, formatter);
+		return localDate;
 	}
 
 }

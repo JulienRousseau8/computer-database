@@ -58,34 +58,60 @@ public class ActionsMenu {
 		scan.nextLine();
 		Optional<Computer> optionnalComputer = DAOcomputer.getInstance().getComputerById(majId);
 		System.out.println(optionnalComputer.toString());
-		System.out.println("nouveau nom :");
 		if(optionnalComputer.isPresent()){
-			Computer computer = optionnalComputer.get();
+			Computer oldComputer = optionnalComputer.get();
+			Computer newComputer = new Computer.ComputerBuilder().setId(majId).build();
 
-			computer.setName(scan.nextLine());
+			System.out.println("nouveau nom :");
+			String eName = scan.nextLine();
+			if(eName.isEmpty()) {
+				newComputer.name = oldComputer.name;
+			}else {
+				newComputer.setName(eName);
+			}
 
 			System.out.println("nouvelle date d'introduction : (yyyy-MM-dd)");
-			computer.setIntroduced(ConvertDate.convert(scan.nextLine()));
+			String eIntroduced = scan.nextLine();
+			if(eIntroduced.isEmpty()) {
+				newComputer.introduced = oldComputer.introduced;
+			}else {
+				newComputer.setIntroduced(ConvertDate.convert(eIntroduced));
+			}
 
 			System.out.println("Date d'arret : (yyyy-MM-dd)");
-			computer.setDiscontinued(ConvertDate.convert(scan.nextLine()));
+			String eDiscontinued = scan.nextLine();
+			if(eDiscontinued.isEmpty()) {
+				newComputer.discontinued = oldComputer.discontinued;
+			}else {
+				newComputer.setDiscontinued(ConvertDate.convert(eDiscontinued));
+			}
 
 			System.out.println("modifier ID de l'entreprise : ");
-			Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(scan.nextLong());
+			
+			String EcompanyId = scan.nextLine();
+			long company_id = Long.parseLong(EcompanyId);
+			Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(company_id);
 			if(optionalCompany.isPresent()){	
 				Company company = optionalCompany.get();
-				computer.setCompany(company);
-				DAOcomputer.getInstance().updateComputer(computer);
+				if(EcompanyId.isEmpty()) {
+					oldComputer.company = oldComputer.company;
+					DAOcomputer.getInstance().updateComputer(newComputer);
+				}
+				else {
+					newComputer.setCompany(company);
+					DAOcomputer.getInstance().updateComputer(newComputer);
+				}
 			}else 
 				System.out.println("Company not found!");
 		}else
 			System.out.println("Computer not found!");
 	}
-
+	
 	public void deleteComputer() throws SQLException {
 		System.out.println("Entrer un ID");
 		int suppId = scan.nextInt();
 		DAOcomputer.getInstance().deleteComputer(suppId);
+		
 	}
 
 }
