@@ -28,7 +28,7 @@ public class UI {
 		
 		switch(CliMenu.menuChoice(choice)) {
 			case LISTCOMPANIES :
-				//System.out.println(company.getCompanies());
+				//System.out.println(DAOcompany.getInstance().getCompanies());
 				for(Company companies : DAOcompany.getInstance().getCompanies()) {
 					System.out.println(companies.toString());
 				}

@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.excilys.DAO.*;
 import com.excilys.mapper.ConvertDate;
 import com.excilys.model.*;
+import com.excilys.service.Validators;
 
 public class ActionsMenu {
 
@@ -38,10 +39,16 @@ public class ActionsMenu {
 		computer.setName(scan.nextLine());
 
 		System.out.println("Date d'introduction (yyyy-MM-dd):");
-		computer.setIntroduced(ConvertDate.convert(scan.nextLine()));
+		String dateIntro = scan.nextLine();
+		computer.setIntroduced(ConvertDate.convert(dateIntro));
 
 		System.out.println("Date d'arret : (yyyy-MM-dd)");
-		computer.setDiscontinued(ConvertDate.convert(scan.nextLine()));
+		String dateArret = scan.nextLine();
+		boolean ordreDate = Validators.verifierDateOrdre(dateIntro, dateArret);
+		while(!ordreDate) {
+			
+		}
+		computer.setDiscontinued(ConvertDate.convert(dateArret));
 
 		System.out.println("ID de l'entreprise");
 		Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(scan.nextInt());

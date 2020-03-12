@@ -14,20 +14,24 @@ public class Mapper {
 	public static ArrayList<Computer> computerListeMapper(ResultSet rs) throws SQLException {
 		ArrayList<Computer> listComputers = new ArrayList<Computer>();
 		while(rs.next()) {
-			long id = rs.getLong("id");
-			String name = rs.getString("name");
-			LocalDate introduced = (rs.getTimestamp("introduced") != null 
-									? rs.getDate("introduced").toLocalDate() : null);
-			LocalDate discontinued = (rs.getTimestamp("discontinued") != null 
-									? rs.getDate("discontinued").toLocalDate() : null);
-			long company_id = rs.getLong("company_id");
-			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
-			Computer computer = new Computer.ComputerBuilder().setId(id).setName(name)
-					.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(null).build();
-			if (company.isPresent()) {
-				computer= new Computer.ComputerBuilder().setId(id).setName(name).setIntroduced(introduced)
-						.setDiscontinued(discontinued).setCompany(company.get()).build();
-			}	
+			long computerId = rs.getLong("computer.id");
+			String computerName = rs.getString("computer.name");
+			LocalDate introduced = (rs.getTimestamp("computer.introduced") != null 
+									? rs.getDate("computer.introduced").toLocalDate() : null);
+			LocalDate discontinued = (rs.getTimestamp("computer.discontinued") != null 
+									? rs.getDate("computer.discontinued").toLocalDate() : null);
+			long companyId = rs.getLong("company_id");
+			String companyName = rs.getString("company.name");
+//			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
+//			Computer computer = new Computer.ComputerBuilder().setId(id).setName(name)
+//					.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(null).build();
+//			if (company.isPresent()) {
+//				computer= new Computer.ComputerBuilder().setId(id).setName(name).setIntroduced(introduced)
+//						.setDiscontinued(discontinued).setCompany(company.get()).build();
+//			}	
+			Company company = new Company.CompanyBuilder().setId(companyId).setName(companyName).build();
+			Computer computer= new Computer.ComputerBuilder().setId(computerId).setName(computerName).setIntroduced(introduced)
+			.setDiscontinued(discontinued).setCompany(company).build();
 			listComputers.add(computer);
 		}
 		return listComputers;
@@ -35,33 +39,28 @@ public class Mapper {
 
 	public static Optional<Computer> computerMapper(ResultSet rs) throws SQLException {
 		if(rs.first()) {
-			long id = rs.getLong("id");
-			String name = rs.getString("name");
-			LocalDate introduced = (rs.getDate("introduced") != null 
-					? rs.getDate("introduced").toLocalDate() : null);
-			LocalDate discontinued = (rs.getDate("discontinued") != null 
-					? rs.getDate("discontinued").toLocalDate() : null);
-			long company_id = rs.getLong("company_id");
-			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
-			Computer computer = new Computer.ComputerBuilder().setId(id).setName(name)
-					.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(null).build();
-			if (company.isPresent()) {
-				computer= new Computer.ComputerBuilder().setId(id).setName(name)
-						.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(company.get()).build();
-			}	
+			long computerId = rs.getLong("computer.id");
+			String computerName = rs.getString("computer.name");
+			LocalDate introduced = (rs.getDate("computer.introduced") != null 
+					? rs.getDate("computer.introduced").toLocalDate() : null);
+			LocalDate discontinued = (rs.getDate("computer.discontinued") != null 
+					? rs.getDate("computer.discontinued").toLocalDate() : null);
+			long companyId = rs.getLong("computer.company_id");
+			String companyName = rs.getString("company.name");
+//			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
+//			Computer computer = new Computer.ComputerBuilder().setId(id).setName(name)
+//					.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(null).build();
+//			if (company.isPresent()) {
+//				computer= new Computer.ComputerBuilder().setId(id).setName(name)
+//						.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(company.get()).build();
+//			}	
+			Company company = new Company.CompanyBuilder().setId(companyId).setName(companyName).build();
+			Computer computer= new Computer.ComputerBuilder().setId(computerId).setName(computerName).setIntroduced(introduced)
+			.setDiscontinued(discontinued).setCompany(company).build();
 			return Optional.of(computer);
 		}
 		return Optional.empty();
 	}
-
-//	public static ArrayList<Computer> computerPagesMapper(ResultSet rs) throws SQLException{
-//		ArrayList<Computer> computerPages = new ArrayList<Computer>();
-//		while(rs.next()) {
-//			Computer computer = new Computer.ComputerBuilder()
-//			computerPages.add(computer);
-//			}
-//		return computerPages;
-//	}
 	
 	public static ArrayList<Company> companyListeMapper(ResultSet rs) throws SQLException {
 		ArrayList<Company> listCompanies = new ArrayList<Company>();

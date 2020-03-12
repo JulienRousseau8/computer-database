@@ -14,7 +14,7 @@ public class DAOcompany {
 
 	public static DAOcompany daoCompany;
 
-	private static final String getCompanies = "SELECT id,name FROM company";
+	private static final String getCompanies = "SELECT company.id, company.name FROM company";
 	private static final String getCompanyById = "SELECT id, name FROM company WHERE id=?";
 
 	private DAOcompany() {
@@ -28,12 +28,14 @@ public class DAOcompany {
 	}
 
 	public ArrayList<Company> getCompanies() throws SQLException {
+		
 		ResultSet allCompaniesRes;
 		ArrayList<Company> listCompanies = new ArrayList<Company>();
 
 		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(getCompanies)){
 			allCompaniesRes = st.executeQuery();
-			Mapper.companyListeMapper(allCompaniesRes);
+			System.out.println(allCompaniesRes);
+			listCompanies = Mapper.companyListeMapper(allCompaniesRes);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

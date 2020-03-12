@@ -15,8 +15,10 @@ public class DAOcomputer {
 
 	public static DAOcomputer daoComputer;
 
-	private final static String getComputers = "SELECT id,name,introduced,discontinued,company_id FROM computer";
-	private final static String getComputerById = "SELECT id,name,introduced,discontinued,company_id FROM computer WHERE id=?";
+	private final static String getComputers = "SELECT computer.id, computer.name, computer.introduced, "
+												+ "computer.discontinued, computer.company_id, company.name "
+												+ "FROM computer LEFT JOIN company ON company.id = company_id";
+	private final static String getComputerById = "SELECT computer.id,computer.name,computer.introduced,computer.discontinued,computer.company_id, company.name FROM computer LEFT JOIN company ON company.id = company_id WHERE computer.id=?";
 	private final static String createComputer = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
 	private final static String updateComputer = "UPDATE computer SET  name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE Id = ?";
 	private final static String deleteComputer = "DELETE FROM computer WHERE id=?";
