@@ -31,7 +31,6 @@ public class DAOcomputer {
 											   + "FROM computer AS computer "
 											   + "LEFT JOIN company AS comp "
 											   + "ON comp.id = computer.company_id "
-											   + "ORDER BY computer.id "
 											   + "LIMIT ?, ?";
 
 	
