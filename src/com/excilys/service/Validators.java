@@ -6,21 +6,21 @@ import com.excilys.mapper.ConvertDate;
 
 public class Validators {
 
-	private static boolean dateUtilisateur = true;
-	private static boolean ordreDate = true;
 	
 	public static boolean verifierDateUtilisateurSaisie(String date) {
-		return dateUtilisateur;
+		return true;
 	}
 	
 	public static boolean verifierDateOrdre(String dateIntroduction, String dateArret) {
 		LocalDate intro = ConvertDate.convert(dateIntroduction);
 		LocalDate arret = ConvertDate.convert(dateArret);
+		if(dateIntroduction.isEmpty() || dateArret.isEmpty()) {
+			return true;
+		}
 		if(arret.isBefore(intro)) {
-			ordreDate = false;
-			return ordreDate;
+			return false;
 		}
 		
-		return ordreDate;
+		return true;
 	}
 }

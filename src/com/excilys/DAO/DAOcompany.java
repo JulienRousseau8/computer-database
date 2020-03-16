@@ -34,7 +34,6 @@ public class DAOcompany {
 
 		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(getCompanies)){
 			allCompaniesRes = st.executeQuery();
-			System.out.println(allCompaniesRes);
 			listCompanies = Mapper.companyListeMapper(allCompaniesRes);
 		}
 		catch(SQLException e) {

@@ -30,6 +30,7 @@ public class DAOcomputer {
 											   + "ORDER BY computer.id "
 											   + "LIMIT ?, ?";
 
+	
 	private DAOcomputer() {
 	}
 
@@ -109,7 +110,9 @@ public class DAOcomputer {
 	public int countAllComputer() {
 		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(countComputers)){
 			ResultSet res1 = st.executeQuery();
-			if(res1.next()) {return res1.getInt("rowcount");}
+			if(res1.next()) {
+				return res1.getInt("rowcount");
+			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -128,4 +131,6 @@ public class DAOcomputer {
 		}
 		return computerPages;
 	}
+	
+	
 }

@@ -10,7 +10,7 @@ public class Computer {
 	public LocalDate discontinued;
 	public Company company;
 
-	public Computer() {
+	private Computer() {
 	}
 
 	private Computer(ComputerBuilder computerBuilder) {

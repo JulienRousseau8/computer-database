@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.excilys.DAO.DAOcompany;
 import com.excilys.model.*;
 
 public class Mapper {
@@ -17,46 +16,35 @@ public class Mapper {
 			long computerId = rs.getLong("computer.id");
 			String computerName = rs.getString("computer.name");
 			LocalDate introduced = (rs.getTimestamp("computer.introduced") != null 
-									? rs.getDate("computer.introduced").toLocalDate() : null);
+										? rs.getDate("computer.introduced").toLocalDate() : null);
 			LocalDate discontinued = (rs.getTimestamp("computer.discontinued") != null 
-									? rs.getDate("computer.discontinued").toLocalDate() : null);
+										? rs.getDate("computer.discontinued").toLocalDate() : null);
 			long companyId = rs.getLong("company_id");
 			String companyName = rs.getString("company.name");
-//			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
-//			Computer computer = new Computer.ComputerBuilder().setId(id).setName(name)
-//					.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(null).build();
-//			if (company.isPresent()) {
-//				computer= new Computer.ComputerBuilder().setId(id).setName(name).setIntroduced(introduced)
-//						.setDiscontinued(discontinued).setCompany(company.get()).build();
-//			}	
+
 			Company company = new Company.CompanyBuilder().setId(companyId).setName(companyName).build();
 			Computer computer= new Computer.ComputerBuilder().setId(computerId).setName(computerName).setIntroduced(introduced)
-			.setDiscontinued(discontinued).setCompany(company).build();
+				.setDiscontinued(discontinued).setCompany(company).build();
 			listComputers.add(computer);
+			
 		}
 		return listComputers;
 	}
-
+	
 	public static Optional<Computer> computerMapper(ResultSet rs) throws SQLException {
 		if(rs.first()) {
 			long computerId = rs.getLong("computer.id");
 			String computerName = rs.getString("computer.name");
-			LocalDate introduced = (rs.getDate("computer.introduced") != null 
-					? rs.getDate("computer.introduced").toLocalDate() : null);
-			LocalDate discontinued = (rs.getDate("computer.discontinued") != null 
-					? rs.getDate("computer.discontinued").toLocalDate() : null);
-			long companyId = rs.getLong("computer.company_id");
+			LocalDate introduced = (rs.getTimestamp("computer.introduced") != null 
+										? rs.getDate("computer.introduced").toLocalDate() : null);
+			LocalDate discontinued = (rs.getTimestamp("computer.discontinued") != null 
+										? rs.getDate("computer.discontinued").toLocalDate() : null);
+			long companyId = rs.getLong("company_id");
 			String companyName = rs.getString("company.name");
-//			Optional<Company> company = DAOcompany.getInstance().getCompanyById(company_id);
-//			Computer computer = new Computer.ComputerBuilder().setId(id).setName(name)
-//					.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(null).build();
-//			if (company.isPresent()) {
-//				computer= new Computer.ComputerBuilder().setId(id).setName(name)
-//						.setIntroduced(introduced).setDiscontinued(discontinued).setCompany(company.get()).build();
-//			}	
+
 			Company company = new Company.CompanyBuilder().setId(companyId).setName(companyName).build();
 			Computer computer= new Computer.ComputerBuilder().setId(computerId).setName(computerName).setIntroduced(introduced)
-			.setDiscontinued(discontinued).setCompany(company).build();
+				.setDiscontinued(discontinued).setCompany(company).build();
 			return Optional.of(computer);
 		}
 		return Optional.empty();

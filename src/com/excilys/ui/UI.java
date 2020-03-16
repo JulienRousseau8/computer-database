@@ -6,7 +6,6 @@ import java.util.Scanner;
 import com.excilys.DAO.*;
 import com.excilys.model.*;
 import com.excilys.persistence.MySQLConnect;
-
 public class UI {
 
 	public static void afficherMenu() {
