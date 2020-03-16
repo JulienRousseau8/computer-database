@@ -18,15 +18,19 @@ public class DAOcomputer {
 	private final static String getComputers = "SELECT computer.id, computer.name, computer.introduced, "
 												+ "computer.discontinued, computer.company_id, company.name "
 												+ "FROM computer LEFT JOIN company ON company.id = company_id";
-	private final static String getComputerById = "SELECT computer.id,computer.name,computer.introduced,computer.discontinued,computer.company_id, company.name FROM computer LEFT JOIN company ON company.id = company_id WHERE computer.id=?";
+	private final static String getComputerById = "SELECT computer.id,computer.name,computer.introduced,computer.discontinued,computer.company_id, company.name "
+												+ "FROM computer "
+												+ "LEFT JOIN company "
+												+ "ON company.id = company_id "
+												+ "WHERE computer.id=?";
 	private final static String createComputer = "INSERT INTO computer (name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
 	private final static String updateComputer = "UPDATE computer SET  name = ?, introduced = ?, discontinued = ?, company_id = ? WHERE Id = ?";
 	private final static String deleteComputer = "DELETE FROM computer WHERE id=?";
 	private final static String countComputers = "SELECT COUNT(id) AS rowcount FROM computer";
 	private final static String getPageComputers = "SELECT computer.name, computer.id, computer.introduced, computer.discontinued, computer.company_id, comp.name "
 											   + "FROM computer AS computer "
-											   + "LEFT JOIN company AS comp ON "
-											   + "comp.id = computer.company_id "
+											   + "LEFT JOIN company AS comp "
+											   + "ON comp.id = computer.company_id "
 											   + "ORDER BY computer.id "
 											   + "LIMIT ?, ?";
 
