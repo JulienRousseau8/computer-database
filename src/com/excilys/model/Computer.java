@@ -1,30 +1,35 @@
 package com.excilys.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Computer {
 
-	public int id;
+	public long id;
 	public String name;
-	public Date introduced;
-	public Date discontinued;
-	public int company_id;
-	
-	public Computer() {
-	}
-	
-	public Computer(String name, Date introduced, Date discontinued, int company_id) {
-		this.name = name;
-		this.introduced = introduced;
-		this.discontinued = discontinued;
-		this.company_id = company_id;
+	public LocalDate introduced;
+	public LocalDate discontinued;
+	public Company company;
+
+	private Computer() {
 	}
 
-	public int getId() {
+	private Computer(ComputerBuilder computerBuilder) {
+		this.id = computerBuilder.id;
+		this.name = computerBuilder.name;
+		this.introduced = computerBuilder.introduced;
+		this.discontinued = computerBuilder.discontinued;
+		this.company = computerBuilder.company;
+	}
+
+	public String toString() {
+		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -36,30 +41,63 @@ public class Computer {
 		this.name = name;
 	}
 
-	public Date getIntroduced() {
+	public LocalDate getIntroduced() {
 		return introduced;
 	}
 
-	public void setIntroduced(Date introduced) {
+	public void setIntroduced(LocalDate introduced) {
 		this.introduced = introduced;
 	}
 
-	public Date getDiscontinued() {
+	public LocalDate getDiscontinued() {
 		return discontinued;
 	}
 
-	public void setDiscontinued(Date discontinued) {
+	public void setDiscontinued(LocalDate discontinued) {
 		this.discontinued = discontinued;
 	}
 
-	public int getCompany_id() {
-		return company_id;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setCompany_id(int company_id) {
-		this.company_id = company_id;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
-	
-	
-	
+
+	public static class ComputerBuilder {
+		
+		private long id;
+		private String name;
+		private LocalDate introduced;
+		private LocalDate discontinued;
+		private Company company;
+		
+		public Computer build() {
+			return new Computer(this);
+		}
+		
+		public ComputerBuilder setId(long id) {
+			this.id = id;
+			return this;
+		}
+		public ComputerBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+		public ComputerBuilder setIntroduced(LocalDate introduced) {
+			this.introduced = introduced;
+			return this;
+		}
+		public ComputerBuilder setDiscontinued(LocalDate discontinued) {
+			this.discontinued = discontinued;
+			return this;
+		}
+		public ComputerBuilder setCompany(Company company) {
+			this.company = company;
+			return this;
+		}
+		
+		
+	}
 }

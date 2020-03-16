@@ -2,21 +2,26 @@ package com.excilys.model;
 
 public class Company {
 
-	public int id;
+	public long id;
 	public String name;
-	
+
 	public Company() {
 	}
-	
-	public Company(String name) {
-		this.name=name;
+
+	public Company(CompanyBuilder companyBuilder) {
+		this.id = companyBuilder.id;
+		this.name= companyBuilder.name;
 	}
 
-	public int getId() {
+	public String toString() {
+		return this.id + " | " + this.name; 
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -27,6 +32,24 @@ public class Company {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+	public static class CompanyBuilder {
+		public long id;
+		public String name;
+		
+		public Company build() {
+			return new Company(this);
+		}
+		
+		public CompanyBuilder setId(long id) {
+			this.id = id;
+			return this;
+		}
+		public CompanyBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+		
+	}
+
 }
