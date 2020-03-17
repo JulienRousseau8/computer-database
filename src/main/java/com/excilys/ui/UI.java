@@ -1,11 +1,15 @@
 package com.excilys.ui;
 
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Scanner;
 
-import com.excilys.DAO.*;
+import com.excilys.DAO.DAOcompany;
+import com.excilys.dto.CompanyDTO;
 import com.excilys.model.*;
 import com.excilys.persistence.MySQLConnect;
+import com.excilys.service.CompanyService;
+import com.excilys.service.ComputerService;
 public class UI {
 
 	public static void afficherMenu() {
@@ -22,19 +26,21 @@ public class UI {
 	}
 	
 	public static void actionsMenu() throws SQLException {
+		ComputerService computerService = new ComputerService();
+		CompanyService companyService = new CompanyService();
 		Scanner sc = new Scanner(System.in);
 		int choice = sc.nextInt();
 		
 		switch(CliMenu.menuChoice(choice)) {
 			case LISTCOMPANIES :
 				//System.out.println(DAOcompany.getInstance().getCompanies());
-				for(Company companies : DAOcompany.getInstance().getCompanies()) {
+				for(Company companies : companyService.getAllCompanies()) {
 					System.out.println(companies.toString());
 				}
 				break;
 			case LISTCOMPUTERS : 
 				//System.out.println(computer.getComputers());
-				for(Computer computer : DAOcomputer.getInstance().getComputers()) {
+				for(Computer computer : computerService.getAllComputers()) {
 					System.out.println(computer.toString());
 				}
 				break;
@@ -53,7 +59,7 @@ public class UI {
 			case PAGINATION : 
 				ActionsMenu.getInstance().pagination();
 			case QUIT :
-				break;	
+				break;
 			default :
 				break;
 		}
@@ -64,7 +70,19 @@ public class UI {
 		MySQLConnect.getDbCon();
 		afficherMenu();
 		actionsMenu();
-		
+//		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId("10").setName("Digital Equipment Corporation").build();
+//		long companyId = Long.parseLong(companyDto.id);
+//		Optional<Company> optCompany = DAOcompany.getInstance().getCompanyById(companyId);
+//		
+//		Company company = new Company.CompanyBuilder()
+//				.setId(optCompany.get().id)
+//				.setName(optCompany.get().name)
+//				.build();
+//		System.out.println(companyDto.toString());
+//		System.out.println(company.toString());
+//		if(company.name.equals(companyDto.name)) {
+//			System.out.println("true");
+//		}
 	}
 }
 

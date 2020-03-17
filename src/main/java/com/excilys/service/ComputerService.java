@@ -4,13 +4,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.excilys.DAO.DAOcomputer;
 import com.excilys.model.Computer;
 import com.excilys.model.Pagination;
 
 public class ComputerService {
 
+	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
+	
+	public ArrayList<Computer> getAllComputers() throws SQLException{
+		return DAOcomputer.getInstance().getComputers();
+	}
+	
 	public Optional<Computer> getComputerById(int id) throws SQLException {
+		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(id);
+		if(computer.isPresent()) {
+			System.out.println(computer.get().toString());
+		}
+		else {
+			logger.info("Aucun ordinateur ne correspond à cet ID");
+		}
 		return DAOcomputer.getInstance().getComputerById(id);
 	}
 	
@@ -23,7 +39,15 @@ public class ComputerService {
 	}
 	
 	public void deleteComputer(int id) throws SQLException {
-		DAOcomputer.getInstance().deleteComputer(id);
+		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(id);
+		if(computer.isPresent()) {
+			DAOcomputer.getInstance().deleteComputer(id);
+			logger.info(computer.get().toString());
+			logger.info("Ordinateur supprimé");
+		}
+		else {
+			logger.info("Aucun ordinateur ne correspond à cet ID");
+		}
 	}
 	
 	public int countAllComputer() {

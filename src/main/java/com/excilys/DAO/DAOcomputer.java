@@ -28,10 +28,10 @@ public class DAOcomputer {
 	private final static String deleteComputer = "DELETE FROM computer WHERE id=?";
 	private final static String countComputers = "SELECT COUNT(id) AS rowcount FROM computer";
 	private final static String getPageComputers = "SELECT computer.name, computer.id, computer.introduced, computer.discontinued, computer.company_id, comp.name "
-											   + "FROM computer AS computer "
-											   + "LEFT JOIN company AS comp "
-											   + "ON comp.id = computer.company_id "
-											   + "LIMIT ?, ?";
+											    + "FROM computer AS computer "
+											    + "LEFT JOIN company AS comp "
+											    + "ON comp.id = computer.company_id "
+											    + "LIMIT ?, ?";
 
 	
 	private DAOcomputer() {
@@ -46,11 +46,15 @@ public class DAOcomputer {
 
 	public ArrayList<Computer> getComputers() throws SQLException{
 		ResultSet allComputerRes;
+		Optional<Computer> computer;
 		ArrayList<Computer> listComputers = new ArrayList<Computer>();
 
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputers)){
 			allComputerRes = st.executeQuery();
-			listComputers = Mapper.computerListeMapper(allComputerRes);
+			while(allComputerRes.next()) {
+				computer = Mapper.computerMapper(allComputerRes);
+				listComputers.add(computer.get());
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -61,9 +65,11 @@ public class DAOcomputer {
 		ResultSet ComputerRes;
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getComputerById)){
 			st.setLong(1, id);
-			ComputerRes = st.executeQuery(); 
-			Optional<Computer> computer = Mapper.computerMapper(ComputerRes);
-			return computer;
+			ComputerRes = st.executeQuery();
+			if(ComputerRes.first()) {
+				Optional<Computer> computer = Mapper.computerMapper(ComputerRes);
+				return computer;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -124,11 +130,15 @@ public class DAOcomputer {
 
 	public ArrayList<Computer> getPageComputers(Pagination page) {
 		ArrayList<Computer> computerPages = new ArrayList<Computer>();
+		Optional<Computer> computer;
 		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(getPageComputers)){
 			st.setInt(1, page.getPageNum()*page.getPageTaille());
 			st.setInt(2, page.getPageTaille());
 			ResultSet computerResPages = st.executeQuery();
-			computerPages = Mapper.computerListeMapper(computerResPages);
+			while(computerResPages.next()) {
+				computer = Mapper.computerMapper(computerResPages);
+				computerPages.add(computer.get());
+			}
 		}catch (SQLException e){
 			e.printStackTrace();
 		}

@@ -28,13 +28,16 @@ public class DAOcompany {
 	}
 
 	public ArrayList<Company> getCompanies() throws SQLException {
-		
 		ResultSet allCompaniesRes;
+		Optional<Company> company;
 		ArrayList<Company> listCompanies = new ArrayList<Company>();
 
 		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(getCompanies)){
 			allCompaniesRes = st.executeQuery();
-			listCompanies = Mapper.companyListeMapper(allCompaniesRes);
+			while(allCompaniesRes.next()) {
+				company = Mapper.companyMapper(allCompaniesRes);
+				listCompanies.add(company.get());
+			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -44,11 +47,14 @@ public class DAOcompany {
 
 	public Optional<Company> getCompanyById(long id) throws SQLException {
 		ResultSet CompanyRes;
+		Optional<Company> company;
 		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getCompanyById)){
 			st.setLong(1, id);
 			CompanyRes = st.executeQuery();
-			Optional<Company> company = Mapper.companyMapper(CompanyRes);
-			return company;
+			if(CompanyRes.first()) {
+				company = Mapper.companyMapper(CompanyRes);
+				return company;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

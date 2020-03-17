@@ -4,14 +4,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.excilys.mapper.ConvertDate;
+
+import com.excilys.service.ConvertDate;
+import com.excilys.dto.CompanyDTO;
+import com.excilys.dto.ComputerDTO;
 import com.excilys.model.*;
 import com.excilys.service.*;
 import com.excilys.service.Validators;
 
 public class ActionsMenu {
 
+	private static Logger logger = LoggerFactory.getLogger(ActionsMenu.class);
+    
 	private Scanner scan = new Scanner(System.in);
 	public static ActionsMenu actionMenu;
 	ComputerService computerService = new ComputerService();
@@ -30,9 +37,7 @@ public class ActionsMenu {
 	public void showDetails() throws SQLException{
 		System.out.println("Entrer un ID");
 		int detailId = scan.nextInt();
-		Optional<Computer> computer = computerService.getComputerById(detailId);
-		System.out.println(computer.get().toString());
-
+		computerService.getComputerById(detailId);
 	}
 
 	public void createComputer() throws SQLException {
@@ -41,7 +46,7 @@ public class ActionsMenu {
 		System.out.println("Entrer un nom");
 		String computerName = scan.nextLine();
 		if(computerName.isEmpty()) {
-			System.out.println("Nom requis");
+			logger.info("Nom requis");
 		}else {
 			computer.setName(computerName);
 
@@ -58,7 +63,7 @@ public class ActionsMenu {
 				System.out.println("ID de l'entreprise");
 				String companyId = scan.nextLine();
 				if(companyId.isEmpty()) {
-					System.out.println("Id de la compagnie requis");
+					logger.info("Id de la compagnie requis");
 				}
 				else {
 					long intCompanyID = Long.parseLong(companyId);
@@ -67,11 +72,29 @@ public class ActionsMenu {
 						Company company = optionalCompany.get();
 						computer.setCompany(company);
 					}else 
-						System.out.println("Company ID not found!");
+						logger.info("Company ID not found!");
 					computerService.createComputer(computer);
 				}
-			} else System.out.println("Date non valide !");
+			} else logger.info("Date non valide !");
 		}
+	}
+	
+	public void createDTOcomputer() {
+				
+		System.out.println("Entrer un nom");
+		String computerName = scan.nextLine();
+		
+		System.out.println("Date d'introduction (yyyy-MM-dd):");
+		String dateIntro = scan.nextLine();
+		
+		System.out.println("Date d'arret : (yyyy-MM-dd)");
+		String dateArret = scan.nextLine();
+		
+		System.out.println("ID de l'entreprise");
+		String companyId = scan.nextLine();
+		CompanyDTO companyDTO = new CompanyDTO.CompanyDTOBuilder().setId(companyId).build();
+		ComputerDTO computer = new ComputerDTO.ComputerDTOBuilder().setName(computerName).setIntroduced(dateIntro).setDiscontinued(dateArret).setCompany(companyDTO).build();
+		
 	}
 
 	public void updateComputer() throws SQLException{
@@ -109,7 +132,6 @@ public class ActionsMenu {
 			}
 
 			System.out.println("modifier ID de l'entreprise : ");
-
 			String EcompanyId = scan.nextLine();
 			long company_id = Long.parseLong(EcompanyId);
 			Optional<Company> optionalCompany = companyService.getCompanyById(company_id);
@@ -118,22 +140,24 @@ public class ActionsMenu {
 				if(EcompanyId.isEmpty()) {
 					oldComputer.company = oldComputer.company;
 					computerService.updateComputer(newComputer);
+					logger.info("Ordinateur modifié :");
+					logger.info(newComputer.toString());
 				}
 				else {
 					newComputer.setCompany(company);
 					computerService.updateComputer(newComputer);
+					logger.info("Ordinateur modifié :");
+					logger.info(newComputer.toString());
 				}
 			}else 
-				System.out.println("Company not found!");
-		}else
-			System.out.println("Computer not found!");
+				logger.info("Company not found!");
+		}
 	}
 
 	public void deleteComputer() throws SQLException {
 		System.out.println("Entrer un ID");
 		int suppId = scan.nextInt();
 		computerService.deleteComputer(suppId);
-
 	}
 
 	public void pagination() {
@@ -161,7 +185,7 @@ public class ActionsMenu {
 				quit = false;
 				break;
 			default :
-				System.out.println("Entrée incorecte");
+				logger.info("Entrée incorecte");
 			}
 		}
 	}

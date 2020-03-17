@@ -5,10 +5,10 @@ public class Company {
 	public long id;
 	public String name;
 
-	public Company() {
+	private Company() {
 	}
 
-	public Company(CompanyBuilder companyBuilder) {
+	private Company(CompanyBuilder companyBuilder) {
 		this.id = companyBuilder.id;
 		this.name= companyBuilder.name;
 	}
