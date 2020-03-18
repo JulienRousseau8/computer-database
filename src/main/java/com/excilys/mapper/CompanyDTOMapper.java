@@ -14,6 +14,7 @@ public class CompanyDTOMapper {
 		Optional<Company> optCompany = DAOcompany.getInstance().getCompanyById(companyId);
 		
 		Company company = new Company.CompanyBuilder()
+				.setId(companyId)
 				.setName(optCompany.get().name)
 				.build();
 		
