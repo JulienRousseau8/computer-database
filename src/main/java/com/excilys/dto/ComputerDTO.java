@@ -19,7 +19,8 @@ public class ComputerDTO {
 	}
 
 	public String toString() {
-		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
+		return this.id + " | " + this.name + " | " + this.introduced + 
+				" | " + this.discontinued + " | " + this.company;
 	}
 
 	public String getId() {

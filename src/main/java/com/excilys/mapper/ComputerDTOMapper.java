@@ -8,11 +8,9 @@ import com.excilys.service.ConvertDate;
 
 public class ComputerDTOMapper {
 
-	public Computer dtoToComputer(ComputerDTO computerDto) throws SQLException {
+	public static Computer dtoToComputer(ComputerDTO computerDto) throws SQLException {
 		Company company = CompanyDTOMapper.dtoToCompany(computerDto.company);
-		
 		Computer computer = new Computer.ComputerBuilder()
-				.setId(Long.parseLong(computerDto.id))
 				.setName(computerDto.name)
 				.setIntroduced(ConvertDate.convert(computerDto.introduced))
 				.setDiscontinued(ConvertDate.convert(computerDto.discontinued))
@@ -21,7 +19,7 @@ public class ComputerDTOMapper {
 		return computer;
 	}
 	
-	public ComputerDTO ComputerToDto(Computer computer) {
+	public static ComputerDTO computerToDto(Computer computer) {
 		CompanyDTO companyDTO = CompanyDTOMapper.companyToDto(computer.company);
 		
 		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder()

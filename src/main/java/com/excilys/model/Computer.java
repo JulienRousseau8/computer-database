@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Computer {
 
-	public long id;
+	public Long id;
 	public String name;
 	public LocalDate introduced;
 	public LocalDate discontinued;
@@ -22,14 +22,15 @@ public class Computer {
 	}
 
 	public String toString() {
-		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
+		return this.id + " | " + this.name + " | "
+				+ this.introduced + " | " + this.discontinued + " | " + this.company;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -67,7 +68,7 @@ public class Computer {
 
 	public static class ComputerBuilder {
 		
-		private long id;
+		private Long id;
 		private String name;
 		private LocalDate introduced;
 		private LocalDate discontinued;
@@ -77,7 +78,7 @@ public class Computer {
 			return new Computer(this);
 		}
 		
-		public ComputerBuilder setId(long id) {
+		public ComputerBuilder setId(Long id) {
 			this.id = id;
 			return this;
 		}

@@ -1,11 +1,8 @@
 package com.excilys.ui;
 
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.Scanner;
 
-import com.excilys.DAO.DAOcompany;
-import com.excilys.dto.CompanyDTO;
 import com.excilys.model.*;
 import com.excilys.persistence.MySQLConnect;
 import com.excilys.service.CompanyService;
@@ -70,19 +67,6 @@ public class UI {
 		MySQLConnect.getDbCon();
 		afficherMenu();
 		actionsMenu();
-//		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId("10").setName("Digital Equipment Corporation").build();
-//		long companyId = Long.parseLong(companyDto.id);
-//		Optional<Company> optCompany = DAOcompany.getInstance().getCompanyById(companyId);
-//		
-//		Company company = new Company.CompanyBuilder()
-//				.setId(optCompany.get().id)
-//				.setName(optCompany.get().name)
-//				.build();
-//		System.out.println(companyDto.toString());
-//		System.out.println(company.toString());
-//		if(company.name.equals(companyDto.name)) {
-//			System.out.println("true");
-//		}
 	}
 }
 

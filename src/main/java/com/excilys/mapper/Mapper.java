@@ -17,7 +17,7 @@ public class Mapper {
 		LocalDate discontinued = (rs.getTimestamp("computer.discontinued") != null 
 				? rs.getDate("computer.discontinued").toLocalDate() : null);
 		long companyId = rs.getLong("company_id");
-		String companyName = rs.getString("name");
+		String companyName = rs.getString("company.name");
 
 		Company company = new Company.CompanyBuilder().setId(companyId).setName(companyName).build();
 		Computer computer= new Computer.ComputerBuilder().setId(computerId).setName(computerName).setIntroduced(introduced)

@@ -12,18 +12,20 @@ import com.excilys.persistence.MySQLConnect;
 
 public class CompanyDTOMapperTest {
 	
+	CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
+			.setId("10")
+			.setName("Digital Equipment Corporation")
+			.build();
+	
+	Company company = new Company.CompanyBuilder()
+			.setId((long)10)
+			.setName("Digital Equipment Corporation")
+			.build();
+	
 	@Test
 	public void testDtoToCompany() throws SQLException {
 		MySQLConnect.getDbCon();
-		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
-				.setId("10")
-				.setName("Digital Equipment Corporation")
-				.build();
 		Company companyRes = CompanyDTOMapper.dtoToCompany(companyDto);
-		Company company = new Company.CompanyBuilder()
-				.setId(10)
-				.setName("Digital Equipment Corporation")
-				.build();
 		
 		assertEquals(company.id, companyRes.id);
 		assertEquals(company.name, companyRes.name);
@@ -32,15 +34,8 @@ public class CompanyDTOMapperTest {
 	@Test
 	public void testCompanyToDto() {
 		MySQLConnect.getDbCon();
-		Company company = new Company.CompanyBuilder()
-				.setId(10)
-				.setName("Digital Equipment Corporation")
-				.build();
 		CompanyDTO companyRes = CompanyDTOMapper.companyToDto(company);
-		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
-				.setId("10")
-				.setName("Digital Equipment Corporation")
-				.build();
+
 		assertEquals(companyDto.id, companyRes.id);
 		assertEquals(companyDto.name, companyRes.name);
 	}

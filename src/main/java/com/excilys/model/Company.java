@@ -2,7 +2,7 @@ package com.excilys.model;
 
 public class Company {
 
-	public long id;
+	public Long id;
 	public String name;
 
 	private Company() {
@@ -17,11 +17,11 @@ public class Company {
 		return this.id + " | " + this.name; 
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -34,14 +34,14 @@ public class Company {
 	}
 
 	public static class CompanyBuilder {
-		public long id;
+		public Long id;
 		public String name;
 		
 		public Company build() {
 			return new Company(this);
 		}
 		
-		public CompanyBuilder setId(long id) {
+		public CompanyBuilder setId(Long id) {
 			this.id = id;
 			return this;
 		}
