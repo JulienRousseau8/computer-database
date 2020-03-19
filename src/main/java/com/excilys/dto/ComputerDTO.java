@@ -19,8 +19,7 @@ public class ComputerDTO {
 	}
 
 	public String toString() {
-		return this.id + " | " + this.name + " | " + this.introduced + 
-				" | " + this.discontinued + " | " + this.company;
+		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
 	}
 
 	public String getId() {
@@ -64,38 +63,41 @@ public class ComputerDTO {
 	}
 
 	public static class ComputerDTOBuilder {
-		
+
 		private String id;
 		private String name;
 		private String introduced;
 		private String discontinued;
 		private CompanyDTO company;
-		
+
 		public ComputerDTO build() {
 			return new ComputerDTO(this);
 		}
-		
+
 		public ComputerDTOBuilder setId(String id) {
 			this.id = id;
 			return this;
 		}
+
 		public ComputerDTOBuilder setName(String name) {
 			this.name = name;
 			return this;
 		}
+
 		public ComputerDTOBuilder setIntroduced(String introduced) {
 			this.introduced = introduced;
 			return this;
 		}
+
 		public ComputerDTOBuilder setDiscontinued(String discontinued) {
 			this.discontinued = discontinued;
 			return this;
 		}
+
 		public ComputerDTOBuilder setCompany(CompanyDTO company) {
 			this.company = company;
 			return this;
 		}
-		
-		
+
 	}
 }

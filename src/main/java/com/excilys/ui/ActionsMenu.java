@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
-import com.excilys.model.*;
-import com.excilys.service.*;
+import com.excilys.model.Computer;
+import com.excilys.model.Pagination;
+import com.excilys.service.CompanyService;
+import com.excilys.service.ComputerService;
 
 public class ActionsMenu {
 
@@ -25,19 +27,19 @@ public class ActionsMenu {
 	}
 
 	public static ActionsMenu getInstance() {
-		if(actionMenu == null) {
+		if (actionMenu == null) {
 			actionMenu = new ActionsMenu();
 		}
 		return actionMenu;
 	}
 
-	public void showDetails() throws SQLException{
+	public void showDetails() throws SQLException {
 		System.out.println("Entrer un ID");
 		String detailId = scan.nextLine();
 		System.out.println(computerService.getComputerById(detailId).get());
 	}
 
-	public void createComputer() throws SQLException {		
+	public void createComputer() throws SQLException {
 		System.out.println("Entrer un nom");
 		String computerName = scan.nextLine();
 
@@ -49,16 +51,10 @@ public class ActionsMenu {
 
 		System.out.println("ID de l'entreprise");
 		String companyId = scan.nextLine();
-		CompanyDTO companyDTO = new CompanyDTO.CompanyDTOBuilder()
-				.setId(companyId)
-				.build();
+		CompanyDTO companyDTO = new CompanyDTO.CompanyDTOBuilder().setId(companyId).build();
 
-		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder()
-				.setName(computerName)
-				.setIntroduced(dateIntro)
-				.setDiscontinued(dateArret)
-				.setCompany(companyDTO)
-				.build();
+		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setName(computerName).setIntroduced(dateIntro)
+				.setDiscontinued(dateArret).setCompany(companyDTO).build();
 		computerService.createComputer(computerDTO);
 	}
 
@@ -66,10 +62,10 @@ public class ActionsMenu {
 		System.out.println("Entrer un ID a modifier");
 		String stringId = scan.nextLine();
 		Optional<Computer> optComputer = computerService.getComputerById(stringId);
-		if (optComputer.isPresent()){
+		if (optComputer.isPresent()) {
 			System.out.println(optComputer.get());
 		}
-		
+
 		System.out.println();
 		System.out.println("Un champ vide gardera l'ancienne valeur");
 		System.out.println("Nouveau nom :");
@@ -85,25 +81,16 @@ public class ActionsMenu {
 		String companyId = scan.nextLine();
 
 		CompanyDTO companyDto;
-		if(companyId.isEmpty()) {
-			companyDto = new CompanyDTO.CompanyDTOBuilder()
-					.setId(String.valueOf(optComputer.get().company.id))
-					.setName(optComputer.get().name)
-					.build();
+		if (companyId.isEmpty()) {
+			companyDto = new CompanyDTO.CompanyDTOBuilder().setId(String.valueOf(optComputer.get().company.id))
+					.setName(optComputer.get().name).build();
 		} else {
-			companyDto = new CompanyDTO.CompanyDTOBuilder()
-					.setId(companyId)
-					.build();
+			companyDto = new CompanyDTO.CompanyDTOBuilder().setId(companyId).build();
 		}
-		
-		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder()
-				.setId(stringId)
-				.setName(computerName)
-				.setIntroduced(dateIntro)
-				.setDiscontinued(dateArret)
-				.setCompany(companyDto)
-				.build();
-		
+
+		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setId(stringId).setName(computerName)
+				.setIntroduced(dateIntro).setDiscontinued(dateArret).setCompany(companyDto).build();
+
 		computerService.updateComputer(computerDTO);
 	}
 
@@ -120,24 +107,25 @@ public class ActionsMenu {
 		page.displayPageContent(computerPage);
 
 		boolean quit = true;
-		while(quit) {
-			System.out.println("prev page : p | page " + page.getPageNum() + "/" + page.getPageMax() + " | next page : n | quit q");
+		while (quit) {
+			System.out.println("prev page : p | page " + page.getPageNum() + "/" + page.getPageMax()
+					+ " | next page : n | quit q");
 			String input = scan.nextLine();
-			switch(input) {
-			case "p" :
+			switch (input) {
+			case "p":
 				page.prevPage();
 				computerPage = computerService.getPageComputer(page);
 				page.displayPageContent(computerPage);
 				break;
-			case "n" :
+			case "n":
 				page.nextPage();
 				computerPage = computerService.getPageComputer(page);
 				page.displayPageContent(computerPage);
 				break;
-			case "q" :
+			case "q":
 				quit = false;
 				break;
-			default :
+			default:
 				logger.info("Entrée incorecte");
 			}
 		}

@@ -22,8 +22,7 @@ public class Computer {
 	}
 
 	public String toString() {
-		return this.id + " | " + this.name + " | "
-				+ this.introduced + " | " + this.discontinued + " | " + this.company;
+		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
 	}
 
 	public Long getId() {
@@ -67,38 +66,41 @@ public class Computer {
 	}
 
 	public static class ComputerBuilder {
-		
+
 		private Long id;
 		private String name;
 		private LocalDate introduced;
 		private LocalDate discontinued;
 		private Company company;
-		
+
 		public Computer build() {
 			return new Computer(this);
 		}
-		
+
 		public ComputerBuilder setId(Long id) {
 			this.id = id;
 			return this;
 		}
+
 		public ComputerBuilder setName(String name) {
 			this.name = name;
 			return this;
 		}
+
 		public ComputerBuilder setIntroduced(LocalDate introduced) {
 			this.introduced = introduced;
 			return this;
 		}
+
 		public ComputerBuilder setDiscontinued(LocalDate discontinued) {
 			this.discontinued = discontinued;
 			return this;
 		}
+
 		public ComputerBuilder setCompany(Company company) {
 			this.company = company;
 			return this;
 		}
-		
-		
+
 	}
 }

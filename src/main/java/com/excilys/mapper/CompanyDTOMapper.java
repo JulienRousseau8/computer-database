@@ -12,22 +12,17 @@ public class CompanyDTOMapper {
 	public static Company dtoToCompany(CompanyDTO companyDto) throws SQLException {
 		long companyId = Long.parseLong(companyDto.id);
 		Optional<Company> optCompany = DAOcompany.getInstance().getCompanyById(companyId);
-		
-		Company company = new Company.CompanyBuilder()
-				.setId(companyId)
-				.setName(optCompany.get().name)
-				.build();
-		
+
+		Company company = new Company.CompanyBuilder().setId(companyId).setName(optCompany.get().name).build();
+
 		return company;
 	}
-	
+
 	public static CompanyDTO companyToDto(Company company) {
-		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
-				.setId(String.valueOf(company.id))
-				.setName(company.name)
-				.build();
-		
+		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId(String.valueOf(company.id))
+				.setName(company.name).build();
+
 		return companyDto;
 	}
-	
+
 }

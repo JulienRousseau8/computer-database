@@ -15,15 +15,22 @@ public class CompanyService {
 	private static Logger logger = LoggerFactory.getLogger(CompanyService.class);
 	
 	public Optional<Company> getCompanyById(String companyID) throws SQLException {
-		long compId = Long.parseLong(companyID);
-		Optional<Company> company = DAOcompany.getInstance().getCompanyById(compId);
-		if(!company.isPresent()) {
-			logger.info("Aucune entreprise ne correspond à cet ID");
+		try {
+			long compId = Long.parseLong(companyID);
+			Optional<Company> company = DAOcompany.getInstance().getCompanyById(compId);
+			if (!company.isPresent()) {
+				logger.info("Aucune entreprise ne correspond à cet ID");
+			}
+			return company;
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return company;
+		return Optional.empty();
 	}
-	
-	public ArrayList<Company> getAllCompanies() throws SQLException{
+
+	public ArrayList<Company> getAllCompanies() throws SQLException {
 		return DAOcompany.getInstance().getCompanies();
 	}
 }

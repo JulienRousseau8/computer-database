@@ -10,11 +10,11 @@ public class Company {
 
 	private Company(CompanyBuilder companyBuilder) {
 		this.id = companyBuilder.id;
-		this.name= companyBuilder.name;
+		this.name = companyBuilder.name;
 	}
 
 	public String toString() {
-		return this.id + " | " + this.name; 
+		return this.id + " | " + this.name;
 	}
 
 	public Long getId() {
@@ -36,20 +36,21 @@ public class Company {
 	public static class CompanyBuilder {
 		public Long id;
 		public String name;
-		
+
 		public Company build() {
 			return new Company(this);
 		}
-		
+
 		public CompanyBuilder setId(Long id) {
 			this.id = id;
 			return this;
 		}
+
 		public CompanyBuilder setName(String name) {
 			this.name = name;
 			return this;
 		}
-		
+
 	}
 
 }

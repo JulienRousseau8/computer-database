@@ -15,21 +15,27 @@ public class ConvertDateTest {
 		String date = "2010-04-22";
 		LocalDate local = ConvertDate.convert(date);
 		LocalDate localDate = LocalDate.of(2010, 04, 22);
-		assertEquals(localDate,local);
+		assertEquals(localDate, local);
 	}
-	
+
 	@Test
 	public void testConvertDateEmpty() {
 		String date = "";
 		LocalDate local = ConvertDate.convert(date);
-		assertEquals(null,local);
+		assertEquals(null, local);
 	}
-	
+
 	@Test
 	public void testConvertDateFormat() {
 		String date = "dsfefe";
 		LocalDate local = ConvertDate.convert(date);
-		assertEquals(null,local);
+		assertEquals(null, local);
 	}
 
+	@Test
+	public void testConvertDateSlash() {
+		String date = "2010/04/22";
+		LocalDate local = ConvertDate.convert(date);
+		assertEquals(null, local);
+	}
 }

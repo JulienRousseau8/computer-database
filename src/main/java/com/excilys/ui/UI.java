@@ -3,10 +3,12 @@ package com.excilys.ui;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.excilys.model.*;
+import com.excilys.model.Company;
+import com.excilys.model.Computer;
 import com.excilys.persistence.MySQLConnect;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
+
 public class UI {
 
 	public static void afficherMenu() {
@@ -21,52 +23,51 @@ public class UI {
 		System.out.println("	8 - Quitter");
 		System.out.println("*************************************************");
 	}
-	
+
 	public static void actionsMenu() throws SQLException {
 		ComputerService computerService = new ComputerService();
 		CompanyService companyService = new CompanyService();
 		Scanner sc = new Scanner(System.in);
 		int choice = sc.nextInt();
-		
-		switch(CliMenu.menuChoice(choice)) {
-			case LISTCOMPANIES :
-				//System.out.println(DAOcompany.getInstance().getCompanies());
-				for(Company companies : companyService.getAllCompanies()) {
-					System.out.println(companies.toString());
-				}
-				break;
-			case LISTCOMPUTERS : 
-				//System.out.println(computer.getComputers());
-				for(Computer computer : computerService.getAllComputers()) {
-					System.out.println(computer.toString());
-				}
-				break;
-			case SHOWDETAILS :
-				ActionsMenu.getInstance().showDetails();
-				break;	
-			case CREATECOMPUTER :
-				ActionsMenu.getInstance().createComputer();
-				break;
-			case UPDATECOMPUTER :
-				ActionsMenu.getInstance().updateComputer();
-				break;		
-			case DELETECOMPUTER :
-				ActionsMenu.getInstance().deleteComputer();
-				break;	
-			case PAGINATION : 
-				ActionsMenu.getInstance().pagination();
-			case QUIT :
-				break;
-			default :
-				break;
+
+		switch (CliMenu.menuChoice(choice)) {
+		case LISTCOMPANIES:
+			// System.out.println(DAOcompany.getInstance().getCompanies());
+			for (Company companies : companyService.getAllCompanies()) {
+				System.out.println(companies.toString());
+			}
+			break;
+		case LISTCOMPUTERS:
+			// System.out.println(computer.getComputers());
+			for (Computer computer : computerService.getAllComputers()) {
+				System.out.println(computer.toString());
+			}
+			break;
+		case SHOWDETAILS:
+			ActionsMenu.getInstance().showDetails();
+			break;
+		case CREATECOMPUTER:
+			ActionsMenu.getInstance().createComputer();
+			break;
+		case UPDATECOMPUTER:
+			ActionsMenu.getInstance().updateComputer();
+			break;
+		case DELETECOMPUTER:
+			ActionsMenu.getInstance().deleteComputer();
+			break;
+		case PAGINATION:
+			ActionsMenu.getInstance().pagination();
+		case QUIT:
+			break;
+		default:
+			break;
 		}
 		sc.close();
 	}
-	
+
 	public static void main(String[] args) throws SQLException {
 		MySQLConnect.getDbCon();
 		afficherMenu();
 		actionsMenu();
 	}
 }
-

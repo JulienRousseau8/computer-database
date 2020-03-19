@@ -14,14 +14,14 @@ public class DAOcompany {
 
 	public static DAOcompany daoCompany;
 
-	private static final String getCompanies = "SELECT company.id, company.name FROM company";
-	private static final String getCompanyById = "SELECT id, name FROM company WHERE id=?";
+	private static final String GETCOMPANIES = "SELECT company.id, company.name FROM company";
+	private static final String GETCOMPANYBYID = "SELECT id, name FROM company WHERE id=?";
 
 	private DAOcompany() {
 	}
 
 	public static DAOcompany getInstance() {
-		if(daoCompany == null) {
+		if (daoCompany == null) {
 			daoCompany = new DAOcompany();
 		}
 		return daoCompany;
@@ -32,27 +32,26 @@ public class DAOcompany {
 		Optional<Company> company;
 		ArrayList<Company> listCompanies = new ArrayList<Company>();
 
-		try(PreparedStatement st = MySQLConnect.conn.prepareStatement(getCompanies)){
+		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(GETCOMPANIES)) {
 			allCompaniesRes = st.executeQuery();
-			while(allCompaniesRes.next()) {
+			while (allCompaniesRes.next()) {
 				company = Mapper.companyMapper(allCompaniesRes);
 				listCompanies.add(company.get());
 			}
-		}
-		catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return listCompanies;
 	}
 
 	public Optional<Company> getCompanyById(long id) throws SQLException {
-		ResultSet CompanyRes;
+		ResultSet companyRes;
 		Optional<Company> company;
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(getCompanyById)){
+		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(GETCOMPANYBYID)) {
 			st.setLong(1, id);
-			CompanyRes = st.executeQuery();
-			if(CompanyRes.first()) {
-				company = Mapper.companyMapper(CompanyRes);
+			companyRes = st.executeQuery();
+			if (companyRes.first()) {
+				company = Mapper.companyMapper(companyRes);
 				return company;
 			}
 		} catch (SQLException e) {

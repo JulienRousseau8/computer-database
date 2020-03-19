@@ -3,11 +3,11 @@ package com.excilys.persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class MySQLConnect implements AutoCloseable{
+public class MySQLConnect implements AutoCloseable {
 
 	public static Connection conn;
 	public static MySQLConnect db;
-	private String url= "jdbc:mysql://localhost:3306/computer-database-db";
+	private String url = "jdbc:mysql://localhost:3306/computer-database-db";
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String userName = "admincdb";
 	private String password = "qwerty1234";
@@ -16,14 +16,13 @@ public class MySQLConnect implements AutoCloseable{
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, userName, password);
-		}
-		catch (Exception sqle) {
+		} catch (Exception sqle) {
 			sqle.printStackTrace();
 		}
 	}
 
 	public static synchronized MySQLConnect getDbCon() {
-		if ( db == null ) {
+		if (db == null) {
 			db = new MySQLConnect();
 		}
 		return db;

@@ -10,12 +10,11 @@ public class CompanyDTO {
 
 	private CompanyDTO(CompanyDTOBuilder companyDTOBuilder) {
 		this.id = companyDTOBuilder.id;
-		this.name= companyDTOBuilder.name;
+		this.name = companyDTOBuilder.name;
 	}
 
-
 	public String toString() {
-		return this.id + " | " + this.name; 
+		return this.id + " | " + this.name;
 	}
 
 	public String getId() {
@@ -33,24 +32,25 @@ public class CompanyDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public static class CompanyDTOBuilder {
 		public String id;
 		public String name;
-		
+
 		public CompanyDTO build() {
 			return new CompanyDTO(this);
 		}
-		
+
 		public CompanyDTOBuilder setId(String id) {
 			this.id = id;
 			return this;
 		}
+
 		public CompanyDTOBuilder setName(String name) {
 			this.name = name;
 			return this;
 		}
-		
+
 	}
 
 }
