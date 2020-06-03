@@ -17,5 +17,4 @@ public class ConvertDate {
 			return localDate;
 		}
 	}
-
 }

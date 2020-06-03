@@ -13,29 +13,41 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.DAO.DAOcompany;
+import com.excilys.model.Computer;
 import com.excilys.service.Validators;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ValidatorsTest {
+public class ValidatorsTest extends Mockito{
 
 	String dateIntro = "2010-04-22";
 	String dateArret = "2012-04-23";
 	LocalDate dateIn = LocalDate.of(2010, 04, 22);
-	LocalDate dateArr = LocalDate.of(2010, 04, 23);
-
+	LocalDate dateArr = LocalDate.of(2012, 04, 23);
+	
+//	@Mock
+//	ConvertDate convertDate;
+//	
+//	//ConvertDate cD = mock(ConvertDate.class);
+//	@Mock
+//	Validators validators;
+	
 	@Mock
-	DAOcompany daoCompany;
-	@Mock
-	ConvertDate convertDate;
+	Computer computer;
 	
 	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
-		Mockito.when(ConvertDate.convert(dateArret)).thenReturn(dateArr);
-		Mockito.when(ConvertDate.convert(dateIntro)).thenReturn(dateIn);
 	}
 
-
+	//TEST AVEC MOCK
+	@Test
+	public void testVerifierDate() {
+		when(computer.getIntroduced()).thenReturn(dateIn);
+		when(computer.getDiscontinued()).thenReturn(dateArr);
+		assertTrue(Validators.verifierDateOrdre(dateIntro, dateArret));
+	}
+	
+	//TEST SANS MOCK
 	@Test
 	public void testVerifierDateOrdreTrue() {
 		boolean validatorsTrue = Validators.verifierDateOrdre(dateIntro, dateArret);
@@ -57,6 +69,13 @@ public class ValidatorsTest {
 	@Test
 	public void testVerifierFormatDateWrong() {
 		String mauvaiseDate = "ffsfgd";
+		boolean formatDate = Validators.verifierDateUtilisateurSaisie(mauvaiseDate);
+		assertEquals(false, formatDate);
+	}
+	
+	@Test
+	public void testVerifierFormatDateSlash() {
+		String mauvaiseDate = "2010/04/22";
 		boolean formatDate = Validators.verifierDateUtilisateurSaisie(mauvaiseDate);
 		assertEquals(false, formatDate);
 	}

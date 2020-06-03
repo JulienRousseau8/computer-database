@@ -1,5 +1,6 @@
 package com.excilys.service;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import java.util.Optional;
@@ -30,8 +31,6 @@ public class Validators {
 			String jour = date.substring(8, 10);
 			int dateJour = Integer.parseInt(jour);
 
-			GregorianCalendar gc = new GregorianCalendar(dateAnnee, dateMois, dateJour);
-			gc.setLenient(false);
 			return true;
 		} catch (Exception e) {
 			logger.info("Mauvais format de Date");
@@ -51,7 +50,7 @@ public class Validators {
 		return true;
 	}
 
-	public static boolean verifierIdCompany(String id) {
+	public static boolean verifierIdCompany(String id) throws SQLException {
 		try {
 			long compId = Long.parseLong(id);
 			Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(compId);
@@ -61,7 +60,7 @@ public class Validators {
 				logger.info("Cette entreprise n'existe pas");
 				return false;
 			}
-		} catch (Exception e) {
+		} catch (NumberFormatException numEx) {
 			logger.info("L'Id entreprise doit être un entier");
 			return false;
 		}

@@ -39,11 +39,6 @@ public class ComputerDTOMapperTest {
 			.build();
 
 
-
-
-	
-	
-
 	@Test
 	public void testDtoToComputer() throws SQLException {
 		//Mockito.when(daoCompany.getCompanyById(id));

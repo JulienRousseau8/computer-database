@@ -17,11 +17,12 @@ import com.excilys.model.Company;
 import com.excilys.persistence.MySQLConnect;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CompanyServiceTest {
+public class CompanyServiceTest extends Mockito {
 
 	@Mock
 	DAOcompany daoCompany;
 	//DAOcompany mockDaoCompany = Mockito.mock(DAOcompany.class);
+	
 	
 	CompanyService companyService = new CompanyService();
 	String companyId = "10";
@@ -32,14 +33,12 @@ public class CompanyServiceTest {
 	
 	@Before
 	public void init() throws SQLException {
-		
+		MySQLConnect.getDbCon();
+		Mockito.when(daoCompany.getCompanyById(10)).thenReturn(mockCompany);
 	}
 
 	@Test
 	public void testGetCompanyById() throws SQLException{
-		MySQLConnect.getDbCon();
-		Mockito.when(daoCompany.getCompanyById(10)).thenReturn(mockCompany);
-		
 		Company companyRes = companyService.getCompanyById(companyId).get();
 		
 		assertEquals(mockCompany.get().id, companyRes.id);
