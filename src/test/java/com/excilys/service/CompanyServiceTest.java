@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.DAO.DAOcompany;
 import com.excilys.model.Company;
-import com.excilys.persistence.MySQLConnect;
+import com.excilys.persistence.H2Connect;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CompanyServiceTest extends Mockito {
@@ -33,12 +33,12 @@ public class CompanyServiceTest extends Mockito {
 	
 	@Before
 	public void init() throws SQLException {
-		MySQLConnect.getDbCon();
-		Mockito.when(daoCompany.getCompanyById(10)).thenReturn(mockCompany);
+		H2Connect.getDbCon();
 	}
 
 	@Test
 	public void testGetCompanyById() throws SQLException{
+		Mockito.when(daoCompany.getCompanyById(10)).thenReturn(mockCompany);
 		Company companyRes = companyService.getCompanyById(companyId).get();
 		
 		assertEquals(mockCompany.get().id, companyRes.id);

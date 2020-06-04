@@ -18,11 +18,13 @@ import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
+import com.excilys.persistence.H2Connect;
 import com.excilys.persistence.MySQLConnect;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComputerDTOMapperTest {
 
+	
 	String date1 = "2010-04-22";
 	String date2 = "2010-04-23";
 
@@ -38,10 +40,14 @@ public class ComputerDTOMapperTest {
 			.setIntroduced(LocalDate.of(2010, 04, 22)).setDiscontinued(LocalDate.of(2010, 04, 23)).setCompany(company)
 			.build();
 
-
+	@Before
+	public void setUp() {
+		MySQLConnect.getDbCon();
+		MockitoAnnotations.initMocks(this);
+	}
+	
 	@Test
 	public void testDtoToComputer() throws SQLException {
-		//Mockito.when(daoCompany.getCompanyById(id));
 		Computer computerRes = ComputerDTOMapper.dtoToComputer(computerDto);
 
 		assertEquals(computer.name, computerRes.name);
@@ -53,7 +59,6 @@ public class ComputerDTOMapperTest {
 
 	@Test
 	public void testComputerToDto() {
-		MySQLConnect.getDbCon();
 		ComputerDTO computerRes = ComputerDTOMapper.computerToDto(computer);
 
 		assertEquals(computerDto.id, computerRes.id);

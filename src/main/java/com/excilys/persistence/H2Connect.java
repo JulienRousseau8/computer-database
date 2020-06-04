@@ -2,9 +2,10 @@ package com.excilys.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Properties;
 
 public class H2Connect implements AutoCloseable {
-
+	
 	public static Connection conn;
 	public static H2Connect db;
 	private String url = "jdbc:h2:mem:computer-database-db;INIT=RUNSCRIPT FROM 'src/test/Ressources/H2-database-creation.sql'"; 

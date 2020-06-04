@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import com.excilys.mapper.Mapper;
 import com.excilys.model.Company;
-import com.excilys.persistence.MySQLConnect;
+import com.excilys.persistence.Connexion;
 
 public class DAOcompany {
 
@@ -32,7 +32,7 @@ public class DAOcompany {
 		Optional<Company> company;
 		ArrayList<Company> listCompanies = new ArrayList<Company>();
 
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(GETCOMPANIES)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPANIES)) {
 			allCompaniesRes = st.executeQuery();
 			while (allCompaniesRes.next()) {
 				company = Mapper.companyMapper(allCompaniesRes);
@@ -47,7 +47,7 @@ public class DAOcompany {
 	public Optional<Company> getCompanyById(long id) throws SQLException {
 		ResultSet companyRes;
 		Optional<Company> company;
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(GETCOMPANYBYID)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPANYBYID)) {
 			st.setLong(1, id);
 			companyRes = st.executeQuery();
 			if (companyRes.first()) {

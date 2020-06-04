@@ -24,9 +24,7 @@ public class CompanyService {
 			return company;
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} 
 		return Optional.empty();
 	}
 

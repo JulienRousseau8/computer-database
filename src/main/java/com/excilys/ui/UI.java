@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
-import com.excilys.persistence.H2Connect;
+import com.excilys.persistence.Connexion;
 import com.excilys.persistence.MySQLConnect;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
@@ -67,7 +67,8 @@ public class UI {
 	}
 
 	public static void main(String[] args) throws SQLException {
-		MySQLConnect.getDbCon();
+//		MySQLConnect.getDbCon();
+		Connexion.getDbCon();
 		afficherMenu();
 		actionsMenu();
 	}

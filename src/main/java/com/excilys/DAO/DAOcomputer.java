@@ -11,7 +11,7 @@ import com.excilys.mapper.Mapper;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Pagination;
-import com.excilys.persistence.MySQLConnect;
+import com.excilys.persistence.Connexion;
 
 public class DAOcomputer {
 
@@ -45,7 +45,7 @@ public class DAOcomputer {
 		Optional<Computer> computer;
 		ArrayList<Computer> listComputers = new ArrayList<Computer>();
 
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(GETCOMPUTERS)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPUTERS)) {
 			allComputerRes = st.executeQuery();
 			while (allComputerRes.next()) {
 				computer = Mapper.computerMapper(allComputerRes);
@@ -59,7 +59,7 @@ public class DAOcomputer {
 
 	public Optional<Computer> getComputerById(long id) throws SQLException {
 		ResultSet computerRes;
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(GETCOMPUTERBYID)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPUTERBYID)) {
 			st.setLong(1, id);
 			computerRes = st.executeQuery();
 			if (computerRes.first()) {
@@ -73,7 +73,7 @@ public class DAOcomputer {
 	}
 
 	public void createComputer(Computer computer) throws SQLException {
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(CREATECOMPUTER);) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(CREATECOMPUTER);) {
 			st.setString(1, computer.getName());
 			st.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
 			st.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
@@ -86,7 +86,7 @@ public class DAOcomputer {
 	}
 
 	public void updateComputer(Computer computer) throws SQLException {
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(UPDATECOMPUTER)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(UPDATECOMPUTER)) {
 			st.setString(1, computer.getName());
 			st.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
 			st.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
@@ -99,7 +99,7 @@ public class DAOcomputer {
 	}
 
 	public void deleteComputer(long id) throws SQLException {
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(DELETECOMPUTER)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(DELETECOMPUTER)) {
 			st.setLong(1, id);
 			st.executeUpdate();
 		} catch (SQLException e) {
@@ -108,7 +108,7 @@ public class DAOcomputer {
 	}
 
 	public int countAllComputer() {
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(COUNTCOMPUTERS)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(COUNTCOMPUTERS)) {
 			ResultSet res1 = st.executeQuery();
 			if (res1.next()) {
 				return res1.getInt("rowcount");
@@ -122,7 +122,7 @@ public class DAOcomputer {
 	public ArrayList<Computer> getPageComputers(Pagination page) {
 		ArrayList<Computer> computerPages = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		try (PreparedStatement st = MySQLConnect.conn.prepareStatement(GETPAGECOMPUTERS)) {
+		try (PreparedStatement st = Connexion.conn.prepareStatement(GETPAGECOMPUTERS)) {
 			st.setInt(1, page.getPageNum() * page.getPageTaille());
 			st.setInt(2, page.getPageTaille());
 			ResultSet computerResPages = st.executeQuery();
