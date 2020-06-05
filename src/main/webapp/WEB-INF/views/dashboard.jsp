@@ -1,5 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+   
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +14,14 @@
 <link href="css/font-awesome.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
 </head>
+
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard.html"> Application -
+			<a class="navbar-brand" href="ListComputers"> Application -
 				Computer Database </a>
 		</div>
 	</header>
-
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">121 Computers found</h1>
@@ -37,7 +42,6 @@
 				</div>
 			</div>
 		</div>
-
 		<form id="deleteForm" action="#" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
@@ -210,4 +214,5 @@
 	<script src="js/dashboard.js"></script>
 
 </body>
+
 </html>

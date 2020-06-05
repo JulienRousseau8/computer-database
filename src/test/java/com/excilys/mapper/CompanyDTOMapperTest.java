@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -17,8 +16,6 @@ import com.excilys.DAO.DAOcompany;
 import com.excilys.dto.CompanyDTO;
 import com.excilys.model.Company;
 import com.excilys.persistence.Connexion;
-import com.excilys.persistence.H2Connect;
-import com.excilys.persistence.MySQLConnect;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CompanyDTOMapperTest extends Mockito{

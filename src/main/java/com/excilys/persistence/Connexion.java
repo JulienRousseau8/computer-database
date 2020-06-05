@@ -1,14 +1,10 @@
 package com.excilys.persistence;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
-public class Connexion {
+public class Connexion implements AutoCloseable{
 
 	private static Properties connectionProperties;
 	
@@ -31,12 +27,8 @@ public class Connexion {
 			Class.forName(connectionProperties.getProperty("driver"));
 			
 			conn = DriverManager.getConnection(url, userName, password);
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		} catch (Exception e3) {
+		}
+		catch (Exception e3) {
 			e3.printStackTrace();
 		}
 	}
@@ -46,5 +38,11 @@ public class Connexion {
 			db = new Connexion();
 		}
 		return db;
+	}
+	
+	@Override
+	public void close() throws Exception {
+		conn.close();
+		db.close();
 	}
 }

@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.excilys.DAO.DAOcomputer;
 import com.excilys.dto.ComputerDTO;
-import com.excilys.mapper.CompanyDTOMapper;
 import com.excilys.mapper.ComputerDTOMapper;
-import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Pagination;
 
@@ -53,9 +51,9 @@ public class ComputerService {
 				logger.info("Date non valide !");
 			}
 		}
-		if (computerDto.company.id.isEmpty()) {
+		if (computerDto.companyId.isEmpty()) {
 			logger.info("Id de la compagnie requis");
-		} else if (!Validators.verifierIdCompany(computerDto.company.id)) {
+		} else if (!Validators.verifierIdCompany(computerDto.companyId)) {
 		} else {
 			comp = true;
 		}
@@ -101,12 +99,11 @@ public class ComputerService {
 			}
 		}
 
-		if (computerDto.company.id.isEmpty()) {
-			newComputerDto.setCompany(oldComputerDto.company);
-		} else if (!Validators.verifierIdCompany(computerDto.company.id)) {
+		if (computerDto.companyId.isEmpty()) {
+			newComputerDto.setCompanyId(oldComputerDto.companyId);
+		} else if (!Validators.verifierIdCompany(computerDto.companyId)) {
 		} else {
-			Optional<Company> optionalCompany = companyService.getCompanyById(computerDto.company.id);
-			newComputerDto.setCompany(CompanyDTOMapper.companyToDto(optionalCompany.get()));
+			newComputerDto.setCompanyId(computerDto.companyId);
 		}
 		System.out.println(newComputerDto.toString());
 		if (dateIntroduced && dateDiscontinued && ordreDate) {

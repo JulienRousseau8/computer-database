@@ -51,10 +51,9 @@ public class ActionsMenu {
 
 		System.out.println("ID de l'entreprise");
 		String companyId = scan.nextLine();
-		CompanyDTO companyDTO = new CompanyDTO.CompanyDTOBuilder().setId(companyId).build();
 
 		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setName(computerName).setIntroduced(dateIntro)
-				.setDiscontinued(dateArret).setCompany(companyDTO).build();
+				.setDiscontinued(dateArret).setCompanyId(companyId).build();
 		computerService.createComputer(computerDTO);
 	}
 
@@ -80,16 +79,15 @@ public class ActionsMenu {
 		System.out.println("Modifier ID de l'entreprise : ");
 		String companyId = scan.nextLine();
 
-		CompanyDTO companyDto;
 		if (companyId.isEmpty()) {
-			companyDto = new CompanyDTO.CompanyDTOBuilder().setId(String.valueOf(optComputer.get().company.id))
+			CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId(String.valueOf(optComputer.get().company.id))
 					.setName(optComputer.get().name).build();
 		} else {
-			companyDto = new CompanyDTO.CompanyDTOBuilder().setId(companyId).build();
+			CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId(companyId).build();
 		}
 
 		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setId(stringId).setName(computerName)
-				.setIntroduced(dateIntro).setDiscontinued(dateArret).setCompany(companyDto).build();
+				.setIntroduced(dateIntro).setDiscontinued(dateArret).setCompanyId(companyId).build();
 
 		computerService.updateComputer(computerDTO);
 	}

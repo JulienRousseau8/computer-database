@@ -1,3 +1,4 @@
+
 <html>
 
 <head>
@@ -11,7 +12,7 @@
 	<h1>Application - Computer Database</h1>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard.html"> Go to Dashboard </a>
+			<a class="navbar-brand" href="ListComputers"> Go to Dashboard </a>
 		</div>
 	</header>
 

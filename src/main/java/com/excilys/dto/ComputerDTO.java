@@ -5,7 +5,7 @@ public class ComputerDTO {
 	public String name;
 	public String introduced;
 	public String discontinued;
-	public CompanyDTO company;
+	public String companyId;
 
 	private ComputerDTO() {
 	}
@@ -15,11 +15,11 @@ public class ComputerDTO {
 		this.name = computerDTOBuilder.name;
 		this.introduced = computerDTOBuilder.introduced;
 		this.discontinued = computerDTOBuilder.discontinued;
-		this.company = computerDTOBuilder.company;
+		this.companyId = computerDTOBuilder.companyId;
 	}
 
 	public String toString() {
-		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
+		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.companyId;
 	}
 
 	public String getId() {
@@ -54,12 +54,12 @@ public class ComputerDTO {
 		this.discontinued = discontinued;
 	}
 
-	public CompanyDTO getCompany() {
-		return company;
+	public String getCompanyId() {
+		return companyId;
 	}
 
-	public void setCompany(CompanyDTO company) {
-		this.company = company;
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
 	public static class ComputerDTOBuilder {
@@ -68,7 +68,7 @@ public class ComputerDTO {
 		private String name;
 		private String introduced;
 		private String discontinued;
-		private CompanyDTO company;
+		private String companyId;
 
 		public ComputerDTO build() {
 			return new ComputerDTO(this);
@@ -94,8 +94,8 @@ public class ComputerDTO {
 			return this;
 		}
 
-		public ComputerDTOBuilder setCompany(CompanyDTO company) {
-			this.company = company;
+		public ComputerDTOBuilder setCompanyId(String companyId) {
+			this.companyId = companyId;
 			return this;
 		}
 

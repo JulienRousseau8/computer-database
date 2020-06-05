@@ -67,7 +67,6 @@ public class UI {
 	}
 
 	public static void main(String[] args) throws SQLException {
-//		MySQLConnect.getDbCon();
 		Connexion.getDbCon();
 		afficherMenu();
 		actionsMenu();

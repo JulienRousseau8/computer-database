@@ -8,18 +8,14 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.excilys.DAO.DAOcompany;
 import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
-import com.excilys.persistence.H2Connect;
-import com.excilys.persistence.MySQLConnect;
+import com.excilys.persistence.Connexion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComputerDTOMapperTest {
@@ -34,7 +30,9 @@ public class ComputerDTOMapperTest {
 	Company company = new Company.CompanyBuilder().setId((long) 10).setName("Digital Equipment Corporation").build();
 
 	ComputerDTO computerDto = new ComputerDTO.ComputerDTOBuilder().setId("10").setName("Ordinateur")
-			.setIntroduced(date1).setDiscontinued(date2).setCompany(companyDTO).build();
+			.setIntroduced(date1).setDiscontinued(date2)
+			.setCompanyId(String.valueOf(company.id))
+			.build();
 
 	Computer computer = new Computer.ComputerBuilder().setId((long) 10).setName("Ordinateur")
 			.setIntroduced(LocalDate.of(2010, 04, 22)).setDiscontinued(LocalDate.of(2010, 04, 23)).setCompany(company)
@@ -42,7 +40,7 @@ public class ComputerDTOMapperTest {
 
 	@Before
 	public void setUp() {
-		MySQLConnect.getDbCon();
+		Connexion.getDbCon();
 		MockitoAnnotations.initMocks(this);
 	}
 	
@@ -65,8 +63,7 @@ public class ComputerDTOMapperTest {
 		assertEquals(computerDto.name, computerRes.name);
 		assertEquals(computerDto.introduced, computerRes.introduced);
 		assertEquals(computerDto.discontinued, computerRes.discontinued);
-		assertEquals(computerDto.company.id, computerRes.company.id);
-		assertEquals(computerDto.company.name, computerRes.company.name);
+		assertEquals(computerDto.companyId, computerRes.companyId);
 	}
 
 }
