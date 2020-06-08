@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.excilys.mapper.Mapper;
@@ -40,100 +41,99 @@ public class DAOcomputer {
 		return daoComputer;
 	}
 
-	public ArrayList<Computer> getComputers() throws SQLException {
+	public List<Computer> getComputers(){
 		ResultSet allComputerRes;
 		Optional<Computer> computer;
-		ArrayList<Computer> listComputers = new ArrayList<Computer>();
+		List<Computer> listComputers = new ArrayList<Computer>();
 
-		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPUTERS)) {
-			allComputerRes = st.executeQuery();
+		try (PreparedStatement getComputersStatement = Connexion.conn.prepareStatement(GETCOMPUTERS)) {
+			allComputerRes = getComputersStatement.executeQuery();
 			while (allComputerRes.next()) {
 				computer = Mapper.computerMapper(allComputerRes);
 				listComputers.add(computer.get());
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 		return listComputers;
 	}
 
-	public Optional<Computer> getComputerById(long id) throws SQLException {
+	public Optional<Computer> getComputerById(long id){
 		ResultSet computerRes;
-		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPUTERBYID)) {
-			st.setLong(1, id);
-			computerRes = st.executeQuery();
+		try (PreparedStatement getComputerByIdStatement = Connexion.conn.prepareStatement(GETCOMPUTERBYID)) {
+			getComputerByIdStatement.setLong(1, id);
+			computerRes = getComputerByIdStatement.executeQuery();
 			if (computerRes.first()) {
 				Optional<Computer> computer = Mapper.computerMapper(computerRes);
 				return computer;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 		return Optional.empty();
 	}
 
-	public void createComputer(Computer computer) throws SQLException {
-		try (PreparedStatement st = Connexion.conn.prepareStatement(CREATECOMPUTER);) {
-			st.setString(1, computer.getName());
-			st.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
-			st.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
+	public void createComputer(Computer computer){
+		try (PreparedStatement createComputerStatement = Connexion.conn.prepareStatement(CREATECOMPUTER);) {
+			createComputerStatement.setString(1, computer.getName());
+			createComputerStatement.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
+			createComputerStatement.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
 			Company company = computer.getCompany();
-			st.setLong(4, company.id);
-			st.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			createComputerStatement.setLong(4, company.id);
+			createComputerStatement.executeUpdate();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 	}
 
-	public void updateComputer(Computer computer) throws SQLException {
-		try (PreparedStatement st = Connexion.conn.prepareStatement(UPDATECOMPUTER)) {
-			st.setString(1, computer.getName());
-			st.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
-			st.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
-			st.setLong(4, computer.company.id);
-			st.setLong(5, computer.getId());
-			st.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public void updateComputer(Computer computer){
+		try (PreparedStatement updateComputerStatement = Connexion.conn.prepareStatement(UPDATECOMPUTER)) {
+			updateComputerStatement.setString(1, computer.getName());
+			updateComputerStatement.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
+			updateComputerStatement.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
+			updateComputerStatement.setLong(4, computer.company.id);
+			updateComputerStatement.setLong(5, computer.getId());
+			updateComputerStatement.executeUpdate();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 	}
 
-	public void deleteComputer(long id) throws SQLException {
-		try (PreparedStatement st = Connexion.conn.prepareStatement(DELETECOMPUTER)) {
-			st.setLong(1, id);
-			st.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public void deleteComputer(long id){
+		try (PreparedStatement deleteComputerStatement = Connexion.conn.prepareStatement(DELETECOMPUTER)) {
+			deleteComputerStatement.setLong(1, id);
+			deleteComputerStatement.executeUpdate();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 	}
 
 	public int countAllComputer() {
-		try (PreparedStatement st = Connexion.conn.prepareStatement(COUNTCOMPUTERS)) {
-			ResultSet res1 = st.executeQuery();
+		try (PreparedStatement countAllComputersStatement = Connexion.conn.prepareStatement(COUNTCOMPUTERS)) {
+			ResultSet res1 = countAllComputersStatement.executeQuery();
 			if (res1.next()) {
 				return res1.getInt("rowcount");
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 		return 0;
 	}
 
-	public ArrayList<Computer> getPageComputers(Pagination page) {
-		ArrayList<Computer> computerPages = new ArrayList<Computer>();
+	public List<Computer> getPageComputers(Pagination page) {
+		List<Computer> computerPages = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		try (PreparedStatement st = Connexion.conn.prepareStatement(GETPAGECOMPUTERS)) {
-			st.setInt(1, page.getPageNum() * page.getPageTaille());
-			st.setInt(2, page.getPageTaille());
-			ResultSet computerResPages = st.executeQuery();
+		try (PreparedStatement getPageComputersStatement = Connexion.conn.prepareStatement(GETPAGECOMPUTERS)) {
+			getPageComputersStatement.setInt(1, page.getPageNum() * page.getPageTaille());
+			getPageComputersStatement.setInt(2, page.getPageTaille());
+			ResultSet computerResPages = getPageComputersStatement.executeQuery();
 			while (computerResPages.next()) {
 				computer = Mapper.computerMapper(computerResPages);
 				computerPages.add(computer.get());
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 		return computerPages;
 	}
-
 }

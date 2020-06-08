@@ -10,17 +10,17 @@ import com.excilys.model.Computer;;
 
 public class Mapper {
 
-	public static Optional<Computer> computerMapper(ResultSet rs) throws SQLException {
-		long computerId = rs.getLong("computer.id");
-		String computerName = rs.getString("computer.name");
-		LocalDate introduced = (rs.getTimestamp("computer.introduced") != null
-				? rs.getDate("computer.introduced").toLocalDate()
+	public static Optional<Computer> computerMapper(ResultSet ComputerResultSet) throws SQLException {
+		long computerId = ComputerResultSet.getLong("computer.id");
+		String computerName = ComputerResultSet.getString("computer.name");
+		LocalDate introduced = (ComputerResultSet.getTimestamp("computer.introduced") != null
+				? ComputerResultSet.getDate("computer.introduced").toLocalDate()
 				: null);
-		LocalDate discontinued = (rs.getTimestamp("computer.discontinued") != null
-				? rs.getDate("computer.discontinued").toLocalDate()
+		LocalDate discontinued = (ComputerResultSet.getTimestamp("computer.discontinued") != null
+				? ComputerResultSet.getDate("computer.discontinued").toLocalDate()
 				: null);
-		long companyId = rs.getLong("company_id");
-		String companyName = rs.getString("company.name");
+		long companyId = ComputerResultSet.getLong("company_id");
+		String companyName = ComputerResultSet.getString("company.name");
 
 		Company company = new Company.CompanyBuilder().setId(companyId).setName(companyName).build();
 		Computer computer = new Computer.ComputerBuilder().setId(computerId).setName(computerName)
@@ -28,9 +28,9 @@ public class Mapper {
 		return Optional.ofNullable(computer);
 	}
 
-	public static Optional<Company> companyMapper(ResultSet rs) throws SQLException {
-		long companyid = rs.getLong("id");
-		String name = rs.getString("name");
+	public static Optional<Company> companyMapper(ResultSet CompanyResultSet) throws SQLException {
+		long companyid = CompanyResultSet.getLong("id");
+		String name = CompanyResultSet.getString("name");
 		Company company = new Company.CompanyBuilder().setId(companyid).setName(name).build();
 		return Optional.ofNullable(company);
 	}

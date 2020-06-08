@@ -1,7 +1,6 @@
 package com.excilys.service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -18,11 +17,11 @@ public class ComputerService {
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
 	CompanyService companyService = new CompanyService();
 
-	public ArrayList<Computer> getAllComputers() throws SQLException {
+	public List<Computer> getAllComputers(){
 		return DAOcomputer.getInstance().getComputers();
 	}
 
-	public Optional<Computer> getComputerById(String id) throws SQLException {
+	public Optional<Computer> getComputerById(String id){
 		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(Long.parseLong(id));
 		if (!computer.isPresent()) {
 
@@ -32,88 +31,41 @@ public class ComputerService {
 		return computer;
 	}
 
-	public void createComputer(ComputerDTO computerDto) throws SQLException {
-		boolean name = false;
-		boolean ordreDate = false;
-		boolean comp = false;
+	public void createComputer(ComputerDTO computerDto){
+		boolean name = verifierNom(computerDto);
+		
+		boolean date = verifierDate(computerDto);
 
-		if (computerDto.name.isEmpty()) {
-			logger.info("Nom requis");
-		} else {
-			name = true;
-		}
+		boolean comp = verifierCompany(computerDto);
 
-		boolean dateIntroduced = Validators.verifierDateUtilisateurSaisie(computerDto.introduced);
-		boolean dateDiscontinued = Validators.verifierDateUtilisateurSaisie(computerDto.discontinued);
-		if (dateIntroduced && dateDiscontinued) {
-			ordreDate = Validators.verifierDateOrdre(computerDto.introduced, computerDto.discontinued);
-			if (!ordreDate) {
-				logger.info("Date non valide !");
-			}
-		}
-		if (computerDto.companyId.isEmpty()) {
-			logger.info("Id de la compagnie requis");
-		} else if (!Validators.verifierIdCompany(computerDto.companyId)) {
-		} else {
-			comp = true;
-		}
-
-		if (name && dateIntroduced && dateDiscontinued && ordreDate && comp) {
+		if (name && date && comp) {
 			Computer computer = ComputerDTOMapper.dtoToComputer(computerDto);
 			DAOcomputer.getInstance().createComputer(computer);
 		}
 	}
-
-	public void updateComputer(ComputerDTO computerDto) throws SQLException {
+	
+	public void updateComputer(ComputerDTO computerDto){
 		ComputerDTO newComputerDto = new ComputerDTO.ComputerDTOBuilder().build();
-		boolean ordreDate = false;
 		newComputerDto.setId(computerDto.id);
 
 		Optional<Computer> oldComputer = getComputerById(computerDto.id);
 		ComputerDTO oldComputerDto = ComputerDTOMapper.computerToDto(oldComputer.get());
 
-		if (computerDto.name.isEmpty()) {
-			newComputerDto.name = oldComputerDto.name;
-		} else {
-			newComputerDto.setName(computerDto.name);
-		}
+		updateName(computerDto, oldComputerDto, newComputerDto);
+		updateIntroduced(computerDto, oldComputerDto, newComputerDto);
+		updateDiscontinued(computerDto, oldComputerDto, newComputerDto);
+		boolean date = verifierDate(computerDto);
+		updateCompany(computerDto, oldComputerDto, newComputerDto);
 
-		if (computerDto.introduced.isEmpty()) {
-			newComputerDto.introduced = oldComputerDto.introduced;
-		} else {
-			newComputerDto.setIntroduced(computerDto.introduced);
-		}
-
-		if (computerDto.discontinued.isEmpty()) {
-			newComputerDto.discontinued = oldComputerDto.discontinued;
-		} else {
-			newComputerDto.setIntroduced(computerDto.discontinued);
-		}
-
-		boolean dateIntroduced = Validators.verifierDateUtilisateurSaisie(computerDto.introduced);
-		boolean dateDiscontinued = Validators.verifierDateUtilisateurSaisie(computerDto.discontinued);
-		if (dateIntroduced && dateDiscontinued) {
-			ordreDate = Validators.verifierDateOrdre(computerDto.introduced, computerDto.discontinued);
-			if (!ordreDate) {
-				logger.info("Date non valide !");
-			}
-		}
-
-		if (computerDto.companyId.isEmpty()) {
-			newComputerDto.setCompanyId(oldComputerDto.companyId);
-		} else if (!Validators.verifierIdCompany(computerDto.companyId)) {
-		} else {
-			newComputerDto.setCompanyId(computerDto.companyId);
-		}
-		System.out.println(newComputerDto.toString());
-		if (dateIntroduced && dateDiscontinued && ordreDate) {
+		logger.info(newComputerDto.toString());
+		if (date) {
 			Computer computer = ComputerDTOMapper.dtoToComputer(newComputerDto);
 			computer.setId(Long.parseLong(computerDto.id));
 			DAOcomputer.getInstance().updateComputer(computer);
 		}
 	}
-
-	public void deleteComputer(int id) throws SQLException {
+	
+	public void deleteComputer(int id){
 		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(id);
 		if (computer.isPresent()) {
 			DAOcomputer.getInstance().deleteComputer(id);
@@ -128,7 +80,76 @@ public class ComputerService {
 		return DAOcomputer.getInstance().countAllComputer();
 	}
 
-	public ArrayList<Computer> getPageComputer(Pagination page) {
+	public List<Computer> getPageComputer(Pagination page) {
 		return DAOcomputer.getInstance().getPageComputers(page);
+	}
+	
+	private boolean verifierDate(ComputerDTO computerDto) {
+		boolean ordreDate = false;
+		boolean dateIntroduced = Validators.verifierDateUtilisateurSaisie(computerDto.introduced);
+		boolean dateDiscontinued = Validators.verifierDateUtilisateurSaisie(computerDto.discontinued);
+		if (dateIntroduced && dateDiscontinued) {
+			ordreDate = Validators.verifierDateOrdre(computerDto.introduced, computerDto.discontinued);
+			if (!ordreDate) {
+				logger.info("Date non valide !");
+			}
+		}
+		if (dateIntroduced && dateDiscontinued && ordreDate) {
+			return true;
+		} else return false;
+	}
+	
+	private boolean verifierCompany(ComputerDTO computerDto) {
+		boolean comp = false;
+		if (computerDto.companyId.isEmpty()) {
+			logger.info("Id de la compagnie requis");
+		} else if (!Validators.verifierIdCompany(computerDto.companyId)) {
+		} else {
+			comp = true;
+		}
+		return comp;
+	}
+	
+	private boolean verifierNom(ComputerDTO computerDto) {
+		boolean name = false;
+		if (computerDto.name.isEmpty()) {
+			logger.info("Nom requis");
+		} else {
+			name = true;
+		}
+		return name;
+	}
+	
+	private void updateName(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {
+		if (computerDto.name.isEmpty()) {
+			newComputerDto.name = oldComputerDto.name;
+		} else {
+			newComputerDto.setName(computerDto.name);
+		}
+	}
+	
+	private void updateIntroduced(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {
+		if (computerDto.introduced.isEmpty()) {
+			newComputerDto.introduced = oldComputerDto.introduced;
+		} else {
+			newComputerDto.setIntroduced(computerDto.introduced);
+		}
+	}
+	
+	private void updateDiscontinued(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {
+		if (computerDto.discontinued.isEmpty()) {
+			newComputerDto.discontinued = oldComputerDto.discontinued;
+		} else {
+			newComputerDto.setIntroduced(computerDto.discontinued);
+		}
+	}
+	
+	private void updateCompany(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {
+		if (computerDto.companyId.isEmpty()) {
+			newComputerDto.setCompanyId(oldComputerDto.companyId);
+		} else if (!Validators.verifierIdCompany(computerDto.companyId)) {
+		} else {
+			newComputerDto.setCompanyId(computerDto.companyId);
+		}
 	}
 }

@@ -1,8 +1,6 @@
 package com.excilys.service;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.GregorianCalendar;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -33,24 +31,20 @@ public class Validators {
 
 			return true;
 		} catch (Exception e) {
-			logger.info("Mauvais format de Date");
 			return false;
 		}
 	}
-
+	
 	public static boolean verifierDateOrdre(String dateIntroduction, String dateArret) {
 		LocalDate intro = ConvertDate.convert(dateIntroduction);
 		LocalDate arret = ConvertDate.convert(dateArret);
 		if (dateIntroduction.isEmpty() || dateArret.isEmpty()) {
 			return true;
 		}
-		if (arret.isBefore(intro)) {
-			return false;
-		}
-		return true;
+		return arret.isAfter(intro);
 	}
 
-	public static boolean verifierIdCompany(String id) throws SQLException {
+	public static boolean verifierIdCompany(String id){
 		try {
 			long compId = Long.parseLong(id);
 			Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(compId);

@@ -1,13 +1,12 @@
 package com.excilys.ui;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Computer;
 import com.excilys.model.Pagination;
@@ -33,13 +32,13 @@ public class ActionsMenu {
 		return actionMenu;
 	}
 
-	public void showDetails() throws SQLException {
+	public void showDetails(){
 		System.out.println("Entrer un ID");
 		String detailId = scan.nextLine();
 		System.out.println(computerService.getComputerById(detailId).get());
 	}
 
-	public void createComputer() throws SQLException {
+	public void createComputer(){
 		System.out.println("Entrer un nom");
 		String computerName = scan.nextLine();
 
@@ -57,7 +56,7 @@ public class ActionsMenu {
 		computerService.createComputer(computerDTO);
 	}
 
-	public void updateComputer() throws SQLException {
+	public void updateComputer(){
 		System.out.println("Entrer un ID a modifier");
 		String stringId = scan.nextLine();
 		Optional<Computer> optComputer = computerService.getComputerById(stringId);
@@ -79,20 +78,13 @@ public class ActionsMenu {
 		System.out.println("Modifier ID de l'entreprise : ");
 		String companyId = scan.nextLine();
 
-		if (companyId.isEmpty()) {
-			CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId(String.valueOf(optComputer.get().company.id))
-					.setName(optComputer.get().name).build();
-		} else {
-			CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId(companyId).build();
-		}
-
 		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setId(stringId).setName(computerName)
 				.setIntroduced(dateIntro).setDiscontinued(dateArret).setCompanyId(companyId).build();
 
 		computerService.updateComputer(computerDTO);
 	}
 
-	public void deleteComputer() throws SQLException {
+	public void deleteComputer(){
 		System.out.println("Entrer un ID");
 		int suppId = scan.nextInt();
 		computerService.deleteComputer(suppId);
@@ -100,7 +92,7 @@ public class ActionsMenu {
 
 	public void pagination() {
 		Pagination page = new Pagination(computerService.countAllComputer());
-		ArrayList<Computer> computerPage = new ArrayList<Computer>();
+		List<Computer> computerPage = new ArrayList<Computer>();
 		computerPage = computerService.getPageComputer(page);
 		page.displayPageContent(computerPage);
 

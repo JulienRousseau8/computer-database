@@ -1,7 +1,6 @@
 package com.excilys.service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -14,7 +13,7 @@ public class CompanyService {
 
 	private static Logger logger = LoggerFactory.getLogger(CompanyService.class);
 	
-	public Optional<Company> getCompanyById(String companyID) throws SQLException {
+	public Optional<Company> getCompanyById(String companyID){
 		try {
 			long compId = Long.parseLong(companyID);
 			Optional<Company> company = DAOcompany.getInstance().getCompanyById(compId);
@@ -22,13 +21,13 @@ public class CompanyService {
 				logger.info("Aucune entreprise ne correspond à cet ID");
 			}
 			return company;
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
+		} catch (NumberFormatException NFexception) {
+			NFexception.printStackTrace();
 		} 
 		return Optional.empty();
 	}
 
-	public ArrayList<Company> getAllCompanies() throws SQLException {
+	public List<Company> getAllCompanies(){
 		return DAOcompany.getInstance().getCompanies();
 	}
 }

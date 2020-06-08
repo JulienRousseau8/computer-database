@@ -1,5 +1,6 @@
 package com.excilys.DAO;
 
+import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,35 +28,35 @@ public class DAOcompany {
 		return daoCompany;
 	}
 
-	public ArrayList<Company> getCompanies() throws SQLException {
+	public List<Company> getCompanies(){
 		ResultSet allCompaniesRes;
 		Optional<Company> company;
-		ArrayList<Company> listCompanies = new ArrayList<Company>();
+		List<Company> listCompanies = new ArrayList<Company>();
 
-		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPANIES)) {
-			allCompaniesRes = st.executeQuery();
+		try (PreparedStatement getCompaniesStatement = Connexion.conn.prepareStatement(GETCOMPANIES)) {
+			allCompaniesRes = getCompaniesStatement.executeQuery();
 			while (allCompaniesRes.next()) {
 				company = Mapper.companyMapper(allCompaniesRes);
 				listCompanies.add(company.get());
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 		return listCompanies;
 	}
 
-	public Optional<Company> getCompanyById(long id) throws SQLException {
+	public Optional<Company> getCompanyById(long id){
 		ResultSet companyRes;
 		Optional<Company> company;
-		try (PreparedStatement st = Connexion.conn.prepareStatement(GETCOMPANYBYID)) {
-			st.setLong(1, id);
-			companyRes = st.executeQuery();
+		try (PreparedStatement getCompanyByIdStatement = Connexion.conn.prepareStatement(GETCOMPANYBYID)) {
+			getCompanyByIdStatement.setLong(1, id);
+			companyRes = getCompanyByIdStatement.executeQuery();
 			if (companyRes.first()) {
 				company = Mapper.companyMapper(companyRes);
 				return company;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
 		}
 		return Optional.empty();
 	}

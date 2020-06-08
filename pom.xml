@@ -20,7 +20,9 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit-version>4.11</junit-version>
 		<mysql-version>8.0.19</mysql-version>
-		<javax.servlet>4.0.1</javax.servlet>
+		<javax.servlet>2.5</javax.servlet>
+		<jstl>1.1.2</jstl>
+		<org.apache.taglib>1.2.5</org.apache.taglib>
 		<org.mockito>1.9.5</org.mockito>
 		<org.slf4j>1.7.30</org.slf4j>
 		<com.h2database>1.4.200</com.h2database>
@@ -35,7 +37,7 @@
 			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -44,8 +46,26 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<artifactId>servlet-api</artifactId>
 			<version>${javax.servlet}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-spec</artifactId>
+			<version>${org.apache.taglib}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>${org.apache.taglib}</version>
 		</dependency>
 
 		<dependency>
@@ -74,7 +94,7 @@
 			<version>${com.h2database}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>

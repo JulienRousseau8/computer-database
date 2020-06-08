@@ -1,6 +1,6 @@
 package com.excilys.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Pagination {
 
@@ -26,7 +26,7 @@ public class Pagination {
 		}
 	}
 
-	public void displayPageContent(ArrayList<Computer> pageContent) {
+	public void displayPageContent(List<Computer> pageContent) {
 		System.out.println("*-------------------------------------------------------------*");
 		for (Computer computer : pageContent) {
 			System.out.println(computer.toString());

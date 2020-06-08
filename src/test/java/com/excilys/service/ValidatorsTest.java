@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.excilys.DAO.DAOcompany;
 import com.excilys.model.Computer;
 import com.excilys.service.Validators;
 
@@ -44,7 +43,7 @@ public class ValidatorsTest extends Mockito{
 	public void testVerifierDate() {
 		when(computer.getIntroduced()).thenReturn(dateIn);
 		when(computer.getDiscontinued()).thenReturn(dateArr);
-		assertTrue(Validators.verifierDateOrdre(dateIntro, dateArret));
+		assertTrue(Validators.verifierDateOrdre(dateIn.toString(), dateArr.toString()));
 	}
 	
 	//TEST SANS MOCK

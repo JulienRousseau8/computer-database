@@ -2,7 +2,6 @@ package com.excilys.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Properties;
 
 public class H2Connect implements AutoCloseable {
 	
