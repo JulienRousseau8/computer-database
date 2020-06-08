@@ -73,7 +73,8 @@
 						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date</th>
 						<!-- Table header for Company -->
-						<th>Company</th>
+						<th>Company Id</th>
+						<th>Company Name</th>
 
 					</tr>
 				</thead>
@@ -87,7 +88,9 @@
 										value="${computer.name}" /></a></td>
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
+							<td>${computer.companyId}</td>
 							<td>${computer.companyName}</td>
+							<td>${computer.id}</td>
 
 						</tr>
 						
@@ -105,22 +108,27 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				<li><a href="#" aria-label="Previous"> <span
-						aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
+				
+				<c:if test="${pageNum > 0}">
+					<li><a href="Dashboard?pageNum=${pageNum-1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+				</c:if>
+				
+				<c:forEach var="i" begin="1" end="5">
+					<li><a href="Dashboard?pageNum=${pageNum+i}" aria-label="Next">
+					<c:out value ="${i}"></c:out>
+					</a></li>
+				</c:forEach>
+				
+				<c:if test="${pageNum < pageMax}">
+                	<li><a href="Dashboard?pageNum=${pageNum+1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+				</c:if>
+					
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default">10</button>
-				<button type="button" class="btn btn-default">50</button>
-				<button type="button" class="btn btn-default">100</button>
+				<button type="button" class="btn btn-default"><a href="Dashboard?pageTaille=10">10</a></button>
+				<button type="button" class="btn btn-default"><a href="Dashboard?pageTaille=50">50</a></button>
+				<button type="button" class="btn btn-default"><a href="Dashboard?pageTaille=100">100</a></button>
 			</div>
 		</div>
 	</footer>

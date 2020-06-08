@@ -21,6 +21,8 @@ public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ComputerService computerService = new ComputerService();
+	private int pageTaille = 10;
+	private int pageNum;
 	
     public DashboardServlet() {
         super();
@@ -31,11 +33,23 @@ public class DashboardServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connexion.getDbCon();
 		int nbComputers = computerService.countAllComputer();
-		Pagination page = new Pagination(nbComputers);
 		List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
-		listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getPageComputer(page));
-		System.out.println(listComputerDTO);
+		Pagination page = new Pagination(nbComputers, pageTaille);
 		
+		if(request.getParameter("pageTaille")!=null) {
+			pageTaille = Integer.parseInt(request.getParameter("pageTaille"));
+			page.setPageTaille(pageTaille);
+		}
+
+		if(request.getParameter("pageNum")!=null) {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+			page.setPageNum(pageNum);
+		}
+		
+		listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getPageComputer(page));
+		
+		request.setAttribute("pageMax", page.getPageMax());
+		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("nbComputers", nbComputers);
 		request.setAttribute("computerList", listComputerDTO);
 		request.getRequestDispatcher(DASHBOARD).forward(request, response);

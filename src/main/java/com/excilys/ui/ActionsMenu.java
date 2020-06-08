@@ -91,7 +91,7 @@ public class ActionsMenu {
 	}
 
 	public void pagination() {
-		Pagination page = new Pagination(computerService.countAllComputer());
+		Pagination page = new Pagination(computerService.countAllComputer(), 20);
 		List<Computer> computerPage = new ArrayList<Computer>();
 		computerPage = computerService.getPageComputer(page);
 		page.displayPageContent(computerPage);

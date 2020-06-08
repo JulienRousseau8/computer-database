@@ -8,12 +8,12 @@ public class Pagination {
 	private int pageMax;
 	private int pageTaille;
 
-	public Pagination(int nbComputers) {
+	public Pagination(int nbComputers, int pageTaille) {
 		this.pageNum = 0;
-		this.pageTaille = 20;
+		this.pageTaille = pageTaille;
 		this.pageMax = nbComputers / this.pageTaille;
 	}
-
+	
 	public void nextPage() {
 		if (this.pageNum < this.pageMax) {
 			this.pageNum++;
@@ -26,6 +26,10 @@ public class Pagination {
 		}
 	}
 
+	public void selectPage(int nPage) {
+		this.pageNum = nPage;
+	}
+	
 	public void displayPageContent(List<Computer> pageContent) {
 		System.out.println("*-------------------------------------------------------------*");
 		for (Computer computer : pageContent) {

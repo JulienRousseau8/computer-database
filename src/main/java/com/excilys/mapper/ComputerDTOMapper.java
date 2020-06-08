@@ -25,6 +25,7 @@ public class ComputerDTOMapper {
 				.setName(computer.name).setIntroduced(String.valueOf(computer.introduced))
 				.setDiscontinued(String.valueOf(computer.discontinued))
 				.setCompanyId(String.valueOf(computer.company.id))
+				.setCompanyName(String.valueOf(computer.company.name))
 				.build();
 		return computerDTO;
 	}
