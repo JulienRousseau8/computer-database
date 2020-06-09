@@ -24,8 +24,8 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="ListComputers"> Application -
-				Computer Database </a>
+			<a class="navbar-brand" href="Dashboard"> Application - Computer
+				Database </a>
 		</div>
 	</header>
 	<section id="main">
@@ -42,7 +42,7 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer.html">Add
+					<a class="btn btn-success" id="addComputer" href="AddComputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
@@ -84,21 +84,17 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="0"></td>
-							<td><a href="editComputer.html" onclick=""><c:out
+							<td><a href="EditComputer" onclick=""><c:out
 										value="${computer.name}" /></a></td>
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
 							<td>${computer.companyId}</td>
 							<td>${computer.companyName}</td>
-							<td>${computer.id}</td>
 
 						</tr>
-						
 					</c:forEach>
 				</tbody>
-
 			</table>
-
 		</div>
 	</section>
 
@@ -108,27 +104,40 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				
+
 				<c:if test="${pageNum > 0}">
-					<li><a href="Dashboard?pageNum=${pageNum-1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+					<li><a href="Dashboard?pageNum=${pageNum-1}"
+						aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
 				</c:if>
-				
+
+
 				<c:forEach var="i" begin="1" end="5">
-					<li><a href="Dashboard?pageNum=${pageNum+i}" aria-label="Next">
-					<c:out value ="${i}"></c:out>
-					</a></li>
+					<c:if test="${pageNum + i <= pageMax}">
+						<li><a href="Dashboard?pageNum=${pageNum+i}"
+							aria-label="Next"> <c:out value="${pageNum+i}"></c:out>
+						</a></li>
+					</c:if>
 				</c:forEach>
-				
+
+
 				<c:if test="${pageNum < pageMax}">
-                	<li><a href="Dashboard?pageNum=${pageNum+1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a></li>
+					<li><a href="Dashboard?pageNum=${pageNum+1}" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+					</a></li>
 				</c:if>
-					
+
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default"><a href="Dashboard?pageTaille=10">10</a></button>
-				<button type="button" class="btn btn-default"><a href="Dashboard?pageTaille=50">50</a></button>
-				<button type="button" class="btn btn-default"><a href="Dashboard?pageTaille=100">100</a></button>
+				<button type="button" class="btn btn-default">
+					<a href="Dashboard?pageTaille=10">10</a>
+				</button>
+				<button type="button" class="btn btn-default">
+					<a href="Dashboard?pageTaille=50">50</a>
+				</button>
+				<button type="button" class="btn btn-default">
+					<a href="Dashboard?pageTaille=100">100</a>
+				</button>
 			</div>
 		</div>
 	</footer>
