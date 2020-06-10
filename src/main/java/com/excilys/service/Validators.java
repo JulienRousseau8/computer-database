@@ -31,6 +31,8 @@ public class Validators {
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("Mauvais format de Date");
 			return false;
 		}
 	}

@@ -21,19 +21,18 @@ public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ComputerService computerService = new ComputerService();
+	
+	List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
+
 	private int pageTaille = 10;
 	private int pageNum;
 	
-    public DashboardServlet() {
-        super();
-    }
-    
+
     public static final String DASHBOARD = "/WEB-INF/views/dashboard.jsp";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connexion.getDbCon();
 		int nbComputers = computerService.countAllComputer();
-		List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
 		Pagination page = new Pagination(nbComputers, pageTaille);
 		
 		if(request.getParameter("pageTaille")!=null) {

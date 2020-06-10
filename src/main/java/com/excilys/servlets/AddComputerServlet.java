@@ -22,29 +22,25 @@ public class AddComputerServlet extends HttpServlet {
 	
 	ComputerService computerService = new ComputerService();
 	CompanyService companyService = new CompanyService();
+	List<CompanyDTO> listCompanyDTO = new ArrayList<CompanyDTO>();
+	ComputerDTO computerDto;
+	
 
-    public AddComputerServlet() {
-        super();
-    }
-    
     public static final String ADDCOMPUTER = "/WEB-INF/views/addComputer.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<CompanyDTO> listCompanyDTO = new ArrayList<CompanyDTO>();
 		listCompanyDTO = CompanyDTOMapper.listCompanyToDto(companyService.getAllCompanies());
 		
 		request.setAttribute("listCompanyDTO", listCompanyDTO);
+		
 		request.getRequestDispatcher(ADDCOMPUTER).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ComputerDTO computerDto;
-		
 		String computerName = request.getParameter("computerName");
 		String introduced = request.getParameter("introduced");
 		String discontinued = request.getParameter("discontinued");
 		String companyId = request.getParameter("companyId");
-		
 		String companyName = companyService.getCompanyById(companyId).get().toString();
 		
 		computerDto = new ComputerDTO.ComputerDTOBuilder()

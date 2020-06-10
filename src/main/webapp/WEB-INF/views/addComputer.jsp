@@ -49,11 +49,12 @@
 							</div>
 							
 							<div class="form-group">
-								<label for="companyId">Company</label> <select
-									class="form-control" id="companyId" name="companyId">
+								<label for="companyId">Company</label> 
+								<select	class="form-control" id="companyId" name="companyId">
 									<c:forEach items="${listCompanyDTO}" var="company">
-										<option value="${company.id}"><c:out
-												value="${company.name}"></c:out></option>
+										<option value="${company.id}">
+											<c:out	value="${company.name}"></c:out>
+										</option>
 									</c:forEach>
 								</select>
 							</div>
