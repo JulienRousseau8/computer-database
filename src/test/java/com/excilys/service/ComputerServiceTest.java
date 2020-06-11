@@ -7,7 +7,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.DAO.DAOcompany;
 import com.excilys.DAO.DAOcomputer;
-import com.excilys.persistence.MySQLConnect;
+import com.excilys.persistence.Connexion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComputerServiceTest {
@@ -20,7 +20,7 @@ public class ComputerServiceTest {
 	
 	@Before
 	public void init() {
-		MySQLConnect.getDbCon();
+		Connexion.getDbCon();
 	}
 
 	//@Test

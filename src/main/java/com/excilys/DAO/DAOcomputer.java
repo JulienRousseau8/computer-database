@@ -46,7 +46,7 @@ public class DAOcomputer {
 		Optional<Computer> computer;
 		List<Computer> listComputers = new ArrayList<Computer>();
 
-		try (PreparedStatement getComputersStatement = Connexion.getConn().prepareStatement(GETCOMPUTERS)) {
+		try (PreparedStatement getComputersStatement = Connexion.getDbCon().prepareStatement(GETCOMPUTERS)) {
 			allComputerRes = getComputersStatement.executeQuery();
 			while (allComputerRes.next()) {
 				computer = Mapper.computerMapper(allComputerRes);
@@ -60,7 +60,7 @@ public class DAOcomputer {
 
 	public Optional<Computer> getComputerById(long id){
 		ResultSet computerRes;
-		try (PreparedStatement getComputerByIdStatement = Connexion.getConn().prepareStatement(GETCOMPUTERBYID)) {
+		try (PreparedStatement getComputerByIdStatement = Connexion.getDbCon().prepareStatement(GETCOMPUTERBYID)) {
 			getComputerByIdStatement.setLong(1, id);
 			computerRes = getComputerByIdStatement.executeQuery();
 			if (computerRes.next()) {
@@ -74,7 +74,7 @@ public class DAOcomputer {
 	}
 
 	public void createComputer(Computer computer){
-		try (PreparedStatement createComputerStatement = Connexion.getConn().prepareStatement(CREATECOMPUTER);) {
+		try (PreparedStatement createComputerStatement = Connexion.getDbCon().prepareStatement(CREATECOMPUTER);) {
 			createComputerStatement.setString(1, computer.getName());
 			createComputerStatement.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
 			createComputerStatement.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
@@ -87,7 +87,7 @@ public class DAOcomputer {
 	}
 
 	public void updateComputer(Computer computer){
-		try (PreparedStatement updateComputerStatement = Connexion.getConn().prepareStatement(UPDATECOMPUTER)) {
+		try (PreparedStatement updateComputerStatement = Connexion.getDbCon().prepareStatement(UPDATECOMPUTER)) {
 			updateComputerStatement.setString(1, computer.getName());
 			updateComputerStatement.setDate(2, computer.getIntroduced() != null ? Date.valueOf(computer.getIntroduced()) : null);
 			updateComputerStatement.setDate(3, computer.getDiscontinued() != null ? Date.valueOf(computer.getDiscontinued()) : null);
@@ -100,7 +100,7 @@ public class DAOcomputer {
 	}
 
 	public void deleteComputer(long id){
-		try (PreparedStatement deleteComputerStatement = Connexion.getConn().prepareStatement(DELETECOMPUTER)) {
+		try (PreparedStatement deleteComputerStatement = Connexion.getDbCon().prepareStatement(DELETECOMPUTER)) {
 			deleteComputerStatement.setLong(1, id);
 			deleteComputerStatement.executeUpdate();
 		} catch (SQLException SQLexception) {
@@ -109,7 +109,7 @@ public class DAOcomputer {
 	}
 
 	public int countAllComputer() {
-		try (PreparedStatement countAllComputersStatement = Connexion.getConn().prepareStatement(COUNTCOMPUTERS)) {
+		try (PreparedStatement countAllComputersStatement = Connexion.getDbCon().prepareStatement(COUNTCOMPUTERS)) {
 			ResultSet res1 = countAllComputersStatement.executeQuery();
 			if (res1.next()) {
 				return res1.getInt("rowcount");
@@ -123,7 +123,7 @@ public class DAOcomputer {
 	public List<Computer> getPageComputers(Pagination page) {
 		List<Computer> computerPages = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		try (PreparedStatement getPageComputersStatement = Connexion.getConn().prepareStatement(GETPAGECOMPUTERS)) {
+		try (PreparedStatement getPageComputersStatement = Connexion.getDbCon().prepareStatement(GETPAGECOMPUTERS)) {
 			getPageComputersStatement.setInt(1, page.getPageNum() * page.getPageTaille());
 			getPageComputersStatement.setInt(2, page.getPageTaille());
 			ResultSet computerResPages = getPageComputersStatement.executeQuery();

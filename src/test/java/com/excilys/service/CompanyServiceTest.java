@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.DAO.DAOcompany;
 import com.excilys.model.Company;
-import com.excilys.persistence.H2Connect;
+import com.excilys.persistence.Connexion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CompanyServiceTest extends Mockito {
@@ -33,7 +33,7 @@ public class CompanyServiceTest extends Mockito {
 	
 	@Before
 	public void init() throws SQLException {
-		H2Connect.getDbCon();
+		Connexion.getDbCon();
 	}
 
 	@Test

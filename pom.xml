@@ -18,6 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		
 		<junit-version>4.11</junit-version>
 		<mysql-version>8.0.20</mysql-version>
 		<javax.servlet>2.5</javax.servlet>
@@ -28,6 +29,7 @@
 		<org.slf4j>1.7.30</org.slf4j>
 		<com.h2database>1.4.200</com.h2database>
 		<org.apache.tomcat>9.0.31</org.apache.tomcat>
+		<HikariCP>3.4.1</HikariCP>
 	</properties>
 
 	<dependencies>
@@ -112,6 +114,12 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 			<version>${org.apache.tomcat}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>${HikariCP}</version>
 		</dependency>
 
 	</dependencies>

@@ -22,7 +22,7 @@ public class ComputerDTO {
 
 	@Override
 	public String toString() {
-		return "name : " + this.name + " | " + "introduced : " + this.introduced + " | " + "discontinued : " + this.discontinued + " | " + "Company : " + this.companyName;
+		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.companyId + " | " + this.companyName;
 	}
 	
 	@Override

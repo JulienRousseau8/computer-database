@@ -23,7 +23,7 @@ public class Computer {
 
 	@Override
 	public String toString() {
-		return "name : " + this.name + " | " + "introduced : " + this.introduced + " | " + "discontinued : " + this.discontinued + " | " + "Company : " + this.company.getName();
+		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
 	}
 
 	@Override
