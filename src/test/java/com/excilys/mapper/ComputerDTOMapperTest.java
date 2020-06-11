@@ -31,7 +31,7 @@ public class ComputerDTOMapperTest {
 
 	ComputerDTO computerDto = new ComputerDTO.ComputerDTOBuilder().setId("10").setName("Ordinateur")
 			.setIntroduced(date1).setDiscontinued(date2)
-			.setCompanyId(String.valueOf(company.id))
+			.setCompanyId(String.valueOf(company.getId()))
 			.build();
 
 	Computer computer = new Computer.ComputerBuilder().setId((long) 10).setName("Ordinateur")
@@ -48,22 +48,22 @@ public class ComputerDTOMapperTest {
 	public void testDtoToComputer() throws SQLException {
 		Computer computerRes = ComputerDTOMapper.dtoToComputer(computerDto);
 
-		assertEquals(computer.name, computerRes.name);
-		assertEquals(computer.introduced, computerRes.introduced);
-		assertEquals(computer.discontinued, computerRes.discontinued);
-		assertEquals(computer.company.id, computerRes.company.id);
-		assertEquals(computer.company.name, computerRes.company.name);
+		assertEquals(computer.getName(), computerRes.getName());
+		assertEquals(computer.getIntroduced(), computerRes.getIntroduced());
+		assertEquals(computer.getDiscontinued(), computerRes.getDiscontinued());
+		assertEquals(computer.getCompany().getId(), computerRes.getCompany().getId());
+		assertEquals(computer.getCompany().getName(), computerRes.getCompany().getName());
 	}
 
 	@Test
 	public void testComputerToDto() {
 		ComputerDTO computerRes = ComputerDTOMapper.computerToDto(computer);
 
-		assertEquals(computerDto.id, computerRes.id);
-		assertEquals(computerDto.name, computerRes.name);
-		assertEquals(computerDto.introduced, computerRes.introduced);
-		assertEquals(computerDto.discontinued, computerRes.discontinued);
-		assertEquals(computerDto.companyId, computerRes.companyId);
+		assertEquals(computerDto.getId(), computerRes.getId());
+		assertEquals(computerDto.getName(), computerRes.getName());
+		assertEquals(computerDto.getIntroduced(), computerRes.getIntroduced());
+		assertEquals(computerDto.getDiscontinued(), computerRes.getDiscontinued());
+		assertEquals(computerDto.getCompanyId(), computerRes.getCompanyId());
 	}
 
 }

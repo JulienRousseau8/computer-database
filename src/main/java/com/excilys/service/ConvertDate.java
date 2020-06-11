@@ -7,7 +7,8 @@ public class ConvertDate {
 
 	public static LocalDate convert(String date) {
 		boolean format = Validators.verifierDateUtilisateurSaisie(date);
-		if (date.isEmpty()) {
+
+		if (date == null || date.isEmpty()) {
 			return null;
 		} else if (!format) {
 			return null;
@@ -16,5 +17,6 @@ public class ConvertDate {
 			LocalDate localDate = LocalDate.parse(date, formatter);
 			return localDate;
 		}
+
 	}
 }

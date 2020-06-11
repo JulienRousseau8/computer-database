@@ -21,19 +21,19 @@ public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ComputerService computerService = new ComputerService();
-	
 	List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
 
 	private int pageTaille = 10;
 	private int pageNum;
 	
-
     public static final String DASHBOARD = "/WEB-INF/views/dashboard.jsp";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connexion.getDbCon();
+
 		int nbComputers = computerService.countAllComputer();
 		Pagination page = new Pagination(nbComputers, pageTaille);
+		
 		
 		if(request.getParameter("pageTaille")!=null) {
 			pageTaille = Integer.parseInt(request.getParameter("pageTaille"));
@@ -51,12 +51,17 @@ public class DashboardServlet extends HttpServlet {
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("nbComputers", nbComputers);
 		request.setAttribute("computerList", listComputerDTO);
+		
 		request.getRequestDispatcher(DASHBOARD).forward(request, response);
 		
 	}
-
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	}
+		request.getParameter("selection");
+		System.out.println(request.getParameter("selection"));
 
+		//computerService.deleteComputer(computerId);
+		response.sendRedirect("Dashboard");
+	}
 }

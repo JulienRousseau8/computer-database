@@ -33,7 +33,7 @@ public class DAOcompany {
 		Optional<Company> company;
 		List<Company> listCompanies = new ArrayList<Company>();
 
-		try (PreparedStatement getCompaniesStatement = Connexion.conn.prepareStatement(GETCOMPANIES)) {
+		try (PreparedStatement getCompaniesStatement = Connexion.getConn().prepareStatement(GETCOMPANIES)) {
 			allCompaniesRes = getCompaniesStatement.executeQuery();
 			while (allCompaniesRes.next()) {
 				company = Mapper.companyMapper(allCompaniesRes);
@@ -48,10 +48,10 @@ public class DAOcompany {
 	public Optional<Company> getCompanyById(long id){
 		ResultSet companyRes;
 		Optional<Company> company;
-		try (PreparedStatement getCompanyByIdStatement = Connexion.conn.prepareStatement(GETCOMPANYBYID)) {
+		try (PreparedStatement getCompanyByIdStatement = Connexion.getConn().prepareStatement(GETCOMPANYBYID)) {
 			getCompanyByIdStatement.setLong(1, id);
 			companyRes = getCompanyByIdStatement.executeQuery();
-			if (companyRes.first()) {
+			if (companyRes.next()) {
 				company = Mapper.companyMapper(companyRes);
 				return company;
 			}

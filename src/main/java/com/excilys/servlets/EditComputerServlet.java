@@ -30,25 +30,23 @@ public class EditComputerServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		listCompanyDTO = CompanyDTOMapper.listCompanyToDto(companyService.getAllCompanies());
-		
 		request.setAttribute("listCompanyDTO", listCompanyDTO);
-		String computerId = request.getParameter("computerId");
 		
+		String computerId = request.getParameter("computerId");
 		computerDto = ComputerDTOMapper.computerToDto(computerService.getComputerById(computerId).get());
 		
 		request.setAttribute("computerDto", computerDto);
-		
 		request.getRequestDispatcher(EDITCOMPUTER).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		String computerId = request.getParameter("computerId");
 		String computerName = request.getParameter("computerName");
 		String introduced = request.getParameter("introduced");
 		String discontinued = request.getParameter("discontinued");
 		String companyId = request.getParameter("companyId");
-		String companyName = companyService.getCompanyById(companyId).get().toString();
+		CompanyDTO companyDto = CompanyDTOMapper.companyToDto(companyService.getCompanyById(companyId).get());
+		String companyName = companyDto.getName();
 		
 		computerDto = new ComputerDTO.ComputerDTOBuilder()
 				.setId(computerId)
@@ -58,7 +56,6 @@ public class EditComputerServlet extends HttpServlet {
 				.setCompanyId(companyId)
 				.setCompanyName(companyName)
 				.build();
-		
 		computerService.updateComputer(computerDto);
 		
 		response.sendRedirect("Dashboard");

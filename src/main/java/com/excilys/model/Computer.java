@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class Computer {
 
-	public Long id;
-	public String name;
-	public LocalDate introduced;
-	public LocalDate discontinued;
-	public Company company;
+	private Long id;
+	private String name;
+	private LocalDate introduced;
+	private LocalDate discontinued;
+	private Company company;
 
 	private Computer() {
 	}
@@ -23,8 +23,9 @@ public class Computer {
 
 	@Override
 	public String toString() {
-		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.company;
+		return "name : " + this.name + " | " + "introduced : " + this.introduced + " | " + "discontinued : " + this.discontinued + " | " + "Company : " + this.company.getName();
 	}
+	
 
 	
 	

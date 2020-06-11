@@ -2,8 +2,8 @@ package com.excilys.dto;
 
 public class CompanyDTO {
 
-	public String id;
-	public String name;
+	private String id;
+	private String name;
 
 	private CompanyDTO() {
 	}
@@ -15,7 +15,7 @@ public class CompanyDTO {
 
 	@Override
 	public String toString() {
-		return this.id + " | " + this.name;
+		return this.name;
 	}
 	
 	@Override
@@ -66,8 +66,8 @@ public class CompanyDTO {
 	}
 
 	public static class CompanyDTOBuilder {
-		public String id;
-		public String name;
+		private String id;
+		private String name;
 
 		public CompanyDTO build() {
 			return new CompanyDTO(this);

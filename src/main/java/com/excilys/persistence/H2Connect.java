@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 
 public class H2Connect implements AutoCloseable {
 	
-	public static Connection conn;
-	public static H2Connect db;
+	private static Connection conn;
+	private static H2Connect db;
 	private String url = "jdbc:h2:mem:computer-database-db;INIT=RUNSCRIPT FROM 'src/test/Ressources/H2-database-creation.sql'"; 
 	private String driver = "org.h2.Driver";
 	private String userName = "sa";

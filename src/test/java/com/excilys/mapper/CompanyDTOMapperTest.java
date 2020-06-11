@@ -41,15 +41,15 @@ public class CompanyDTOMapperTest extends Mockito{
 	public void testDtoToCompany() throws SQLException {
 		Company companyRes = CompanyDTOMapper.dtoToCompany(companyDto);
 
-		assertEquals(company.id, companyRes.id);
-		assertEquals(company.name, companyRes.name);
+		assertEquals(company.getId(), companyRes.getId());
+		assertEquals(company.getName(), companyRes.getName());
 	}
 
 	@Test
 	public void testCompanyToDto() {
 		CompanyDTO companyRes = CompanyDTOMapper.companyToDto(company);
 
-		assertEquals(companyDto.id, companyRes.id);
-		assertEquals(companyDto.name, companyRes.name);
+		assertEquals(companyDto.getId(), companyRes.getId());
+		assertEquals(companyDto.getName(), companyRes.getName());
 	}
 }

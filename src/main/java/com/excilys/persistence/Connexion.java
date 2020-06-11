@@ -10,8 +10,8 @@ public class Connexion implements AutoCloseable{
 
 	private static Properties connectionProperties;
 	
-	public static Connection conn;
-	public static Connexion db;
+	private static Connection conn;
+	private static Connexion db;
 	private static String url;
 	private static String userName;
 	private static String password;
@@ -48,6 +48,14 @@ public class Connexion implements AutoCloseable{
 		return db;
 	}
 	
+	public static Connection getConn() {
+		return conn;
+	}
+
+	public static void setConn(Connection conn) {
+		Connexion.conn = conn;
+	}
+
 	@Override
 	public void close() throws Exception {
 		conn.close();

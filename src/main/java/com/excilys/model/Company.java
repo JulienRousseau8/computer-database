@@ -2,8 +2,8 @@ package com.excilys.model;
 
 public class Company {
 
-	public Long id;
-	public String name;
+	private Long id;
+	private String name;
 
 	private Company() {
 	}
@@ -15,7 +15,7 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return this.id + " | " + this.name;
+		return this.name;
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class Company {
 	}
 
 	public static class CompanyBuilder {
-		public Long id;
-		public String name;
+		private Long id;
+		private String name;
 
 		public Company build() {
 			return new Company(this);

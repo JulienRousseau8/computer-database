@@ -11,21 +11,23 @@ import com.excilys.service.ConvertDate;
 public class ComputerDTOMapper {
 
 	public static Computer dtoToComputer(ComputerDTO computerDto){
-		Computer computer = new Computer.ComputerBuilder().setName(computerDto.name)
-				.setIntroduced(ConvertDate.convert(computerDto.introduced))
-				.setDiscontinued(ConvertDate.convert(computerDto.discontinued))
-				.setCompany(DAOcompany.getInstance().getCompanyById(Long.parseLong(computerDto.companyId)).get())
+		Computer computer = new Computer.ComputerBuilder()
+				.setName(computerDto.getName())
+				.setIntroduced(ConvertDate.convert(computerDto.getIntroduced()))
+				.setDiscontinued(ConvertDate.convert(computerDto.getDiscontinued()))
+				.setCompany(DAOcompany.getInstance().getCompanyById(Long.parseLong(computerDto.getCompanyId())).get())
 				.build();
 		return computer;
 	}
 
 	public static ComputerDTO computerToDto(Computer computer) {
 
-		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setId(String.valueOf(computer.id))
-				.setName(computer.name).setIntroduced(String.valueOf(computer.introduced))
-				.setDiscontinued(String.valueOf(computer.discontinued))
-				.setCompanyId(String.valueOf(computer.company.id))
-				.setCompanyName(String.valueOf(computer.company.name))
+		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setId(String.valueOf(computer.getId()))
+				.setName(computer.getName())
+				.setIntroduced(String.valueOf(computer.getIntroduced()))
+				.setDiscontinued(String.valueOf(computer.getDiscontinued()))
+				.setCompanyId(String.valueOf(computer.getCompany().getId()))
+				.setCompanyName(String.valueOf(computer.getCompany().getName()))
 				.build();
 		return computerDTO;
 	}

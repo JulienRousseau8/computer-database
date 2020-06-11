@@ -1,6 +1,8 @@
 package com.excilys.ui;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.excilys.model.Company;
@@ -24,6 +26,11 @@ public class UI {
 		System.out.println("*************************************************");
 	}
 
+	public static void afficherChoix() {
+		System.out.println("");
+		System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+	}
+	
 	public static void actionsMenu() throws SQLException {
 		ComputerService computerService = new ComputerService();
 		CompanyService companyService = new CompanyService();
@@ -34,45 +41,37 @@ public class UI {
 			int choice = sc.nextInt();
 			switch (CliMenu.menuChoice(choice)) {
 				case LISTCOMPANIES:
-					// System.out.println(DAOcompany.getInstance().getCompanies());
-					for (Company companies : companyService.getAllCompanies()) {
-						System.out.println(companies.toString());
-					}
-					System.out.println("");
-					System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+					List<Company> companies = companyService.getAllCompanies();
+//					for (Company companies : companyService.getAllCompanies()) {
+//						System.out.println(companies.toString());
+//					}
+					companies.stream().forEach(System.out::println);
+					afficherChoix();
 					break;
 				case LISTCOMPUTERS:
-					// System.out.println(computer.getComputers());
-					for (Computer computer : computerService.getAllComputers()) {
-						System.out.println(computer.toString());
-					}
-					System.out.println("");
-					System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+					List<Computer> computers = computerService.getAllComputers();
+					computers.stream().forEach(System.out::println);
+					afficherChoix();
 					break;
 				case SHOWDETAILS:
 					ActionsMenu.getInstance().showDetails();
-					System.out.println("");
-					System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+					afficherChoix();
 					break;
 				case CREATECOMPUTER:
 					ActionsMenu.getInstance().createComputer();
-					System.out.println("");
-					System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+					afficherChoix();
 					break;
 				case UPDATECOMPUTER:
 					ActionsMenu.getInstance().updateComputer();
-					System.out.println("");
-					System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+					afficherChoix();
 					break;
 				case DELETECOMPUTER:
 					ActionsMenu.getInstance().deleteComputer();
-					System.out.println("");
-					System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+					afficherChoix();
 					break;
 				case PAGINATION:
 					ActionsMenu.getInstance().pagination();
-					System.out.println("");
-					System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
+					afficherChoix();
 					break;
 				case QUIT:
 					quit = false;
@@ -88,6 +87,7 @@ public class UI {
 	}
 
 	public static void main(String[] args) throws SQLException {
+		
 		Connexion.getDbCon();
 		afficherMenu();
 		actionsMenu();

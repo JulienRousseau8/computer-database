@@ -41,8 +41,8 @@ public class CompanyServiceTest extends Mockito {
 		Mockito.when(daoCompany.getCompanyById(10)).thenReturn(mockCompany);
 		Company companyRes = companyService.getCompanyById(companyId).get();
 		
-		assertEquals(mockCompany.get().id, companyRes.id);
-		assertEquals("Digital Equipment Corporation", companyRes.name);
+		assertEquals(mockCompany.get().getId(), companyRes.getId());
+		assertEquals("Digital Equipment Corporation", companyRes.getName());
 	}
 
 }

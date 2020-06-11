@@ -11,17 +11,17 @@ import com.excilys.model.Company;
 public class CompanyDTOMapper {
 
 	public static Company dtoToCompany(CompanyDTO companyDto){
-		long companyId = Long.parseLong(companyDto.id);
+		long companyId = Long.parseLong(companyDto.getId());
 		Optional<Company> optCompany = DAOcompany.getInstance().getCompanyById(companyId);
 
-		Company company = new Company.CompanyBuilder().setId(companyId).setName(optCompany.get().name).build();
+		Company company = new Company.CompanyBuilder().setId(companyId).setName(optCompany.get().getName()).build();
 
 		return company;
 	}
 
 	public static CompanyDTO companyToDto(Company company) {
-		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId(String.valueOf(company.id))
-				.setName(company.name).build();
+		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder().setId(String.valueOf(company.getId()))
+				.setName(company.getName()).build();
 
 		return companyDto;
 	}

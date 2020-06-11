@@ -37,6 +37,12 @@ public class Pagination {
 		}
 		System.out.println("*-------------------------------------------------------------*");
 	}
+	
+	@Override
+	public String toString() {
+		return "Pagination [pageNum=" + pageNum + ", pageMax=" + pageMax
+		        + ", pageTaille=" + pageTaille + "]";
+	}
 
 	public int getPageNum() {
 		return pageNum;

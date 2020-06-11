@@ -48,8 +48,8 @@
 				</div>
 			</div>
 		</div>
-		<form id="deleteForm" action="#" method="POST">
-			<input type="hidden" name="selection" value="">
+		<form id="deleteForm" action="Dashboard" method="POST">
+				<input type="hidden" name="selection" value="">
 		</form>
 
 		<div class="container" style="margin-top: 10px;">
@@ -73,7 +73,6 @@
 						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date</th>
 						<!-- Table header for Company -->
-						<th>Company Id</th>
 						<th>Company Name</th>
 
 					</tr>
@@ -88,7 +87,6 @@
 										value="${computer.name}" /></a></td>
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
-							<td>${computer.companyId}</td>
 							<td>${computer.companyName}</td>
 
 						</tr>
@@ -113,8 +111,8 @@
 
 				<c:forEach var="i" begin="1" end="5">
 					<c:if test="${pageNum + i <= pageMax}">
-						<li><a href="Dashboard?pageNum=${pageNum+i}"
-							aria-label="Next"> <c:out value="${pageNum+i}"></c:out>
+						<li><a href="Dashboard?pageNum=${pageNum+i}">
+							 <c:out value="${pageNum+i}"></c:out>
 						</a></li>
 					</c:if>
 				</c:forEach>

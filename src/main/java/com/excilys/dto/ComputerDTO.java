@@ -1,12 +1,12 @@
 package com.excilys.dto;
 
 public class ComputerDTO {
-	public String id;
-	public String name;
-	public String introduced;
-	public String discontinued;
-	public String companyId;
-	public String companyName;
+	private String id;
+	private String name;
+	private String introduced;
+	private String discontinued;
+	private String companyId;
+	private String companyName;
 
 	private ComputerDTO() {
 	}
@@ -22,7 +22,7 @@ public class ComputerDTO {
 
 	@Override
 	public String toString() {
-		return this.id + " | " + this.name + " | " + this.introduced + " | " + this.discontinued + " | " + this.companyId + " | " + this.companyName;
+		return "name : " + this.name + " | " + "introduced : " + this.introduced + " | " + "discontinued : " + this.discontinued + " | " + "Company : " + this.companyName;
 	}
 	
 	@Override

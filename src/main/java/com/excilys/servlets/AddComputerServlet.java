@@ -55,5 +55,4 @@ public class AddComputerServlet extends HttpServlet {
 		
 		response.sendRedirect("Dashboard");
 	}
-
 }

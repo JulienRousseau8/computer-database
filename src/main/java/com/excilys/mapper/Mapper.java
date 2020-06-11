@@ -31,6 +31,7 @@ public class Mapper {
 	public static Optional<Company> companyMapper(ResultSet CompanyResultSet) throws SQLException {
 		long companyid = CompanyResultSet.getLong("id");
 		String name = CompanyResultSet.getString("name");
+		
 		Company company = new Company.CompanyBuilder().setId(companyid).setName(name).build();
 		return Optional.ofNullable(company);
 	}
