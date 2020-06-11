@@ -25,10 +25,7 @@ public class Computer {
 	public String toString() {
 		return "name : " + this.name + " | " + "introduced : " + this.introduced + " | " + "discontinued : " + this.discontinued + " | " + "Company : " + this.company.getName();
 	}
-	
 
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

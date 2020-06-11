@@ -58,10 +58,12 @@ public class DashboardServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getParameter("selection");
-		System.out.println(request.getParameter("selection"));
+		String[] idaSupprimer = request.getParameter("selection").split(",");
+		
+		for(String id : idaSupprimer) {
+			computerService.deleteComputer(Integer.parseInt(id));
+		}
 
-		//computerService.deleteComputer(computerId);
 		response.sendRedirect("Dashboard");
 	}
 }

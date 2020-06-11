@@ -48,8 +48,9 @@
 				</div>
 			</div>
 		</div>
+		
 		<form id="deleteForm" action="Dashboard" method="POST">
-				<input type="hidden" name="selection" value="">
+			<input type="hidden" name="selection" value="">
 		</form>
 
 		<div class="container" style="margin-top: 10px;">
@@ -82,9 +83,11 @@
 					<c:forEach var="computer" items="${computerList}">
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
-								class="cb" value="0"></td>
-							<td><a href="EditComputer?computerId=${computer.id }"><c:out
-										value="${computer.name}" /></a></td>
+								class="cb" value="${computer.id }"></td>
+							<td><a href="EditComputer?computerId=${computer.id }"> <c:out
+										value="${computer.name}" />
+							</a></td>
+
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
 							<td>${computer.companyName}</td>
@@ -111,8 +114,8 @@
 
 				<c:forEach var="i" begin="1" end="5">
 					<c:if test="${pageNum + i <= pageMax}">
-						<li><a href="Dashboard?pageNum=${pageNum+i}">
-							 <c:out value="${pageNum+i}"></c:out>
+						<li><a href="Dashboard?pageNum=${pageNum+i}"> <c:out
+									value="${pageNum+i}"></c:out>
 						</a></li>
 					</c:if>
 				</c:forEach>
@@ -127,15 +130,13 @@
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default">
-					<a href="Dashboard?pageTaille=10">10</a>
-				</button>
-				<button type="button" class="btn btn-default">
-					<a href="Dashboard?pageTaille=50">50</a>
-				</button>
-				<button type="button" class="btn btn-default">
-					<a href="Dashboard?pageTaille=100">100</a>
-				</button>
+				<a href="Dashboard?pageTaille=10"><button type="button"
+						class="btn btn-default">10</button> </a> <a
+					href="Dashboard?pageTaille=50"><button type="button"
+						class="btn btn-default">50</button></a> <a
+					href="Dashboard?pageTaille=100">
+					<button type="button" class="btn btn-default">100</button>
+				</a>
 			</div>
 		</div>
 	</footer>
