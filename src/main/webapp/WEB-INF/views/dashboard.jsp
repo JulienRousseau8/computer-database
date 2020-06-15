@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ page isELIgnored="false"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -33,7 +33,8 @@
 			<h1 id="homeTitle">${nbComputers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="#" method="GET" class="form-inline">
+					<form id="searchForm" action="Dashboard" method="GET"
+						class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" /> <input
@@ -48,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<form id="deleteForm" action="Dashboard" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
@@ -69,7 +70,7 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th>Computer name</th>
+						<th><a href="Dashboard?orderBy=computer">Computer name</a></th>
 						<th>Introduced date</th>
 						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date</th>
@@ -87,7 +88,6 @@
 							<td><a href="EditComputer?computerId=${computer.id }"> <c:out
 										value="${computer.name}" />
 							</a></td>
-
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
 							<td>${computer.companyName}</td>
@@ -98,51 +98,50 @@
 			</table>
 		</div>
 	</section>
-
-
-
-
+	
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
 
 				<c:if test="${pageNum > 0}">
-					<li><a href="Dashboard?pageNum=${pageNum-1}"
+					<li><a
+						href="Dashboard?pageNum=${pageNum-1}&search=${search}&orderBy=${orderBy}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
 				</c:if>
 
-
 				<c:forEach var="i" begin="1" end="5">
-					<c:if test="${pageNum + i <= pageMax}">
-						<li><a href="Dashboard?pageNum=${pageNum+i}"> <c:out
-									value="${pageNum+i}"></c:out>
+					<c:if test="${pageNum+i <= pageMax}">
+						<li><a
+							href="Dashboard?pageNum=${pageNum+i}&search=${search}&orderBy=${orderBy}">
+								<c:out value="${pageNum+i}"></c:out>
 						</a></li>
 					</c:if>
 				</c:forEach>
 
-
 				<c:if test="${pageNum < pageMax}">
-					<li><a href="Dashboard?pageNum=${pageNum+1}" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
+					<li><a
+						href="Dashboard?pageNum=${pageNum+1}&search=${search}&orderBy=${orderBy}"
+						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
 
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<a href="Dashboard?pageTaille=10"><button type="button"
-						class="btn btn-default">10</button> </a> <a
-					href="Dashboard?pageTaille=50"><button type="button"
-						class="btn btn-default">50</button></a> <a
-					href="Dashboard?pageTaille=100">
+				<a href="Dashboard?pageTaille=10&search=${search}"><button
+						type="button" class="btn btn-default">10</button> </a> <a
+					href="Dashboard?pageTaille=50&search=${search}"><button
+						type="button" class="btn btn-default">50</button></a> <a
+					href="Dashboard?pageTaille=100&search=${search}">
 					<button type="button" class="btn btn-default">100</button>
 				</a>
 			</div>
 		</div>
 	</footer>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/dashboard.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/dashboard.js"></script>
+	<script type="text/javascript" src="js/FormulaireValidation.js"></script>
 
 </body>
 

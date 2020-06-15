@@ -22,9 +22,12 @@ public class DashboardServlet extends HttpServlet {
 
 	ComputerService computerService = new ComputerService();
 	List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
+	List<ComputerDTO> searchComputerList = new ArrayList<ComputerDTO>();
+	List<ComputerDTO> orderComputerList = new ArrayList<ComputerDTO>();
 
 	private int pageTaille = 10;
 	private int pageNum;
+	
 	
     public static final String DASHBOARD = "/WEB-INF/views/dashboard.jsp";
 
@@ -33,6 +36,8 @@ public class DashboardServlet extends HttpServlet {
 
 		int nbComputers = computerService.countAllComputer();
 		Pagination page = new Pagination(nbComputers, pageTaille);
+		String search = null;
+		String orderBy = null;
 		
 		
 		if(request.getParameter("pageTaille")!=null) {
@@ -43,12 +48,27 @@ public class DashboardServlet extends HttpServlet {
 		if(request.getParameter("pageNum")!=null) {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 			page.setPageNum(pageNum);
+
+		}
+
+		search = request.getParameter("search");
+		orderBy = request.getParameter("orderBy");
+		
+		if(search!=null && (orderBy==null || orderBy.isEmpty())) {
+			listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getSearchComputersPage(search, page));
+			nbComputers = ComputerDTOMapper.listComputerToDto(computerService.getSearchComputers(search)).size();
+		}
+		else if(orderBy!=null && (search==null || search.isEmpty())) {
+			listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getComputersOrderByName(page));
+		}
+		else {
+			listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getPageComputer(page));
 		}
 		
-		listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getPageComputer(page));
-		
+		request.setAttribute("search", search);
 		request.setAttribute("pageMax", page.getPageMax());
 		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("orderBy", orderBy);
 		request.setAttribute("nbComputers", nbComputers);
 		request.setAttribute("computerList", listComputerDTO);
 		

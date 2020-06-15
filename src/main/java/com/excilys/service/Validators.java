@@ -15,7 +15,7 @@ public class Validators {
 
 	public static boolean verifierDateUtilisateurSaisie(String date) {
 		if (date == null || date.isEmpty()) {
-			return true;
+			return false;
 		}
 		if (date.substring(4, 5).equals("/")) {
 			logger.info("Mauvais format de Date");
@@ -43,10 +43,18 @@ public class Validators {
 	public static boolean verifierDateOrdre(String dateIntroduction, String dateArret) {
 		LocalDate intro = ConvertDate.convert(dateIntroduction);
 		LocalDate arret = ConvertDate.convert(dateArret);
+		boolean dateIntroNow = verifierDateNow(dateIntroduction);
+		boolean dateArretNow = verifierDateNow(dateArret);
 		if (dateIntroduction.isEmpty() || dateArret.isEmpty()) {
 			return true;
 		}
-		return arret.isAfter(intro);
+		else if (dateIntroNow || dateArretNow) {
+			return arret.isAfter(intro);
+		}
+		else {
+			logger.info("La date doit inférieur à la date d'aujourd'hui");
+			return false;
+		}
 	}
 
 	public static boolean verifierIdCompany(String id){
@@ -64,5 +72,10 @@ public class Validators {
 			logger.info("L'Id entreprise doit être un entier");
 			return false;
 		}
+	}
+	
+	public static boolean verifierDateNow(String date) {
+		LocalDate localDate = ConvertDate.convert(date);
+		return localDate.isAfter(LocalDate.now());
 	}
 }

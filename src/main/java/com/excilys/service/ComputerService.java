@@ -85,6 +85,18 @@ public class ComputerService {
 		return DAOcomputer.getInstance().getPageComputers(page);
 	}
 	
+	public List<Computer> getSearchComputersPage(String recherche, Pagination page){
+		return DAOcomputer.getInstance().getSearchComputersPage(recherche, page);
+	}
+	
+	public List<Computer> getSearchComputers(String recherche){
+		return DAOcomputer.getInstance().getSearchComputers(recherche);
+	}
+	
+	public List<Computer> getComputersOrderByName(Pagination page){
+		return DAOcomputer.getInstance().getPageComputersOrderByName(page);
+	}
+	
 	private boolean verifierDate(ComputerDTO computerDto) {
 		boolean ordreDate = false;
 		boolean dateIntroduced = Validators.verifierDateUtilisateurSaisie(computerDto.getIntroduced());

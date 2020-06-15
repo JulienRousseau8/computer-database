@@ -39,17 +39,17 @@
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
 									type="text" class="form-control" id="computerName" name="computerName"
-									placeholder="Computer name" value="${computerDto.name }">
+									placeholder="Computer name" value="${computerDto.name }" required>
 							</div>
 							<div class="form-group">
-								<label for="introduced">Introduced date</label> <input
+								<label for="introduced">Introduced date (yyyy-MM-dd)</label> <input
 									type="date" class="form-control" id="introduced" name="introduced"
-									placeholder="${computerDto.introduced }" >
+									placeholder="${computerDto.introduced }" required pattern="\d{1,2}/\d{1,2}/\d{4}">
 							</div>
 							<div class="form-group">
-								<label for="discontinued">Discontinued date</label> <input
+								<label for="discontinued">Discontinued date (yyyy-MM-dd)</label> <input
 									type="date" class="form-control" id="discontinued" name="discontinued"
-									placeholder="${computerDto.discontinued }">
+									placeholder="${computerDto.discontinued }" required pattern="\d{1,2}/\d{1,2}/\d{4}">
 							</div>
 							<div class="form-group">
 								<label for="companyId">Company</label> <select
@@ -72,4 +72,8 @@
 		</div>
 	</section>
 </body>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/dashboard.js"></script>
+	<script type="text/javascript" src="js/FormulaireValidation.js"></script>
 </html>

@@ -15,12 +15,9 @@ public class DAOcompany {
 
 	public static DAOcompany daoCompany;
 
-	private static final String GETCOMPANIES = "SELECT company.id, company.name FROM company";
-	private static final String GETCOMPANYBYID = "SELECT id, name FROM company WHERE id=?";
-
 	private DAOcompany() {
 	}
-
+	
 	public static DAOcompany getInstance() {
 		if (daoCompany == null) {
 			daoCompany = new DAOcompany();
@@ -33,7 +30,7 @@ public class DAOcompany {
 		Optional<Company> company;
 		List<Company> listCompanies = new ArrayList<Company>();
 
-		try (PreparedStatement getCompaniesStatement = Connexion.getDbCon().prepareStatement(GETCOMPANIES)) {
+		try (PreparedStatement getCompaniesStatement = Connexion.getConn().prepareStatement(SQLRequest.GETCOMPANIES.getQuery())) {
 			allCompaniesRes = getCompaniesStatement.executeQuery();
 			while (allCompaniesRes.next()) {
 				company = Mapper.companyMapper(allCompaniesRes);
@@ -48,7 +45,7 @@ public class DAOcompany {
 	public Optional<Company> getCompanyById(long id){
 		ResultSet companyRes;
 		Optional<Company> company;
-		try (PreparedStatement getCompanyByIdStatement = Connexion.getDbCon().prepareStatement(GETCOMPANYBYID)) {
+		try (PreparedStatement getCompanyByIdStatement = Connexion.getConn().prepareStatement(SQLRequest.GETCOMPANYBYID.getQuery())) {
 			getCompanyByIdStatement.setLong(1, id);
 			companyRes = getCompanyByIdStatement.executeQuery();
 			if (companyRes.next()) {
