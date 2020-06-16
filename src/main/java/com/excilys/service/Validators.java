@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.DAO.DAOcompany;
+import com.excilys.dto.ComputerDTO;
+import com.excilys.mapper.DateMapper;
 import com.excilys.model.Company;
 
 public class Validators {
@@ -41,14 +43,14 @@ public class Validators {
 	}
 
 	public static boolean verifierDateOrdre(String dateIntroduction, String dateArret) {
-		LocalDate intro = ConvertDate.convert(dateIntroduction);
-		LocalDate arret = ConvertDate.convert(dateArret);
+		LocalDate intro = DateMapper.stringToDate(dateIntroduction);
+		LocalDate arret = DateMapper.stringToDate(dateArret);
 		boolean dateIntroNow = verifierDateNow(dateIntroduction);
 		boolean dateArretNow = verifierDateNow(dateArret);
 		if (dateIntroduction.isEmpty() || dateArret.isEmpty()) {
 			return true;
 		}
-		else if (dateIntroNow || dateArretNow) {
+		else if (dateIntroNow && dateArretNow) {
 			return arret.isAfter(intro);
 		}
 		else {
@@ -75,7 +77,42 @@ public class Validators {
 	}
 	
 	public static boolean verifierDateNow(String date) {
-		LocalDate localDate = ConvertDate.convert(date);
-		return localDate.isAfter(LocalDate.now());
+		LocalDate localDate = DateMapper.stringToDate(date);
+		return localDate.isBefore(LocalDate.now());
+	}
+	
+	public static boolean verifierDate(ComputerDTO computerDto) {
+		boolean ordreDate = false;
+		boolean dateIntroduced = Validators.verifierDateUtilisateurSaisie(computerDto.getIntroduced());
+		boolean dateDiscontinued = Validators.verifierDateUtilisateurSaisie(computerDto.getDiscontinued());
+		if (dateIntroduced && dateDiscontinued) {
+			ordreDate = Validators.verifierDateOrdre(computerDto.getIntroduced(), computerDto.getDiscontinued());
+			if (!ordreDate) {
+				logger.info("Dates non valident !");
+			}
+		}
+		if (dateIntroduced && dateDiscontinued && ordreDate) {
+			return true;
+		} else return false;
+	}
+	
+	public static boolean verifierCompany(ComputerDTO computerDto) {
+		boolean comp = true;
+		if (computerDto.getCompanyId().isEmpty()) {
+			comp = false;
+			logger.info("Id de la compagnie requis");
+		} else if (!Validators.verifierIdCompany(computerDto.getCompanyId())) {
+			comp = false;
+		}
+		return comp;
+	}
+	
+	public static boolean verifierNom(ComputerDTO computerDto) {
+		boolean name = true;
+		if (computerDto.getName().isEmpty()) {
+			name = false;
+			logger.info("Nom requis");
+		}
+		return name;
 	}
 }

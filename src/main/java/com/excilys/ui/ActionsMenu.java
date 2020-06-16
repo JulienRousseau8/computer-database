@@ -12,6 +12,7 @@ import com.excilys.model.Computer;
 import com.excilys.model.Pagination;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
+import com.excilys.service.DashboardService;
 
 public class ActionsMenu {
 
@@ -21,6 +22,7 @@ public class ActionsMenu {
 	public static ActionsMenu actionMenu;
 	ComputerService computerService = new ComputerService();
 	CompanyService companyService = new CompanyService();
+	DashboardService dashboardService = new DashboardService();
 
 	private ActionsMenu() {
 	}
@@ -97,9 +99,9 @@ public class ActionsMenu {
 	}
 	
 	public void pagination() {
-		Pagination page = new Pagination(computerService.countAllComputer(), 20);
+		Pagination page = new Pagination(dashboardService.countAllComputer(), 20);
 		List<Computer> computerPage = new ArrayList<Computer>();
-		computerPage = computerService.getPageComputer(page);
+		computerPage = dashboardService.getPageComputer(page);
 		page.displayPageContent(computerPage);
 
 		boolean quit = true;
@@ -110,12 +112,12 @@ public class ActionsMenu {
 			switch (input) {
 			case "p":
 				page.prevPage();
-				computerPage = computerService.getPageComputer(page);
+				computerPage = dashboardService.getPageComputer(page);
 				page.displayPageContent(computerPage);
 				break;
 			case "n":
 				page.nextPage();
-				computerPage = computerService.getPageComputer(page);
+				computerPage = dashboardService.getPageComputer(page);
 				page.displayPageContent(computerPage);
 				break;
 			case "q":

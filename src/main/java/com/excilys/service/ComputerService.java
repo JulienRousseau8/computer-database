@@ -10,12 +10,10 @@ import com.excilys.DAO.DAOcomputer;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.mapper.ComputerDTOMapper;
 import com.excilys.model.Computer;
-import com.excilys.model.Pagination;
 
 public class ComputerService {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
-	CompanyService companyService = new CompanyService();
 
 	public List<Computer> getAllComputers(){
 		return DAOcomputer.getInstance().getComputers();
@@ -24,7 +22,6 @@ public class ComputerService {
 	public Optional<Computer> getComputerById(String id){
 		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(Long.parseLong(id));
 		if (!computer.isPresent()) {
-
 			logger.info("Aucun ordinateur ne correspond à cet ID");
 			System.out.println();
 		}
@@ -32,15 +29,14 @@ public class ComputerService {
 	}
 
 	public void createComputer(ComputerDTO computerDto){
-		boolean name = verifierNom(computerDto);
-		
-		boolean date = verifierDate(computerDto);
-
-		boolean comp = verifierCompany(computerDto);
+		boolean name = Validators.verifierNom(computerDto);
+		boolean date = Validators.verifierDate(computerDto);
+		boolean comp = Validators.verifierCompany(computerDto);
 
 		if (name && date && comp) {
 			Computer computer = ComputerDTOMapper.dtoToComputer(computerDto);
 			DAOcomputer.getInstance().createComputer(computer);
+			logger.info(computer.toString());
 		}
 	}
 	
@@ -54,7 +50,7 @@ public class ComputerService {
 		updateName(computerDto, oldComputerDto, newComputerDto);
 		updateIntroduced(computerDto, oldComputerDto, newComputerDto);
 		updateDiscontinued(computerDto, oldComputerDto, newComputerDto);
-		boolean date = verifierDate(computerDto);
+		boolean date = Validators.verifierDate(computerDto);
 		updateCompany(computerDto, oldComputerDto, newComputerDto);
 
 		logger.info(newComputerDto.toString());
@@ -75,68 +71,6 @@ public class ComputerService {
 		} else {
 			logger.info("Aucun ordinateur ne correspond à cet ID");
 		}
-	}
-
-	public int countAllComputer() {
-		return DAOcomputer.getInstance().countAllComputer();
-	}
-
-	public List<Computer> getPageComputer(Pagination page) {
-		return DAOcomputer.getInstance().getPageComputers(page);
-	}
-	
-	public List<Computer> getSearchComputersPage(String recherche, Pagination page){
-		return DAOcomputer.getInstance().getSearchComputersPage(recherche, page);
-	}
-	
-	public List<Computer> getSearchComputers(String recherche){
-		return DAOcomputer.getInstance().getSearchComputers(recherche);
-	}
-	
-	public List<Computer> getComputersOrdered(Pagination page, String orderBy){
-		if(orderBy.equals("company")) {
-			orderBy = "company.name";
-			return DAOcomputer.getInstance().getPageComputersOrdered(page, orderBy);
-		} else {
-			orderBy = "computer." + orderBy;
-			return DAOcomputer.getInstance().getPageComputersOrdered(page, orderBy);
-		}
-		
-	}
-	
-	private boolean verifierDate(ComputerDTO computerDto) {
-		boolean ordreDate = false;
-		boolean dateIntroduced = Validators.verifierDateUtilisateurSaisie(computerDto.getIntroduced());
-		boolean dateDiscontinued = Validators.verifierDateUtilisateurSaisie(computerDto.getDiscontinued());
-		if (dateIntroduced && dateDiscontinued) {
-			ordreDate = Validators.verifierDateOrdre(computerDto.getIntroduced(), computerDto.getDiscontinued());
-			if (!ordreDate) {
-				logger.info("Date non valide !");
-			}
-		}
-		if (dateIntroduced && dateDiscontinued && ordreDate) {
-			return true;
-		} else return false;
-	}
-	
-	private boolean verifierCompany(ComputerDTO computerDto) {
-		boolean comp = true;
-		if (computerDto.getCompanyId().isEmpty()) {
-			comp = false;
-			logger.info("Id de la compagnie requis");
-		} else if (!Validators.verifierIdCompany(computerDto.getCompanyId())) {
-			comp = false;
-		}
-		return comp;
-	}
-	
-	private boolean verifierNom(ComputerDTO computerDto) {
-		boolean name = true;
-		if (computerDto.getName().isEmpty()) {
-			name = false;
-			logger.info("Nom requis");
-		}
-		return name;
 	}
 	
 	private void updateName(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {

@@ -15,7 +15,7 @@ import com.excilys.model.Computer;
 public class CompanyService {
 
 	private static Logger logger = LoggerFactory.getLogger(CompanyService.class);
-	ComputerService computerService;
+	ComputerService computerService = new ComputerService();
 	
 	public Optional<Company> getCompanyById(String companyID){
 		try {
@@ -41,11 +41,11 @@ public class CompanyService {
 		listComputerToDelete = DAOcomputer.getInstance().getComputersByCompanyId(id);
 		if (company.isPresent()) {
 			for(Computer c : listComputerToDelete) {
-				DAOcomputer.getInstance().deleteComputer(c.getId());
+				computerService.deleteComputer(c.getId());
 			}
 			DAOcompany.getInstance().deleteCompany(id);
 			logger.info(listComputerToDelete.size() + " ordinateurs supprimés");
-			logger.info(company.get().toString() + ": Entreprise supprimé");
+			logger.info(company.get().getName().toString() + ": Entreprise supprimé");
 		} else {
 			logger.info("Aucune entreprise ne correspond à cet ID");
 		}

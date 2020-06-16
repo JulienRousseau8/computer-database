@@ -6,15 +6,14 @@ import java.util.List;
 import com.excilys.DAO.DAOcompany;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Computer;
-import com.excilys.service.ConvertDate;
 
 public class ComputerDTOMapper {
 
 	public static Computer dtoToComputer(ComputerDTO computerDto){
 		Computer computer = new Computer.ComputerBuilder()
 				.setName(computerDto.getName())
-				.setIntroduced(ConvertDate.convert(computerDto.getIntroduced()))
-				.setDiscontinued(ConvertDate.convert(computerDto.getDiscontinued()))
+				.setIntroduced(DateMapper.stringToDate(computerDto.getIntroduced()))
+				.setDiscontinued(DateMapper.stringToDate(computerDto.getDiscontinued()))
 				.setCompany(DAOcompany.getInstance().getCompanyById(Long.parseLong(computerDto.getCompanyId())).get())
 				.build();
 		return computer;

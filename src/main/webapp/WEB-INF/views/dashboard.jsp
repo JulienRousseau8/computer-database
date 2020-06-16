@@ -70,12 +70,12 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><a href="Dashboard?pageNum=0&orderBy=name">Computer name</a></th>
-						<th><a href="Dashboard?pageNum=0&orderBy=introduced">Introduced date</a></th>
+						<th><a href="Dashboard?pageNum=0&orderBy=name&direction=${direction + 1}">Computer name</a></th>
+						<th><a href="Dashboard?pageNum=0&orderBy=introduced&direction=${direction + 1}">Introduced date</a></th>
 						<!-- Table header for Discontinued Date -->
-						<th><a href="Dashboard?pageNum=0&orderBy=discontinued">Discontinued date</a></th>
+						<th><a href="Dashboard?pageNum=0&orderBy=discontinued&direction=${direction + 1}">Discontinued date</a></th>
 						<!-- Table header for Company -->
-						<th><a href="Dashboard?pageNum=0&orderBy=company">Company Name</a></th>
+						<th><a href="Dashboard?pageNum=0&orderBy=company&direction=${direction + 1}">Company Name</a></th>
 
 					</tr>
 				</thead>
@@ -105,14 +105,14 @@
 
 				<c:if test="${pageNum > 0}">
 					<li><a
-						href="Dashboard?pageNum=${pageNum-1}&search=${search}&orderBy=${orderBy}"
+						href="Dashboard?pageNum=${pageNum-1}&search=${search}&orderBy=${orderBy}&direction=${direction}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
 				</c:if>
 
 				<c:forEach var="i" begin="1" end="5">
 					<c:if test="${pageNum+i <= pageMax}">
 						<li><a
-							href="Dashboard?pageNum=${pageNum+i}&search=${search}&orderBy=${orderBy}">
+							href="Dashboard?pageNum=${pageNum+i}&search=${search}&orderBy=${orderBy}&direction=${direction}">
 								<c:out value="${pageNum+i}"></c:out>
 						</a></li>
 					</c:if>
@@ -120,7 +120,7 @@
 
 				<c:if test="${pageNum < pageMax}">
 					<li><a
-						href="Dashboard?pageNum=${pageNum+1}&search=${search}&orderBy=${orderBy}"
+						href="Dashboard?pageNum=${pageNum+1}&search=${search}&orderBy=${orderBy}&direction=${direction}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
@@ -128,11 +128,11 @@
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<a href="Dashboard?pageNum=0&pageTaille=10"><button
+				<a href="Dashboard?pageNum=0&pageTaille=10&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">10</button> </a> <a
-					href="Dashboard?pageNum=0&pageTaille=50"><button
+					href="Dashboard?pageNum=0&pageTaille=50&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">50</button></a> <a
-					href="Dashboard?pageNum=0&pageTaille=100">
+					href="Dashboard?pageNum=0&pageTaille=100&search=${search}&orderBy=${orderBy}&direction=${direction}">
 					<button type="button" class="btn btn-default">100</button>
 				</a>
 			</div>
