@@ -37,22 +37,17 @@ public class AddComputerServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String computerName = request.getParameter("computerName");
-		String introduced = request.getParameter("introduced");
-		String discontinued = request.getParameter("discontinued");
 		String companyId = request.getParameter("companyId");
-		String companyName = companyService.getCompanyById(companyId).get().toString();
 		
 		computerDto = new ComputerDTO.ComputerDTOBuilder()
-				.setName(computerName)
-				.setIntroduced(introduced)
-				.setDiscontinued(discontinued)
+				.setName(request.getParameter("computerName"))
+				.setIntroduced(request.getParameter("introduced"))
+				.setDiscontinued(request.getParameter("discontinued"))
 				.setCompanyId(companyId)
-				.setCompanyName(companyName)
+				.setCompanyName(companyService.getCompanyById(companyId).get().toString())
 				.build();
 		
 		computerService.createComputer(computerDto);
-		
 		response.sendRedirect("Dashboard");
 	}
 }

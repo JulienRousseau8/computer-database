@@ -14,12 +14,13 @@ public enum SQLRequest {
 			+ "LIMIT ?, ?"),
 	SEARCHCOMPUTERPAGE ("SELECT computer.id, computer.name, computer.introduced, computer.discontinued, computer.company_id, company.name "
 			+ "FROM computer LEFT JOIN company ON company.id = company_id "
-			+ "WHERE computer.name LIKE ? ORDER BY computer.name LIMIT ?, ?  "),
+			+ "WHERE company.name LIKE ? OR computer.name LIKE ? "
+			+ "ORDER BY computer.name LIMIT ?, ?  "),
 	SEARCHCOMPUTER ("SELECT computer.id, computer.name, computer.introduced, computer.discontinued, computer.company_id, company.name "
 			+ "FROM computer LEFT JOIN company ON company.id = company_id "
-			+ "WHERE computer.name LIKE ?"),
+			+ "WHERE company.name LIKE ? OR computer.name LIKE ? "),
 	GETPAGECOMPUTERORDERBYNAME ("SELECT computer.id, computer.name, computer.introduced , computer.discontinued , company_id, company.name "
-			+ "FROM computer LEFT JOIN company ON company_id = company.id ORDER BY computer.name LIMIT ?,?;"),
+			+ "FROM computer LEFT JOIN company ON company_id = company.id ORDER BY ? LIMIT ?,?;"),
 	
 	GETCOMPANIES ("SELECT company.id, company.name FROM company"),
 	GETCOMPANYBYID ("SELECT id, name FROM company WHERE id=?");

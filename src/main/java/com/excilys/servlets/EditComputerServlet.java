@@ -40,24 +40,20 @@ public class EditComputerServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String computerId = request.getParameter("computerId");
-		String computerName = request.getParameter("computerName");
-		String introduced = request.getParameter("introduced");
-		String discontinued = request.getParameter("discontinued");
 		String companyId = request.getParameter("companyId");
 		CompanyDTO companyDto = CompanyDTOMapper.companyToDto(companyService.getCompanyById(companyId).get());
 		String companyName = companyDto.getName();
 		
 		computerDto = new ComputerDTO.ComputerDTOBuilder()
-				.setId(computerId)
-				.setName(computerName)
-				.setIntroduced(introduced)
-				.setDiscontinued(discontinued)
+				.setId(request.getParameter("computerId"))
+				.setName(request.getParameter("computerName"))
+				.setIntroduced(request.getParameter("introduced"))
+				.setDiscontinued(request.getParameter("discontinued"))
 				.setCompanyId(companyId)
 				.setCompanyName(companyName)
 				.build();
-		computerService.updateComputer(computerDto);
 		
+		computerService.updateComputer(computerDto);
 		response.sendRedirect("Dashboard");
 	}
 

@@ -93,8 +93,15 @@ public class ComputerService {
 		return DAOcomputer.getInstance().getSearchComputers(recherche);
 	}
 	
-	public List<Computer> getComputersOrderByName(Pagination page){
-		return DAOcomputer.getInstance().getPageComputersOrderByName(page);
+	public List<Computer> getComputersOrdered(Pagination page, String orderBy){
+		if(orderBy.equals("company")) {
+			orderBy = "company.name";
+			return DAOcomputer.getInstance().getPageComputersOrdered(page, orderBy);
+		} else {
+			orderBy = "computer." + orderBy;
+			return DAOcomputer.getInstance().getPageComputersOrdered(page, orderBy);
+		}
+		
 	}
 	
 	private boolean verifierDate(ComputerDTO computerDto) {

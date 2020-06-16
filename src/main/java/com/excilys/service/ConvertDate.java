@@ -19,10 +19,8 @@ public class ConvertDate {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			try {
 				LocalDate localDate = LocalDate.parse(date, formatter);
-				if(localDate.isAfter(LocalDate.now())) {
-					logger.info("Veuillez entrer une date valide");
-				}
 				return localDate;
+				
 			} catch (DateTimeParseException DTexc) {
 				logger.info("La date saisie n'est pas bonne");
 				DTexc.printStackTrace();

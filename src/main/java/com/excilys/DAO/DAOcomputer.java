@@ -134,8 +134,9 @@ public class DAOcomputer {
 		Optional<Computer> computer;
 		try (PreparedStatement getSearchComputersStatement = Connexion.getConn().prepareStatement(SQLRequest.SEARCHCOMPUTERPAGE.getQuery())) {
 			getSearchComputersStatement.setString(1, "%" +recherche+ "%");
-			getSearchComputersStatement.setInt(2, page.getPageNum() * page.getPageTaille());
-			getSearchComputersStatement.setInt(3, page.getPageTaille());
+			getSearchComputersStatement.setString(2, "%" +recherche+ "%");
+			getSearchComputersStatement.setInt(3, page.getPageNum() * page.getPageTaille());
+			getSearchComputersStatement.setInt(4, page.getPageTaille());
 			ResultSet computerResSearch = getSearchComputersStatement.executeQuery();
 			while (computerResSearch.next()) {
 				computer = Mapper.computerMapper(computerResSearch);
@@ -153,6 +154,7 @@ public class DAOcomputer {
 		Optional<Computer> computer;
 		try (PreparedStatement getSearchComputersStatement = Connexion.getConn().prepareStatement(SQLRequest.SEARCHCOMPUTER.getQuery())) {
 			getSearchComputersStatement.setString(1, "%" +recherche+ "%");
+			getSearchComputersStatement.setString(2, "%" +recherche+ "%");
 			ResultSet computerResSearch = getSearchComputersStatement.executeQuery();
 			while (computerResSearch.next()) {
 				computer = Mapper.computerMapper(computerResSearch);
@@ -165,12 +167,15 @@ public class DAOcomputer {
 		return computerSearch;
 	}
 	
-	public List<Computer> getPageComputersOrderByName(Pagination page) {
+	public List<Computer> getPageComputersOrdered(Pagination page, String orderBy) {
 		List<Computer> computerPages = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		try (PreparedStatement getPageComputersStatement = Connexion.getConn().prepareStatement(SQLRequest.GETPAGECOMPUTERORDERBYNAME.getQuery())) {
+		final String GETPAGECOMPUTERORDERBYNAME ="SELECT computer.id, computer.name, computer.introduced , computer.discontinued , company_id, company.name "
+				+ "FROM computer LEFT JOIN company ON company_id = company.id ORDER BY " + orderBy + " LIMIT ?,?;";
+		try (PreparedStatement getPageComputersStatement = Connexion.getConn().prepareStatement(GETPAGECOMPUTERORDERBYNAME)) {
 			getPageComputersStatement.setInt(1, page.getPageNum() * page.getPageTaille());
 			getPageComputersStatement.setInt(2, page.getPageTaille());
+			System.out.println(getPageComputersStatement);
 			ResultSet computerResPages = getPageComputersStatement.executeQuery();
 			while (computerResPages.next()) {
 				computer = Mapper.computerMapper(computerResPages);

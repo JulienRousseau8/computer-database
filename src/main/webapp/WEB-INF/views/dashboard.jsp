@@ -70,12 +70,12 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><a href="Dashboard?orderBy=computer">Computer name</a></th>
-						<th>Introduced date</th>
+						<th><a href="Dashboard?pageNum=0&orderBy=name">Computer name</a></th>
+						<th><a href="Dashboard?pageNum=0&orderBy=introduced">Introduced date</a></th>
 						<!-- Table header for Discontinued Date -->
-						<th>Discontinued date</th>
+						<th><a href="Dashboard?pageNum=0&orderBy=discontinued">Discontinued date</a></th>
 						<!-- Table header for Company -->
-						<th>Company Name</th>
+						<th><a href="Dashboard?pageNum=0&orderBy=company">Company Name</a></th>
 
 					</tr>
 				</thead>
@@ -128,11 +128,11 @@
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<a href="Dashboard?pageTaille=10&search=${search}"><button
+				<a href="Dashboard?pageNum=0&pageTaille=10"><button
 						type="button" class="btn btn-default">10</button> </a> <a
-					href="Dashboard?pageTaille=50&search=${search}"><button
+					href="Dashboard?pageNum=0&pageTaille=50"><button
 						type="button" class="btn btn-default">50</button></a> <a
-					href="Dashboard?pageTaille=100&search=${search}">
+					href="Dashboard?pageNum=0&pageTaille=100">
 					<button type="button" class="btn btn-default">100</button>
 				</a>
 			</div>

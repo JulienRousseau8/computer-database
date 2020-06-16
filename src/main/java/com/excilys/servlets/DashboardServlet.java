@@ -59,7 +59,8 @@ public class DashboardServlet extends HttpServlet {
 			nbComputers = ComputerDTOMapper.listComputerToDto(computerService.getSearchComputers(search)).size();
 		}
 		else if(orderBy!=null && (search==null || search.isEmpty())) {
-			listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getComputersOrderByName(page));
+			listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getComputersOrdered(page, orderBy));
+			System.out.println(listComputerDTO.toString());
 		}
 		else {
 			listComputerDTO = ComputerDTOMapper.listComputerToDto(computerService.getPageComputer(page));
