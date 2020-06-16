@@ -1,7 +1,7 @@
 package com.excilys.ui;
 
 public enum CliMenu {
-	LISTCOMPANIES, LISTCOMPUTERS, SHOWDETAILS, CREATECOMPUTER, UPDATECOMPUTER, DELETECOMPUTER, PAGINATION, QUIT, AFFICHERMENU;
+	LISTCOMPANIES, LISTCOMPUTERS, SHOWDETAILS, CREATECOMPUTER, UPDATECOMPUTER, DELETECOMPUTER, PAGINATION, QUIT, AFFICHERMENU, DELETECOMPANY;
 
 	public static CliMenu menuChoice(int choice) {
 		switch (choice) {
@@ -23,6 +23,8 @@ public enum CliMenu {
 			return QUIT;
 		case 9 :
 			return AFFICHERMENU;
+		case 10 :
+			return DELETECOMPANY;
 		default:
 			return QUIT;
 		}

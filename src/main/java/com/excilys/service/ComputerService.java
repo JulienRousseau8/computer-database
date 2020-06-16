@@ -66,7 +66,7 @@ public class ComputerService {
 		}
 	}
 	
-	public void deleteComputer(int id){
+	public void deleteComputer(long id){
 		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(id);
 		if (computer.isPresent()) {
 			DAOcomputer.getInstance().deleteComputer(id);

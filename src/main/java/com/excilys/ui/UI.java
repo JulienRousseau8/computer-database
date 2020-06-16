@@ -22,6 +22,8 @@ public class UI {
 		System.out.println("	6 - Supprimer un ordinateur");
 		System.out.println("	7 - Pagination ordinateur");
 		System.out.println("	8 - Quitter");
+		System.out.println("    9 - Afficher le menu");
+		System.out.println("    10- Supprimer une entreprise");
 		System.out.println("*************************************************");
 	}
 
@@ -77,6 +79,9 @@ public class UI {
 					break;
 				case AFFICHERMENU:
 					afficherMenu();
+					break;
+				case DELETECOMPANY:
+					ActionsMenu.getInstance().deleteCompany();
 					break;
 				default:
 					break;

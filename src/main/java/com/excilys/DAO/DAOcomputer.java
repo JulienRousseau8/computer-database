@@ -60,6 +60,24 @@ public class DAOcomputer {
 		return Optional.empty();
 	}
 
+	public List<Computer> getComputersByCompanyId(int id) {
+		ResultSet computerByCompanyRes;
+		Optional<Computer> computer;
+		List<Computer> listComputers = new ArrayList<Computer>();
+
+		try (PreparedStatement getComputersByCompanyStatement = Connexion.getConn().prepareStatement(SQLRequest.GETCOMPUTERSBYCOMPANYID.getQuery())) {
+			getComputersByCompanyStatement.setInt(1, id);
+			computerByCompanyRes = getComputersByCompanyStatement.executeQuery();
+			while (computerByCompanyRes.next()) {
+				computer = Mapper.computerMapper(computerByCompanyRes);
+				listComputers.add(computer.get());
+			}
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
+		}
+		return listComputers;
+	}
+	
 	public void createComputer(Computer computer){
 		try (PreparedStatement createComputerStatement = Connexion.getConn().prepareStatement(SQLRequest.CREATECOMPUTER.getQuery());) {
 			createComputerStatement.setString(1, computer.getName());

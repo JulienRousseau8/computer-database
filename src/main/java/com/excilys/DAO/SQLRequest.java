@@ -22,8 +22,11 @@ public enum SQLRequest {
 	GETPAGECOMPUTERORDERBYNAME ("SELECT computer.id, computer.name, computer.introduced , computer.discontinued , company_id, company.name "
 			+ "FROM computer LEFT JOIN company ON company_id = company.id ORDER BY ? LIMIT ?,?;"),
 	
+	GETCOMPUTERSBYCOMPANYID ("SELECT computer.id, computer.name, computer.introduced , computer.discontinued , company_id, company.name"
+			+ " FROM computer LEFT JOIN company ON company.id = company_id WHERE company.id = ?"),
 	GETCOMPANIES ("SELECT company.id, company.name FROM company"),
-	GETCOMPANYBYID ("SELECT id, name FROM company WHERE id=?");
+	GETCOMPANYBYID ("SELECT id, name FROM company WHERE id=?"),
+	DELETECOMPANY ("DELETE FROM company WHERE id=?");
 	
 	private String requete;
 

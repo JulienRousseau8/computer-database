@@ -90,6 +90,12 @@ public class ActionsMenu {
 		computerService.deleteComputer(suppId);
 	}
 
+	public void deleteCompany() {
+		System.out.println("Entrer l'ID de l'entreprise à supprimer");
+		int suppId = scan.nextInt();
+		companyService.deleteCompany(suppId);
+	}
+	
 	public void pagination() {
 		Pagination page = new Pagination(computerService.countAllComputer(), 20);
 		List<Computer> computerPage = new ArrayList<Computer>();

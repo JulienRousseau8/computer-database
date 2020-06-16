@@ -57,4 +57,13 @@ public class DAOcompany {
 		}
 		return Optional.empty();
 	}
+	
+	public void deleteCompany(long id){
+		try (PreparedStatement deleteCompanyStatement = Connexion.getConn().prepareStatement(SQLRequest.DELETECOMPANY.getQuery())) {
+			deleteCompanyStatement.setLong(1, id);
+			deleteCompanyStatement.executeUpdate();
+		} catch (SQLException SQLexception) {
+			SQLexception.printStackTrace();
+		}
+	}
 }
