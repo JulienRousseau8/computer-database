@@ -24,72 +24,81 @@ public class DashboardServlet extends HttpServlet {
 	ComputerService computerService = new ComputerService();
 	DashboardService dashboardService = new DashboardService();
 	List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
-	List<ComputerDTO> searchComputerList = new ArrayList<ComputerDTO>();
-	List<ComputerDTO> orderComputerList = new ArrayList<ComputerDTO>();
 
-	private int pageTaille = 10;
+	private int pageTaille =10;
 	private int pageNum;
-	
-	
+	private int nbComputers;
+	private int pageMax;
+	Pagination page = new Pagination(nbComputers, pageTaille);
+	int direction = 1;
+
     public static final String DASHBOARD = "/WEB-INF/views/dashboard.jsp";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connexion.getDbCon();
-
-		int nbComputers = dashboardService.countAllComputer();
-		Pagination page = new Pagination(nbComputers, pageTaille);
+		nbComputers = dashboardService.countAllComputer();
 		String search = null;
 		String orderBy = null;
-		int direction = 0;
 		
-		
-		if(request.getParameter("pageTaille")!=null) {
-			pageTaille = Integer.parseInt(request.getParameter("pageTaille"));
-			page.setPageTaille(pageTaille);
-		}
-
-		if(request.getParameter("pageNum")!=null) {
-			pageNum = Integer.parseInt(request.getParameter("pageNum"));
-			page.setPageNum(pageNum);
-
-		}
-		
+		getPageTailleFromJsp(request);
+		getPageNumFromJsp(request);
 		search = request.getParameter("search");
 		orderBy = request.getParameter("orderBy");
 		
-		if(search!=null && (orderBy==null || orderBy.isEmpty())) {
-			listComputerDTO = ComputerDTOMapper.listComputerToDto(dashboardService.getSearchComputersPage(search, page));
-			nbComputers = ComputerDTOMapper.listComputerToDto(dashboardService.getSearchComputers(search)).size();
+		viewChoice(request, search, orderBy);
+		setAttributes(request, page, search, orderBy, direction, nbComputers, listComputerDTO);
+		request.getRequestDispatcher(DASHBOARD).forward(request, response);	
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String[] idaSupprimer = request.getParameter("selection").split(",");
+		for(String id : idaSupprimer) {
+			computerService.deleteComputer(Integer.parseInt(id));
 		}
-		else if(orderBy!=null && (search==null || search.isEmpty())) {
-			direction = Integer.parseInt(request.getParameter("direction"))%2;
-			listComputerDTO = ComputerDTOMapper.listComputerToDto(dashboardService.getComputersOrdered(page, orderBy, direction));
-			System.out.println(listComputerDTO.toString());
-		}
-		else {
-			listComputerDTO = ComputerDTOMapper.listComputerToDto(dashboardService.getPageComputer(page));
-		}
-		
+		response.sendRedirect("Dashboard");
+	}
+	
+	
+	private void setAttributes(HttpServletRequest request, 
+	        Pagination page, String search, String orderBy, int direction, int nbComputers, List<ComputerDTO> listComputerDTO) {
 		request.setAttribute("search", search);
-		request.setAttribute("pageMax", page.getPageMax());
+		request.setAttribute("pageMax", pageMax);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("orderBy", orderBy);
 		request.setAttribute("direction", direction);
 		request.setAttribute("nbComputers", nbComputers);
 		request.setAttribute("computerList", listComputerDTO);
-		
-		request.getRequestDispatcher(DASHBOARD).forward(request, response);
-		
 	}
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String[] idaSupprimer = request.getParameter("selection").split(",");
-		
-		for(String id : idaSupprimer) {
-			computerService.deleteComputer(Integer.parseInt(id));
+	private List<ComputerDTO> viewChoice(HttpServletRequest request, String search, String orderBy){
+		if(search!=null && (orderBy==null || orderBy.isEmpty())) {
+			nbComputers = ComputerDTOMapper.listComputerToDto(dashboardService.getSearchComputers(search)).size();
+			listComputerDTO = ComputerDTOMapper.listComputerToDto(dashboardService.getSearchComputersPage(search, page));
 		}
-
-		response.sendRedirect("Dashboard");
+		else if(orderBy!=null && (search==null || search.isEmpty())) {
+			direction = Integer.parseInt(request.getParameter("direction"))%2;
+			listComputerDTO = ComputerDTOMapper.listComputerToDto(dashboardService.getComputersOrdered(page, orderBy, direction));
+		}
+		else {
+			listComputerDTO = ComputerDTOMapper.listComputerToDto(dashboardService.getPageComputer(page));
+		}
+		return listComputerDTO;
 	}
+	
+
+	private void getPageTailleFromJsp(HttpServletRequest request) {
+		if(request.getParameter("pageTaille")!=null) {
+			pageTaille = Integer.parseInt(request.getParameter("pageTaille"));
+			page.setPageTaille(pageTaille);
+			pageMax = nbComputers / pageTaille;
+		}
+	}
+
+	private void getPageNumFromJsp(HttpServletRequest request) {
+		if(request.getParameter("pageNum")!=null) {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+			page.setPageNum(pageNum);
+		}
+	}
+
 }

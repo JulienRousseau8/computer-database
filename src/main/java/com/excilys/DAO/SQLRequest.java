@@ -15,7 +15,7 @@ public enum SQLRequest {
 	SEARCHCOMPUTERPAGE ("SELECT computer.id, computer.name, computer.introduced, computer.discontinued, computer.company_id, company.name "
 			+ "FROM computer LEFT JOIN company ON company.id = company_id "
 			+ "WHERE company.name LIKE ? OR computer.name LIKE ? "
-			+ "ORDER BY computer.name LIMIT ?, ?  "),
+			+ "LIMIT ?, ?  "),
 	SEARCHCOMPUTER ("SELECT computer.id, computer.name, computer.introduced, computer.discontinued, computer.company_id, company.name "
 			+ "FROM computer LEFT JOIN company ON company.id = company_id "
 			+ "WHERE company.name LIKE ? OR computer.name LIKE ? "),

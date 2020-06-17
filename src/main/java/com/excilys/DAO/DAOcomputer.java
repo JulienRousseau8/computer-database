@@ -176,8 +176,7 @@ public class DAOcomputer {
 				.prepareStatement(SQLRequest.SEARCHCOMPUTERPAGE.getQuery())) {
 			getSearchComputersStatement.setString(1, "%" + recherche + "%");
 			getSearchComputersStatement.setString(2, "%" + recherche + "%");
-			getSearchComputersStatement.setInt(3,
-					page.getPageNum() * page.getPageTaille());
+			getSearchComputersStatement.setInt(3, page.getPageNum() * page.getPageTaille());
 			getSearchComputersStatement.setInt(4, page.getPageTaille());
 			ResultSet computerResSearch = getSearchComputersStatement
 					.executeQuery();
@@ -216,7 +215,7 @@ public class DAOcomputer {
 		final int ASC = 1;
 		List<Computer> computerPages = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		PreparedStatement getPageComputersStatement = null;
+		PreparedStatement getPageComputersStatement;
 		
 		final String GETPAGECOMPUTERORDERBYNAMEASC = "SELECT computer.id, computer.name, computer.introduced , computer.discontinued , company_id, company.name "
 				+ "FROM computer LEFT JOIN company ON company_id = company.id ORDER BY " + orderBy + " ASC LIMIT ?,?;";

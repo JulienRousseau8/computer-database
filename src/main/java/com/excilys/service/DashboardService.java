@@ -32,6 +32,5 @@ public class DashboardService {
 			orderBy = "computer." + orderBy;
 			return DAOcomputer.getInstance().getPageComputersOrdered(page, orderBy, direction);
 		}
-		
 	}
 }
