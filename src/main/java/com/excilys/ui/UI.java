@@ -4,15 +4,21 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.excilys.configuration.SpringConfig;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
-import com.excilys.persistence.Connexion;
-import com.excilys.service.CompanyService;
-import com.excilys.service.ComputerService;
 
 public class UI {
 
-	public static void afficherMenu() {
+	ActionsMenu actionsMenu;
+
+	public UI(ActionsMenu actionsMenu) {
+		this.actionsMenu = actionsMenu;
+	}
+	
+	public void afficherMenu() throws SQLException {
 		System.out.println("*************************************************");
 		System.out.println("	1 - Afficher la liste des entreprises");
 		System.out.println("	2 - Afficher la liste des ordinateurs");
@@ -22,56 +28,54 @@ public class UI {
 		System.out.println("	6 - Supprimer un ordinateur");
 		System.out.println("	7 - Pagination ordinateur");
 		System.out.println("	8 - Quitter");
-		System.out.println("    9 - Afficher le menu");
-		System.out.println("    10- Supprimer une entreprise");
+		System.out.println("    	9 - Afficher le menu");
+		System.out.println("    	10- Supprimer une entreprise");
 		System.out.println("*************************************************");
+		actionsMenu();
 	}
 
-	public static void afficherChoix() {
+	public void afficherChoix() {
 		System.out.println("");
 		System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
 	}
-	
-	public static void actionsMenu() throws SQLException {
-		ComputerService computerService = new ComputerService();
-		CompanyService companyService = new CompanyService();
 
+	public void actionsMenu() throws SQLException {
 		boolean quit = true;
 		Scanner sc = new Scanner(System.in);
 		while (quit) {
 			int choice = sc.nextInt();
 			switch (CliMenu.menuChoice(choice)) {
 				case LISTCOMPANIES:
-					List<Company> companies = companyService.getAllCompanies();
-//					for (Company companies : companyService.getAllCompanies()) {
-//						System.out.println(companies.toString());
-//					}
+					List<Company> companies = actionsMenu.getAllCompanies();
+					//					for (Company companies : companyService.getAllCompanies()) {
+					//						System.out.println(companies.toString());
+					//					}
 					companies.stream().forEach(System.out::println);
 					afficherChoix();
 					break;
 				case LISTCOMPUTERS:
-					List<Computer> computers = computerService.getAllComputers();
+					List<Computer> computers = actionsMenu.getAllComputers();
 					computers.stream().forEach(System.out::println);
 					afficherChoix();
 					break;
 				case SHOWDETAILS:
-					ActionsMenu.getInstance().showDetails();
+					actionsMenu.showDetails();
 					afficherChoix();
 					break;
 				case CREATECOMPUTER:
-					ActionsMenu.getInstance().createComputer();
+					actionsMenu.createComputer();
 					afficherChoix();
 					break;
 				case UPDATECOMPUTER:
-					ActionsMenu.getInstance().updateComputer();
+					actionsMenu.updateComputer();
 					afficherChoix();
 					break;
 				case DELETECOMPUTER:
-					ActionsMenu.getInstance().deleteComputer();
+					actionsMenu.deleteComputer();
 					afficherChoix();
 					break;
 				case PAGINATION:
-					ActionsMenu.getInstance().pagination();
+					actionsMenu.pagination();
 					afficherChoix();
 					break;
 				case QUIT:
@@ -81,7 +85,7 @@ public class UI {
 					afficherMenu();
 					break;
 				case DELETECOMPANY:
-					ActionsMenu.getInstance().deleteCompany();
+					actionsMenu.deleteCompany();
 					break;
 				default:
 					break;
@@ -89,10 +93,13 @@ public class UI {
 		}
 		sc.close();
 	}
-
 	public static void main(String[] args) throws SQLException {
-		Connexion.getDbCon();
-		afficherMenu();
-		actionsMenu();
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.register(SpringConfig.class);
+		context.refresh();
+		ActionsMenu actionsMenu = context.getBean(ActionsMenu.class);
+		UI ui = new UI(actionsMenu);
+		ui.afficherMenu();
+		context.close();
 	}
 }

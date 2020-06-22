@@ -5,22 +5,36 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.excilys.DAO.DAOcomputer;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.mapper.ComputerDTOMapper;
 import com.excilys.model.Computer;
 
+@Service
 public class ComputerService {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
-
+	CompanyService companyService;
+	Validators validators = new Validators(companyService);
+	ComputerDTOMapper mapper = new ComputerDTOMapper(companyService);
+	DAOcomputer daoComputer;
+	
+	public ComputerService(DAOcomputer daoComputer) {
+		this.daoComputer = daoComputer;
+	}
+	
 	public List<Computer> getAllComputers(){
-		return DAOcomputer.getInstance().getComputers();
+		return daoComputer.getComputers();
+	}
+	
+	public List<Computer> getComputersByCompanyId(int id){
+		return daoComputer.getComputersByCompanyId(id);
 	}
 
 	public Optional<Computer> getComputerById(String id){
-		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(Long.parseLong(id));
+		Optional<Computer> computer = daoComputer.getComputerById(Long.parseLong(id));
 		if (!computer.isPresent()) {
 			logger.info("Aucun ordinateur ne correspond à cet ID");
 			System.out.println();
@@ -29,13 +43,13 @@ public class ComputerService {
 	}
 
 	public void createComputer(ComputerDTO computerDto){
-		boolean name = Validators.verifierNom(computerDto);
-		boolean date = Validators.verifierDate(computerDto);
-		boolean comp = Validators.verifierCompany(computerDto);
+		boolean name = validators.verifierNom(computerDto);
+		boolean date = validators.verifierDate(computerDto);
+		boolean comp = validators.verifierCompany(computerDto);
 
 		if (name && date && comp) {
-			Computer computer = ComputerDTOMapper.dtoToComputer(computerDto);
-			DAOcomputer.getInstance().createComputer(computer);
+			Computer computer = mapper.dtoToComputer(computerDto);
+			daoComputer.createComputer(computer);
 			logger.info(computer.toString());
 		}
 	}
@@ -45,27 +59,27 @@ public class ComputerService {
 		newComputerDto.setId(computerDto.getId());
 
 		Optional<Computer> oldComputer = getComputerById(computerDto.getId());
-		ComputerDTO oldComputerDto = ComputerDTOMapper.computerToDto(oldComputer.get());
+		ComputerDTO oldComputerDto = mapper.computerToDto(oldComputer.get());
 
 		updateName(computerDto, oldComputerDto, newComputerDto);
 		updateIntroduced(computerDto, oldComputerDto, newComputerDto);
 		updateDiscontinued(computerDto, oldComputerDto, newComputerDto);
-		boolean date = Validators.verifierDate(computerDto);
+		boolean date = validators.verifierDate(computerDto);
 		updateCompany(computerDto, oldComputerDto, newComputerDto);
 
 		logger.info(newComputerDto.toString());
 		
 		if (date) {
-			Computer computer = ComputerDTOMapper.dtoToComputer(newComputerDto);
+			Computer computer = mapper.dtoToComputer(newComputerDto);
 			computer.setId(Long.parseLong(computerDto.getId()));
-			DAOcomputer.getInstance().updateComputer(computer);
+			daoComputer.updateComputer(computer);
 		}
 	}
 	
 	public void deleteComputer(long id){
-		Optional<Computer> computer = DAOcomputer.getInstance().getComputerById(id);
+		Optional<Computer> computer = daoComputer.getComputerById(id);
 		if (computer.isPresent()) {
-			DAOcomputer.getInstance().deleteComputer(id);
+			daoComputer.deleteComputer(id);
 			logger.info(computer.get().toString());
 			logger.info("Ordinateur supprimé");
 		} else {
@@ -103,7 +117,7 @@ public class ComputerService {
 		if (computerDto.getCompanyId().isEmpty()) {
 			newComputerDto.setCompanyId(oldComputerDto.getCompanyId());
 			newComputerDto.setCompanyName(oldComputerDto.getCompanyName());
-		} else if (!Validators.verifierIdCompany(computerDto.getCompanyId())) {
+		} else if (!validators.verifierIdCompany(computerDto.getCompanyId())) {
 			return;
 		} else {
 			newComputerDto.setCompanyId(computerDto.getCompanyId());

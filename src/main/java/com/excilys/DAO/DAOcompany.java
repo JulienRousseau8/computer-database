@@ -1,28 +1,25 @@
 package com.excilys.DAO;
 
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
 
 import com.excilys.mapper.Mapper;
 import com.excilys.model.Company;
 import com.excilys.persistence.Connexion;
 
+@Repository
 public class DAOcompany {
 
-	public static DAOcompany daoCompany;
+	private Connexion connexion;
 
-	private DAOcompany() {
-	}
-	
-	public static DAOcompany getInstance() {
-		if (daoCompany == null) {
-			daoCompany = new DAOcompany();
-		}
-		return daoCompany;
+	public DAOcompany(Connexion connexion) {
+		this.connexion = connexion;
 	}
 
 	public List<Company> getCompanies(){
@@ -30,7 +27,7 @@ public class DAOcompany {
 		Optional<Company> company;
 		List<Company> listCompanies = new ArrayList<Company>();
 
-		try (PreparedStatement getCompaniesStatement = Connexion.getConn().prepareStatement(SQLRequest.GETCOMPANIES.getQuery())) {
+		try (PreparedStatement getCompaniesStatement = connexion.getConn().prepareStatement(SQLRequest.GETCOMPANIES.getQuery())) {
 			allCompaniesRes = getCompaniesStatement.executeQuery();
 			while (allCompaniesRes.next()) {
 				company = Mapper.companyMapper(allCompaniesRes);
@@ -45,7 +42,7 @@ public class DAOcompany {
 	public Optional<Company> getCompanyById(long id){
 		ResultSet companyRes;
 		Optional<Company> company;
-		try (PreparedStatement getCompanyByIdStatement = Connexion.getConn().prepareStatement(SQLRequest.GETCOMPANYBYID.getQuery())) {
+		try (PreparedStatement getCompanyByIdStatement = connexion.getConn().prepareStatement(SQLRequest.GETCOMPANYBYID.getQuery())) {
 			getCompanyByIdStatement.setLong(1, id);
 			companyRes = getCompanyByIdStatement.executeQuery();
 			if (companyRes.next()) {
@@ -59,7 +56,7 @@ public class DAOcompany {
 	}
 	
 	public void deleteCompany(long id){
-		try (PreparedStatement deleteCompanyStatement = Connexion.getConn().prepareStatement(SQLRequest.DELETECOMPANY.getQuery())) {
+		try (PreparedStatement deleteCompanyStatement = connexion.getConn().prepareStatement(SQLRequest.DELETECOMPANY.getQuery())) {
 			deleteCompanyStatement.setLong(1, id);
 			deleteCompanyStatement.executeUpdate();
 		} catch (SQLException SQLexception) {

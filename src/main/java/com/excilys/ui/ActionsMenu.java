@@ -6,34 +6,32 @@ import java.util.Optional;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.excilys.dto.ComputerDTO;
+import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Pagination;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
 import com.excilys.service.DashboardService;
 
+@Component
 public class ActionsMenu {
 
 	private static Logger logger = LoggerFactory.getLogger(ActionsMenu.class);
 
 	private Scanner scan = new Scanner(System.in);
-	public static ActionsMenu actionMenu;
-	ComputerService computerService = new ComputerService();
-	CompanyService companyService = new CompanyService();
-	DashboardService dashboardService = new DashboardService();
+	ComputerService computerService;
+	CompanyService companyService;
+	DashboardService dashboardService;
 
-	private ActionsMenu() {
+	public ActionsMenu(ComputerService computerService, CompanyService companyService, DashboardService dashboardService) {
+		this.computerService = computerService;
+		this.companyService = companyService;
+		this.dashboardService = dashboardService;
 	}
-
-	public static ActionsMenu getInstance() {
-		if (actionMenu == null) {
-			actionMenu = new ActionsMenu();
-		}
-		return actionMenu;
-	}
-
+	
 	public void showDetails(){
 		System.out.println("Entrer un ID");
 		String detailId = scan.nextLine();
@@ -127,6 +125,14 @@ public class ActionsMenu {
 				logger.info("Entrée incorecte");
 			}
 		}
+	}
+	
+	public List<Company> getAllCompanies() {
+		return companyService.getAllCompanies();
+	}
+
+	public List<Computer> getAllComputers() {
+		return computerService.getAllComputers();
 	}
 
 }

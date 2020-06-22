@@ -6,21 +6,28 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.excilys.DAO.DAOcompany;
-import com.excilys.DAO.DAOcomputer;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
+@Service
 public class CompanyService {
 
 	private static Logger logger = LoggerFactory.getLogger(CompanyService.class);
-	ComputerService computerService = new ComputerService();
+	DAOcompany daoCompany;
+	ComputerService computerService;
+	
+	public CompanyService(ComputerService computerService, DAOcompany daoCompany) {
+		this.computerService = computerService;
+		this.daoCompany = daoCompany;
+	}
 	
 	public Optional<Company> getCompanyById(String companyID){
 		try {
 			long compId = Long.parseLong(companyID);
-			Optional<Company> company = DAOcompany.getInstance().getCompanyById(compId);
+			Optional<Company> company = daoCompany.getCompanyById(compId);
 			if (!company.isPresent()) {
 				logger.info("Aucune entreprise ne correspond à cet ID");
 			}
@@ -32,18 +39,18 @@ public class CompanyService {
 	}
 
 	public List<Company> getAllCompanies(){
-		return DAOcompany.getInstance().getCompanies();
+		return daoCompany.getCompanies();
 	}
 
 	public void deleteCompany(int id) {
-		Optional<Company> company = DAOcompany.getInstance().getCompanyById(id);
+		Optional<Company> company = daoCompany.getCompanyById(id);
 		List<Computer> listComputerToDelete = new ArrayList<Computer>();
-		listComputerToDelete = DAOcomputer.getInstance().getComputersByCompanyId(id);
+		listComputerToDelete = computerService.getComputersByCompanyId(id);
 		if (company.isPresent()) {
 			for(Computer c : listComputerToDelete) {
 				computerService.deleteComputer(c.getId());
 			}
-			DAOcompany.getInstance().deleteCompany(id);
+			daoCompany.deleteCompany(id);
 			logger.info(listComputerToDelete.size() + " ordinateurs supprimés");
 			logger.info(company.get().getName().toString() + ": Entreprise supprimé");
 		} else {
