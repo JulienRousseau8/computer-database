@@ -18,35 +18,85 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		
-		<junit-version>4.11</junit-version>
+		<!-- DATABASE -->
 		<mysql-version>8.0.20</mysql-version>
+		<com.h2database>1.4.200</com.h2database>
+		<HikariCP>3.4.1</HikariCP>
+
+		<!-- <springVersion>5.2.6 RELEASE</springVersion> -->
+
+		<!-- SERVLET / JSTL -->
 		<javax.servlet>2.5</javax.servlet>
 		<javax.servlet-api>3.1.0</javax.servlet-api>
 		<jstl>1.2</jstl>
 		<org.apache.taglib>1.2.5</org.apache.taglib>
+		<!-- TEST -->
+		<junit-version>4.11</junit-version>
 		<org.mockito>1.9.5</org.mockito>
+		<!-- LOGGING -->
 		<org.slf4j>1.7.30</org.slf4j>
-		<com.h2database>1.4.200</com.h2database>
+		<!-- SERVEUR -->
 		<org.apache.tomcat>9.0.31</org.apache.tomcat>
-		<HikariCP>3.4.1</HikariCP>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>5.2.6.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
-		</dependency>
-
+		<!-- DATABASE -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${com.h2database}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>${HikariCP}</version>
+		</dependency>
+
+		<!-- SPRING -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+
+		<!-- SERVLET / JSTL -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -83,12 +133,21 @@
 			<version>${org.apache.taglib}</version>
 		</dependency>
 
+		<!-- TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>${org.mockito}</version>
 		</dependency>
 
+		<!-- LOGGING -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -103,23 +162,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>${com.h2database}</version>
-			<scope>test</scope>
-		</dependency>
 
+		<!-- SERVEUR -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-catalina</artifactId>
 			<version>${org.apache.tomcat}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>${HikariCP}</version>
 		</dependency>
 
 	</dependencies>

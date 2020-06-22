@@ -16,11 +16,11 @@ public class ComputerServiceTest {
 	DAOcompany daoCompany;
 	@Mock
 	DAOcomputer daoComputer;
-	
+	Connexion connexion;
 	
 	@Before
 	public void init() {
-		Connexion.getDbCon();
+		connexion.getConn();
 	}
 
 	//@Test

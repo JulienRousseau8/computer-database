@@ -3,23 +3,31 @@ package com.excilys.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.excilys.DAO.DAOcompany;
+import org.springframework.stereotype.Component;
+
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Computer;
+import com.excilys.service.CompanyService;
 
+@Component
 public class ComputerDTOMapper {
+	CompanyService companyService;
+	
+	public ComputerDTOMapper(CompanyService companyService) {
+		this.companyService = companyService;
+	}
 
-	public static Computer dtoToComputer(ComputerDTO computerDto){
+	public Computer dtoToComputer(ComputerDTO computerDto){
 		Computer computer = new Computer.ComputerBuilder()
 				.setName(computerDto.getName())
 				.setIntroduced(DateMapper.stringToDate(computerDto.getIntroduced()))
 				.setDiscontinued(DateMapper.stringToDate(computerDto.getDiscontinued()))
-				.setCompany(DAOcompany.getInstance().getCompanyById(Long.parseLong(computerDto.getCompanyId())).get())
+				.setCompany(companyService.getCompanyById(computerDto.getCompanyId()).get())
 				.build();
 		return computer;
 	}
 
-	public static ComputerDTO computerToDto(Computer computer) {
+	public ComputerDTO computerToDto(Computer computer) {
 
 		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setId(String.valueOf(computer.getId()))
 				.setName(computer.getName())
@@ -31,7 +39,7 @@ public class ComputerDTOMapper {
 		return computerDTO;
 	}
 	
-	public static List<ComputerDTO> listComputerToDto(List<Computer> computerList){
+	public List<ComputerDTO> listComputerToDto(List<Computer> computerList){
 		List<ComputerDTO> computerDTOList = new ArrayList<ComputerDTO>();
 		
 		for(int i=0; i<computerList.size(); i++) {
@@ -41,7 +49,7 @@ public class ComputerDTOMapper {
 		return computerDTOList;
 	}
 	
-	public static List<Computer> listDtoToComputer(List<ComputerDTO> computerDtoList){
+	public List<Computer> listDtoToComputer(List<ComputerDTO> computerDtoList){
 		List<Computer> computerList = new ArrayList<Computer>();
 		
 		for(int i=0; i<computerList.size(); i++) {

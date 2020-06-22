@@ -23,15 +23,13 @@ public class ValidatorsTest extends Mockito{
 	LocalDate dateIn = LocalDate.of(2010, 04, 22);
 	LocalDate dateArr = LocalDate.of(2012, 04, 23);
 	
-//	@Mock
-//	ConvertDate convertDate;
-//	
-//	//ConvertDate cD = mock(ConvertDate.class);
-//	@Mock
-//	Validators validators;
-	
 	@Mock
 	Computer computer;
+	
+	@Mock
+	CompanyService companyService;
+	
+	Validators validators = new Validators(companyService);
 	
 	@Before
 	public void init() {
@@ -43,39 +41,39 @@ public class ValidatorsTest extends Mockito{
 	public void testVerifierDate() {
 		when(computer.getIntroduced()).thenReturn(dateIn);
 		when(computer.getDiscontinued()).thenReturn(dateArr);
-		assertTrue(Validators.verifierDateOrdre(dateIn.toString(), dateArr.toString()));
+		assertTrue(validators.verifierDateOrdre(dateIn.toString(), dateArr.toString()));
 	}
 	
 	//TEST SANS MOCK
 	@Test
 	public void testVerifierDateOrdreTrue() {
-		boolean validatorsTrue = Validators.verifierDateOrdre(dateIntro, dateArret);
+		boolean validatorsTrue = validators.verifierDateOrdre(dateIntro, dateArret);
 		assertEquals(true, validatorsTrue);
 	}
 
 	@Test
 	public void testVerifierDateOrdreFalse() {
-		boolean validatorsFalse = Validators.verifierDateOrdre(dateArret, dateIntro);
+		boolean validatorsFalse = validators.verifierDateOrdre(dateArret, dateIntro);
 		assertEquals(false, validatorsFalse);
 	}
 
 	@Test
 	public void testVerifierFormatDateBon() {
-		boolean formatDate = Validators.verifierDateUtilisateurSaisie(dateIntro);
+		boolean formatDate = validators.verifierDateUtilisateurSaisie(dateIntro);
 		assertEquals(true, formatDate);
 	}
 
 	@Test
 	public void testVerifierFormatDateWrong() {
 		String mauvaiseDate = "ffsfgd";
-		boolean formatDate = Validators.verifierDateUtilisateurSaisie(mauvaiseDate);
+		boolean formatDate = validators.verifierDateUtilisateurSaisie(mauvaiseDate);
 		assertEquals(false, formatDate);
 	}
 	
 	@Test
 	public void testVerifierFormatDateSlash() {
 		String mauvaiseDate = "2010/04/22";
-		boolean formatDate = Validators.verifierDateUtilisateurSaisie(mauvaiseDate);
+		boolean formatDate = validators.verifierDateUtilisateurSaisie(mauvaiseDate);
 		assertEquals(false, formatDate);
 	}
 }

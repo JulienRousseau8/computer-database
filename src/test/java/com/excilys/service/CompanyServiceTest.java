@@ -1,6 +1,6 @@
 package com.excilys.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -22,9 +22,12 @@ public class CompanyServiceTest extends Mockito {
 	@Mock
 	DAOcompany daoCompany;
 	//DAOcompany mockDaoCompany = Mockito.mock(DAOcompany.class);
+	@Mock
+	ComputerService computerService;
 	
+	Connexion connexion;
 	
-	CompanyService companyService = new CompanyService();
+	CompanyService companyService = new CompanyService(computerService, daoCompany);
 	String companyId = "10";
 
 	Optional<Company> mockCompany = Optional.of(new Company
@@ -33,7 +36,7 @@ public class CompanyServiceTest extends Mockito {
 	
 	@Before
 	public void init() throws SQLException {
-		Connexion.getDbCon();
+		connexion.getConn();
 	}
 
 	@Test

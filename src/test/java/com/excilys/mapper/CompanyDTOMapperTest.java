@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -15,11 +16,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.excilys.DAO.DAOcompany;
 import com.excilys.dto.CompanyDTO;
 import com.excilys.model.Company;
-import com.excilys.persistence.Connexion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CompanyDTOMapperTest extends Mockito{
 
+	@Mock
+	DAOcompany daoCompany;
+	
+	CompanyDTOMapper mapper = new CompanyDTOMapper(daoCompany);
+	
 	CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
 			.setId("10")
 			.setName("Digital Equipment Corporation")
@@ -29,17 +34,15 @@ public class CompanyDTOMapperTest extends Mockito{
 
 	Optional<Company> optComp = Optional.of(company);
 	
-	DAOcompany daoCompany = mock(DAOcompany.class);
-	
 	@Before
 	public void setUp() {
-		Connexion.getDbCon();
+		
 		MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
 	public void testDtoToCompany() throws SQLException {
-		Company companyRes = CompanyDTOMapper.dtoToCompany(companyDto);
+		Company companyRes = mapper.dtoToCompany(companyDto);
 
 		assertEquals(company.getId(), companyRes.getId());
 		assertEquals(company.getName(), companyRes.getName());
@@ -47,7 +50,7 @@ public class CompanyDTOMapperTest extends Mockito{
 
 	@Test
 	public void testCompanyToDto() {
-		CompanyDTO companyRes = CompanyDTOMapper.companyToDto(company);
+		CompanyDTO companyRes = mapper.companyToDto(company);
 
 		assertEquals(companyDto.getId(), companyRes.getId());
 		assertEquals(companyDto.getName(), companyRes.getName());

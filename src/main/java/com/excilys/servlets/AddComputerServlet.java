@@ -4,11 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
@@ -17,19 +23,33 @@ import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
 
 @WebServlet("/AddComputer")
+@Controller
+@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.servlets", "com.excilys.persistence", "com.excilys.mapper"})
 public class AddComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	ComputerService computerService = new ComputerService();
-	CompanyService companyService = new CompanyService();
+	@Autowired
+	ComputerService computerService;
+	@Autowired
+	CompanyService companyService;
+	@Autowired
+	CompanyDTOMapper companyMapper;
 	List<CompanyDTO> listCompanyDTO = new ArrayList<CompanyDTO>();
 	ComputerDTO computerDto;
 	
+    public AddComputerServlet() {
+	}
 
-    public static final String ADDCOMPUTER = "/WEB-INF/views/addComputer.jsp";
+    @Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+    	SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);	
+	}
+    
+	public static final String ADDCOMPUTER = "/WEB-INF/views/addComputer.jsp";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		listCompanyDTO = CompanyDTOMapper.listCompanyToDto(companyService.getAllCompanies());
+		listCompanyDTO = companyMapper.listCompanyToDto(companyService.getAllCompanies());
 		
 		request.setAttribute("listCompanyDTO", listCompanyDTO);
 		

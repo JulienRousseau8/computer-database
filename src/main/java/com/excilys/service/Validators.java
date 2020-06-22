@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.DAO.DAOcompany;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.mapper.DateMapper;
 import com.excilys.model.Company;
@@ -14,8 +13,13 @@ import com.excilys.model.Company;
 public class Validators {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
+	CompanyService companyService;
 
-	public static boolean verifierDateUtilisateurSaisie(String date) {
+	public Validators(CompanyService companyService) {
+		this.companyService = companyService;
+	}
+
+	public boolean verifierDateUtilisateurSaisie(String date) {
 		if (date == null || date.isEmpty()) {
 			return false;
 		}
@@ -42,7 +46,7 @@ public class Validators {
 		}
 	}
 
-	public static boolean verifierDateOrdre(String dateIntroduction, String dateArret) {
+	public boolean verifierDateOrdre(String dateIntroduction, String dateArret) {
 		LocalDate intro = DateMapper.stringToDate(dateIntroduction);
 		LocalDate arret = DateMapper.stringToDate(dateArret);
 		boolean dateIntroNow = verifierDateNow(dateIntroduction);
@@ -59,10 +63,9 @@ public class Validators {
 		}
 	}
 
-	public static boolean verifierIdCompany(String id){
+	public boolean verifierIdCompany(String id){
 		try {
-			long compId = Long.parseLong(id);
-			Optional<Company> optionalCompany = DAOcompany.getInstance().getCompanyById(compId);
+			Optional<Company> optionalCompany = companyService.getCompanyById(id);
 			if (optionalCompany.isPresent()) {
 				return true;
 			} else {
@@ -76,17 +79,17 @@ public class Validators {
 		}
 	}
 	
-	public static boolean verifierDateNow(String date) {
+	public boolean verifierDateNow(String date) {
 		LocalDate localDate = DateMapper.stringToDate(date);
 		return localDate.isBefore(LocalDate.now());
 	}
 	
-	public static boolean verifierDate(ComputerDTO computerDto) {
+	public boolean verifierDate(ComputerDTO computerDto) {
 		boolean ordreDate = false;
-		boolean dateIntroduced = Validators.verifierDateUtilisateurSaisie(computerDto.getIntroduced());
-		boolean dateDiscontinued = Validators.verifierDateUtilisateurSaisie(computerDto.getDiscontinued());
+		boolean dateIntroduced = verifierDateUtilisateurSaisie(computerDto.getIntroduced());
+		boolean dateDiscontinued = verifierDateUtilisateurSaisie(computerDto.getDiscontinued());
 		if (dateIntroduced && dateDiscontinued) {
-			ordreDate = Validators.verifierDateOrdre(computerDto.getIntroduced(), computerDto.getDiscontinued());
+			ordreDate = verifierDateOrdre(computerDto.getIntroduced(), computerDto.getDiscontinued());
 			if (!ordreDate) {
 				logger.info("Dates non valident !");
 			}
@@ -96,18 +99,18 @@ public class Validators {
 		} else return false;
 	}
 	
-	public static boolean verifierCompany(ComputerDTO computerDto) {
+	public boolean verifierCompany(ComputerDTO computerDto) {
 		boolean comp = true;
 		if (computerDto.getCompanyId().isEmpty()) {
 			comp = false;
 			logger.info("Id de la compagnie requis");
-		} else if (!Validators.verifierIdCompany(computerDto.getCompanyId())) {
+		} else if (!verifierIdCompany(computerDto.getCompanyId())) {
 			comp = false;
 		}
 		return comp;
 	}
 	
-	public static boolean verifierNom(ComputerDTO computerDto) {
+	public boolean verifierNom(ComputerDTO computerDto) {
 		boolean name = true;
 		if (computerDto.getName().isEmpty()) {
 			name = false;

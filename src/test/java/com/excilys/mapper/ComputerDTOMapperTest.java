@@ -1,6 +1,6 @@
 package com.excilys.mapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -16,10 +17,17 @@ import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.persistence.Connexion;
+import com.excilys.service.CompanyService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComputerDTOMapperTest {
 
+	@Mock
+	CompanyService companyService;
+	
+	Connexion connexion;
+	
+	ComputerDTOMapper mapper = new ComputerDTOMapper(companyService);
 	
 	String date1 = "2010-04-22";
 	String date2 = "2010-04-23";
@@ -40,13 +48,13 @@ public class ComputerDTOMapperTest {
 
 	@Before
 	public void setUp() {
-		Connexion.getDbCon();
+		connexion.getConn();
 		MockitoAnnotations.initMocks(this);
 	}
 	
 	@Test
 	public void testDtoToComputer() throws SQLException {
-		Computer computerRes = ComputerDTOMapper.dtoToComputer(computerDto);
+		Computer computerRes = mapper.dtoToComputer(computerDto);
 
 		assertEquals(computer.getName(), computerRes.getName());
 		assertEquals(computer.getIntroduced(), computerRes.getIntroduced());
@@ -57,7 +65,7 @@ public class ComputerDTOMapperTest {
 
 	@Test
 	public void testComputerToDto() {
-		ComputerDTO computerRes = ComputerDTOMapper.computerToDto(computer);
+		ComputerDTO computerRes = mapper.computerToDto(computer);
 
 		assertEquals(computerDto.getId(), computerRes.getId());
 		assertEquals(computerDto.getName(), computerRes.getName());

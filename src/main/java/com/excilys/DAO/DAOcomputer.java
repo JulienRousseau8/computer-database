@@ -8,24 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import com.excilys.mapper.Mapper;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.model.Pagination;
 import com.excilys.persistence.Connexion;
 
+@Repository
 public class DAOcomputer {
 
-	public static DAOcomputer daoComputer;
+	private Connexion connexion;
 
-	private DAOcomputer() {
-	}
-
-	public static DAOcomputer getInstance() {
-		if (daoComputer == null) {
-			daoComputer = new DAOcomputer();
-		}
-		return daoComputer;
+	public DAOcomputer(Connexion connexion) {
+		this.connexion = connexion;
 	}
 
 	public List<Computer> getComputers() {
@@ -33,7 +30,7 @@ public class DAOcomputer {
 		Optional<Computer> computer;
 		List<Computer> listComputers = new ArrayList<Computer>();
 
-		try (PreparedStatement getComputersStatement = Connexion.getConn()
+		try (PreparedStatement getComputersStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.GETCOMPUTERS.getQuery())) {
 			allComputerRes = getComputersStatement.executeQuery();
 			while (allComputerRes.next()) {
@@ -42,13 +39,13 @@ public class DAOcomputer {
 			}
 		} catch (SQLException SQLexception) {
 			SQLexception.printStackTrace();
-		}
+		} 
 		return listComputers;
 	}
 
 	public Optional<Computer> getComputerById(long id) {
 		ResultSet computerRes;
-		try (PreparedStatement getComputerByIdStatement = Connexion.getConn()
+		try (PreparedStatement getComputerByIdStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.GETCOMPUTERBYID.getQuery())) {
 			getComputerByIdStatement.setLong(1, id);
 			computerRes = getComputerByIdStatement.executeQuery();
@@ -68,8 +65,7 @@ public class DAOcomputer {
 		Optional<Computer> computer;
 		List<Computer> listComputers = new ArrayList<Computer>();
 
-		try (PreparedStatement getComputersByCompanyStatement = Connexion
-				.getConn().prepareStatement(
+		try (PreparedStatement getComputersByCompanyStatement = connexion.getConn().prepareStatement(
 						SQLRequest.GETCOMPUTERSBYCOMPANYID.getQuery())) {
 			getComputersByCompanyStatement.setInt(1, id);
 			computerByCompanyRes = getComputersByCompanyStatement
@@ -85,7 +81,7 @@ public class DAOcomputer {
 	}
 
 	public void createComputer(Computer computer) {
-		try (PreparedStatement createComputerStatement = Connexion.getConn()
+		try (PreparedStatement createComputerStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.CREATECOMPUTER.getQuery());) {
 			createComputerStatement.setString(1, computer.getName());
 			createComputerStatement.setDate(2,
@@ -105,7 +101,7 @@ public class DAOcomputer {
 	}
 
 	public void updateComputer(Computer computer) {
-		try (PreparedStatement updateComputerStatement = Connexion.getConn()
+		try (PreparedStatement updateComputerStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.UPDATECOMPUTER.getQuery())) {
 			updateComputerStatement.setString(1, computer.getName());
 			updateComputerStatement.setDate(2,
@@ -125,7 +121,7 @@ public class DAOcomputer {
 	}
 
 	public void deleteComputer(long id) {
-		try (PreparedStatement deleteComputerStatement = Connexion.getConn()
+		try (PreparedStatement deleteComputerStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.DELETECOMPUTER.getQuery())) {
 			deleteComputerStatement.setLong(1, id);
 			deleteComputerStatement.executeUpdate();
@@ -135,7 +131,7 @@ public class DAOcomputer {
 	}
 
 	public int countAllComputer() {
-		try (PreparedStatement countAllComputersStatement = Connexion.getConn()
+		try (PreparedStatement countAllComputersStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.COUNTCOMPUTERS.getQuery())) {
 			ResultSet res1 = countAllComputersStatement.executeQuery();
 			if (res1.next()) {
@@ -150,7 +146,7 @@ public class DAOcomputer {
 	public List<Computer> getPageComputers(Pagination page) {
 		List<Computer> computerPages = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		try (PreparedStatement getPageComputersStatement = Connexion.getConn()
+		try (PreparedStatement getPageComputersStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.GETPAGECOMPUTERS.getQuery())) {
 			getPageComputersStatement.setInt(1,
 					page.getPageNum() * page.getPageTaille());
@@ -172,7 +168,7 @@ public class DAOcomputer {
 			Pagination page) {
 		List<Computer> computerSearch = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		try (PreparedStatement getSearchComputersStatement = Connexion.getConn()
+		try (PreparedStatement getSearchComputersStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.SEARCHCOMPUTERPAGE.getQuery())) {
 			getSearchComputersStatement.setString(1, "%" + recherche + "%");
 			getSearchComputersStatement.setString(2, "%" + recherche + "%");
@@ -194,7 +190,7 @@ public class DAOcomputer {
 	public List<Computer> getSearchComputers(String recherche) {
 		List<Computer> computerSearch = new ArrayList<Computer>();
 		Optional<Computer> computer;
-		try (PreparedStatement getSearchComputersStatement = Connexion.getConn()
+		try (PreparedStatement getSearchComputersStatement = connexion.getConn()
 				.prepareStatement(SQLRequest.SEARCHCOMPUTER.getQuery())) {
 			getSearchComputersStatement.setString(1, "%" + recherche + "%");
 			getSearchComputersStatement.setString(2, "%" + recherche + "%");
@@ -224,10 +220,10 @@ public class DAOcomputer {
 
 		try{
 			if(direction == ASC) {
-				getPageComputersStatement = Connexion.getConn().prepareStatement(GETPAGECOMPUTERORDERBYNAMEASC);
+				getPageComputersStatement = connexion.getConn().prepareStatement(GETPAGECOMPUTERORDERBYNAMEASC);
 			}
 			else {
-				getPageComputersStatement = Connexion.getConn().prepareStatement(GETPAGECOMPUTERORDERBYNAMEDESC);
+				getPageComputersStatement = connexion.getConn().prepareStatement(GETPAGECOMPUTERORDERBYNAMEDESC);
 			}
 
 			getPageComputersStatement.setInt(1, page.getPageNum() * page.getPageTaille());
