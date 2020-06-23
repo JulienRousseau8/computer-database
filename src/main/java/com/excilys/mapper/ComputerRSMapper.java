@@ -5,10 +5,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import org.springframework.jdbc.core.RowMapper;
+
 import com.excilys.model.Company;
 import com.excilys.model.Computer;;
 
-public class Mapper {
+public class ComputerRSMapper implements RowMapper<Computer>{
 
 	public static Optional<Computer> computerMapper(ResultSet ComputerResultSet) throws SQLException {
 		long computerId = ComputerResultSet.getLong("computer.id");
@@ -28,11 +30,11 @@ public class Mapper {
 		return Optional.ofNullable(computer);
 	}
 
-	public static Optional<Company> companyMapper(ResultSet CompanyResultSet) throws SQLException {
-		long companyid = CompanyResultSet.getLong("id");
-		String name = CompanyResultSet.getString("name");
-		
-		Company company = new Company.CompanyBuilder().setId(companyid).setName(name).build();
-		return Optional.ofNullable(company);
+	@Override
+	public Computer mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return computerMapper(rs).get();
 	}
+	
+
+
 }

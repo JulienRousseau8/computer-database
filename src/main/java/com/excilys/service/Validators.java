@@ -27,7 +27,6 @@ public class Validators {
 			logger.info("Mauvais format de Date");
 			return false;
 		}
-
 		try {
 			String annee = date.substring(0, 4);
 			Integer.parseInt(annee);
@@ -104,7 +103,8 @@ public class Validators {
 		if (computerDto.getCompanyId().isEmpty()) {
 			comp = false;
 			logger.info("Id de la compagnie requis");
-		} else if (!verifierIdCompany(computerDto.getCompanyId())) {
+		}
+		if (!verifierIdCompany(computerDto.getCompanyId())) {
 			comp = false;
 		}
 		return comp;

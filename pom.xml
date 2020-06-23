@@ -22,9 +22,7 @@
 		<mysql-version>8.0.20</mysql-version>
 		<com.h2database>1.4.200</com.h2database>
 		<HikariCP>3.4.1</HikariCP>
-
-		<!-- <springVersion>5.2.6 RELEASE</springVersion> -->
-
+		<springVersion>5.2.6 RELEASE</springVersion>
 		<!-- SERVLET / JSTL -->
 		<javax.servlet>2.5</javax.servlet>
 		<javax.servlet-api>3.1.0</javax.servlet-api>
@@ -74,7 +72,6 @@
 		</dependency>
 
 		<!-- SPRING -->
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -94,6 +91,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
 		</dependency>
 
 		<!-- SERVLET / JSTL -->

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.excilys.dto.ComputerDTO;
+import com.excilys.model.Company;
 import com.excilys.model.Computer;
 import com.excilys.service.CompanyService;
 
@@ -18,11 +19,12 @@ public class ComputerDTOMapper {
 	}
 
 	public Computer dtoToComputer(ComputerDTO computerDto){
+		Company company = new Company.CompanyBuilder().setId(Long.parseLong(computerDto.getCompanyId())).setName(computerDto.getCompanyName()).build();
 		Computer computer = new Computer.ComputerBuilder()
 				.setName(computerDto.getName())
 				.setIntroduced(DateMapper.stringToDate(computerDto.getIntroduced()))
 				.setDiscontinued(DateMapper.stringToDate(computerDto.getDiscontinued()))
-				.setCompany(companyService.getCompanyById(computerDto.getCompanyId()).get())
+				.setCompany(company)
 				.build();
 		return computer;
 	}

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -25,7 +24,6 @@ import com.excilys.service.ComputerService;
 
 @WebServlet("/EditComputer")
 @Controller
-@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.servlets", "com.excilys.persistence", "com.excilys.mapper"})
 public class EditComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -39,9 +37,6 @@ public class EditComputerServlet extends HttpServlet {
 	CompanyDTOMapper companyMapper;
 	List<CompanyDTO> listCompanyDTO = new ArrayList<CompanyDTO>();
 	ComputerDTO computerDto;
-	
-	public EditComputerServlet() {
-	}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {

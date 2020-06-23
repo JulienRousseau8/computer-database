@@ -23,7 +23,6 @@ import com.excilys.service.DashboardService;
 
 @WebServlet("/Dashboard")
 @Controller
-//@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.servlets", "com.excilys.persistence", "com.excilys.mapper"})
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,10 +33,7 @@ public class DashboardServlet extends HttpServlet {
 	@Autowired
 	ComputerDTOMapper computerMapper;
 	List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
-	
-	public DashboardServlet() {
-	}
-	
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -90,8 +86,8 @@ public class DashboardServlet extends HttpServlet {
 	
 	private List<ComputerDTO> viewChoice(HttpServletRequest request, String search, String orderBy){
 		if(search!=null && (orderBy==null || orderBy.isEmpty())) {
-			nbComputers = computerMapper.listComputerToDto(dashboardService.getSearchComputers(search)).size();
 			listComputerDTO = computerMapper.listComputerToDto(dashboardService.getSearchComputersPage(search, page));
+			nbComputers = computerMapper.listComputerToDto(dashboardService.getSearchComputers(search)).size();
 		}
 		else if(orderBy!=null && (search==null || search.isEmpty())) {
 			direction = Integer.parseInt(request.getParameter("direction"))%2;

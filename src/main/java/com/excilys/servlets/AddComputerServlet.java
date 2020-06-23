@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -20,25 +19,21 @@ import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.mapper.CompanyDTOMapper;
 import com.excilys.service.CompanyService;
-import com.excilys.service.ComputerService;
+import com.excilys.service.DashboardService;
 
 @WebServlet("/AddComputer")
 @Controller
-@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.servlets", "com.excilys.persistence", "com.excilys.mapper"})
 public class AddComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	ComputerService computerService;
+	DashboardService dashboardService;
 	@Autowired
 	CompanyService companyService;
 	@Autowired
 	CompanyDTOMapper companyMapper;
 	List<CompanyDTO> listCompanyDTO = new ArrayList<CompanyDTO>();
 	ComputerDTO computerDto;
-	
-    public AddComputerServlet() {
-	}
 
     @Override
 	public void init(ServletConfig config) throws ServletException {
@@ -64,10 +59,10 @@ public class AddComputerServlet extends HttpServlet {
 				.setIntroduced(request.getParameter("introduced"))
 				.setDiscontinued(request.getParameter("discontinued"))
 				.setCompanyId(companyId)
-				.setCompanyName(companyService.getCompanyById(companyId).get().toString())
+				.setCompanyName(companyService.getCompanyById(companyId).get().getName().toString())
 				.build();
 		
-		computerService.createComputer(computerDto);
+		dashboardService.createComputer(computerDto);
 		response.sendRedirect("Dashboard");
 	}
 }

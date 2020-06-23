@@ -46,7 +46,6 @@ public class ComputerService {
 		boolean name = validators.verifierNom(computerDto);
 		boolean date = validators.verifierDate(computerDto);
 		boolean comp = validators.verifierCompany(computerDto);
-
 		if (name && date && comp) {
 			Computer computer = mapper.dtoToComputer(computerDto);
 			daoComputer.createComputer(computer);
@@ -117,8 +116,6 @@ public class ComputerService {
 		if (computerDto.getCompanyId().isEmpty()) {
 			newComputerDto.setCompanyId(oldComputerDto.getCompanyId());
 			newComputerDto.setCompanyName(oldComputerDto.getCompanyName());
-		} else if (!validators.verifierIdCompany(computerDto.getCompanyId())) {
-			return;
 		} else {
 			newComputerDto.setCompanyId(computerDto.getCompanyId());
 			newComputerDto.setCompanyName(computerDto.getCompanyName());
