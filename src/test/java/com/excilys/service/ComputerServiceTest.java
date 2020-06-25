@@ -1,5 +1,7 @@
 package com.excilys.service;
 
+import javax.sql.DataSource;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -7,7 +9,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.DAO.DAOcompany;
 import com.excilys.DAO.DAOcomputer;
-import com.excilys.persistence.Connexion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComputerServiceTest {
@@ -16,11 +17,10 @@ public class ComputerServiceTest {
 	DAOcompany daoCompany;
 	@Mock
 	DAOcomputer daoComputer;
-	Connexion connexion;
+	DataSource connexion;
 	
 	@Before
 	public void init() {
-		connexion.getConn();
 	}
 
 	//@Test

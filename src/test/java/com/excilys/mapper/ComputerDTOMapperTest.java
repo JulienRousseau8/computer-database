@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.sql.DataSource;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +18,6 @@ import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
-import com.excilys.persistence.Connexion;
 import com.excilys.service.CompanyService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,7 +26,7 @@ public class ComputerDTOMapperTest {
 	@Mock
 	CompanyService companyService;
 	
-	Connexion connexion;
+	DataSource connexion;
 	
 	ComputerDTOMapper mapper = new ComputerDTOMapper(companyService);
 	
@@ -48,7 +49,6 @@ public class ComputerDTOMapperTest {
 
 	@Before
 	public void setUp() {
-		connexion.getConn();
 		MockitoAnnotations.initMocks(this);
 	}
 	

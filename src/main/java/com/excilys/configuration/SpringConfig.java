@@ -15,7 +15,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 @Configuration
 @PropertySource("classpath:DatabaseConnection.properties")
-@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.servlets", "com.excilys.persistence", "com.excilys.mapper", "com.excilys.ui"})
+@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.controller", "com.excilys.persistence", "com.excilys.mapper", "com.excilys.ui"})
+@ComponentScan(basePackageClasses = WebConfig.class)
 public class SpringConfig extends AbstractContextLoaderInitializer{
 	private final String DRIVER = "driverClassName";
 	private final String URL = "jdbcUrl";
@@ -28,7 +29,7 @@ public class SpringConfig extends AbstractContextLoaderInitializer{
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(SpringConfig.class);
+		context.register(SpringConfig.class, WebConfig.class);
 		return context;
 	}
 	

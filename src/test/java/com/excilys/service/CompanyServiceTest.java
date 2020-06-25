@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +16,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.DAO.DAOcompany;
 import com.excilys.model.Company;
-import com.excilys.persistence.Connexion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CompanyServiceTest extends Mockito {
@@ -25,7 +26,7 @@ public class CompanyServiceTest extends Mockito {
 	@Mock
 	ComputerService computerService;
 	
-	Connexion connexion;
+	DataSource connexion;
 	
 	CompanyService companyService = new CompanyService(computerService, daoCompany);
 	String companyId = "10";
@@ -36,7 +37,6 @@ public class CompanyServiceTest extends Mockito {
 	
 	@Before
 	public void init() throws SQLException {
-		connexion.getConn();
 	}
 
 	@Test

@@ -24,8 +24,7 @@
 		<HikariCP>3.4.1</HikariCP>
 		<springVersion>5.2.6 RELEASE</springVersion>
 		<!-- SERVLET / JSTL -->
-		<javax.servlet>2.5</javax.servlet>
-		<javax.servlet-api>3.1.0</javax.servlet-api>
+		<javax.servlet-api>4.0.1</javax.servlet-api>
 		<jstl>1.2</jstl>
 		<org.apache.taglib>1.2.5</org.apache.taglib>
 		<!-- TEST -->
@@ -95,15 +94,15 @@
 
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 		</dependency>
 
 		<!-- SERVLET / JSTL -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${javax.servlet}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -113,12 +112,6 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl}</version>
 		</dependency>
