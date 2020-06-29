@@ -44,14 +44,13 @@ public class EditComputerController {
 		
 		listCompanyDTO = companyMapper.listCompanyToDto(companyService.getAllCompanies());
 		computerDto = computerMapper.computerToDto(computerService.getComputerById(computerId).get());
-		
 		modelAndView.addObject("listCompanyDTO", listCompanyDTO);
 		modelAndView.addObject("computerDto", computerDto);
 		
 		return modelAndView;
 	}
 
-	@PostMapping(value = "edit")
+	@PostMapping(value = "/edit")
 	public ModelAndView editComputer(@RequestParam(required = false, value = "companyId") String companyId,
 			@RequestParam(required = false, value = "computerName") String computerName,
 			@RequestParam(required = false, value = "introduced") String introduced,

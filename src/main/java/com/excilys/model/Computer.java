@@ -2,14 +2,27 @@ package com.excilys.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+@Entity
 public class Computer {
 
+	@Id @GeneratedValue
 	private Long id;
+	@NotNull(message = "Name cannot be null")
 	private String name;
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate introduced;
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate discontinued;
 	private Company company;
-
+	
 	private Computer() {
 	}
 

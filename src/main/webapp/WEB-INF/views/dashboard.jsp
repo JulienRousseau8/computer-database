@@ -14,11 +14,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
-<spring:url value="/resources/css/bootstrap.min.css" var="bootstrapStyle" />
-<spring:url value="/resources/css/font-awesome.css" var="fontAweSomeStyle" />
+<spring:url value="/resources/css/bootstrap.min.css"
+	var="bootstrapStyle" />
+<spring:url value="/resources/css/font-awesome.css"
+	var="fontAweSomeStyle" />
 <spring:url value="/resources/css/main.css" var="mainCss" />
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
 <link href="${bootstrapStyle}" rel="stylesheet" media="screen">
 <link href="${fontAweSomeStyle}" rel="stylesheet" media="screen">
 <link href="${mainCss}" rel="stylesheet" media="screen">
@@ -26,6 +32,19 @@
 
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({
+					pageLanguage : 'en'
+				}, 'google_translate_element');
+			}
+		</script>
+
+		<script type="text/javascript"
+			src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+		<script type="text/javascript"
+			src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 		<div class="container">
 			<a class="navbar-brand" href="Dashboard"> Application - Computer
 				Database </a>
@@ -73,12 +92,20 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><a href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=name&direction=${direction + 1}">Computer name</a></th>
-						<th><a href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=introduced&direction=${direction + 1}">Introduced date</a></th>
+						<th><a
+							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=name&direction=${direction + 1}">Computer
+								name</a></th>
+						<th><a
+							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=introduced&direction=${direction + 1}">Introduced
+								date</a></th>
 						<!-- Table header for Discontinued Date -->
-						<th><a href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=discontinued&direction=${direction + 1}">Discontinued date</a></th>
+						<th><a
+							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=discontinued&direction=${direction + 1}">Discontinued
+								date</a></th>
 						<!-- Table header for Company -->
-						<th><a href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=company&direction=${direction + 1}">Company Name</a></th>
+						<th><a
+							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=company&direction=${direction + 1}">Company
+								Name</a></th>
 
 					</tr>
 				</thead>
@@ -101,7 +128,7 @@
 			</table>
 		</div>
 	</section>
-	
+
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
@@ -131,7 +158,8 @@
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<a href="Dashboard?pageNum=0&pageTaille=10&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
+				<a
+					href="Dashboard?pageNum=0&pageTaille=10&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">10</button> </a> <a
 					href="Dashboard?pageNum=0&pageTaille=50&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">50</button></a> <a
@@ -141,20 +169,16 @@
 			</div>
 		</div>
 	</footer>
-	<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
-	<script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/resources/js/dashboard.js"></script>
-	<script type="text/javascript" src="/resources/js/FormulaireValidation.js"></script>
 
-<spring:url value="/resources/js/jquery.min.js" var="jqueryMinJs" />
-<spring:url value="/resources/js/bootstrap.min.js" var="bootsrapJs" />
-<spring:url value="/resources/js/dashboard.js" var="dashboardJs" />
-<spring:url value="/resources/js/FormulaireValidation.js" var="Form" />
+	<spring:url value="/resources/js/jquery.min.js" var="jqueryMinJs" />
+	<spring:url value="/resources/js/bootstrap.min.js" var="bootsrapJs" />
+	<spring:url value="/resources/js/dashboard.js" var="dashboardJs" />
+	<spring:url value="/resources/js/FormulaireValidation.js" var="Form" />
 
-<script src="${jqueryMinJs }"></script>
-<script src="${bootsrapJs }"></script>
-<script src="${dashboardJs }"></script>
-<script src="${Form}"></script>
+	<script src="${jqueryMinJs }"></script>
+	<script src="${bootsrapJs }"></script>
+	<script src="${dashboardJs }"></script>
+	<script src="${Form}"></script>
 
 </body>
 

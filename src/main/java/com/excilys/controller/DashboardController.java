@@ -43,8 +43,8 @@ public class DashboardController {
 		dashboardService.setPageTaille(pageTaille, page);
 		dashboardService.setPageNum(pageNum, page);
 		listComputerDTO = dashboardService.viewChoice(search, orderBy, direction, page);
-
 		dashboardService.setAttributes(search, orderBy, direction, modelAndView, page, nbComputers, listComputerDTO);
+		
 		return modelAndView;
 	}
 

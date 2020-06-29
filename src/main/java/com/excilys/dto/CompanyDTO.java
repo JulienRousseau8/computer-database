@@ -1,5 +1,8 @@
 package com.excilys.dto;
 
+import javax.persistence.Entity;
+
+@Entity
 public class CompanyDTO {
 
 	private String id;

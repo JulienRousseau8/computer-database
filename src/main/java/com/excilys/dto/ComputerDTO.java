@@ -1,9 +1,22 @@
 package com.excilys.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+@Entity
 public class ComputerDTO {
+	@Id @GeneratedValue
 	private String id;
+	@NotNull(message = "Name cannot be null")
 	private String name;
+	@DateTimeFormat(iso = ISO.DATE)
 	private String introduced;
+	@DateTimeFormat(iso = ISO.DATE)
 	private String discontinued;
 	private String companyId;
 	private String companyName;
