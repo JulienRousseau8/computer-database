@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.excilys.configuration.SpringConfig;
+import com.excilys.configuration.WebConfig;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
@@ -93,11 +95,13 @@ public class UI {
 		}
 		sc.close();
 	}
+	
+	
 	public static void main(String[] args) throws SQLException {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.register(SpringConfig.class);
 		context.refresh();
-		ActionsMenu actionsMenu = context.getBean(ActionsMenu.class);
+		ActionsMenu actionsMenu = (ActionsMenu)context.getBean(ActionsMenu.class);
 		UI ui = new UI(actionsMenu);
 		ui.afficherMenu();
 		context.close();

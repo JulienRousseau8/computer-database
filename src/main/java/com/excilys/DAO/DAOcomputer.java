@@ -97,7 +97,7 @@ public class DAOcomputer {
 	}
 
 	public List<Computer> getPageComputersOrdered(Pagination page, String orderBy, int direction) {
-		final int ASC = 1;
+		final int DIR = 1;
 		final String GETPAGECOMPUTERORDERBYNAMEASC = "SELECT computer.id, computer.name, computer.introduced , computer.discontinued , company_id, company.name "
 				+ "FROM computer LEFT JOIN company ON company_id = company.id ORDER BY " + orderBy + " ASC LIMIT :1, :2;";
 		final String GETPAGECOMPUTERORDERBYNAMEDESC = "SELECT computer.id, computer.name, computer.introduced , computer.discontinued , company_id, company.name "
@@ -107,7 +107,7 @@ public class DAOcomputer {
 				.addValue("1", page.getPageNum() * page.getPageTaille())
 				.addValue("2", page.getPageTaille());
 		
-		if(direction == ASC) {
+		if(direction == DIR) {
 			return namedJdbcTemplate.query(GETPAGECOMPUTERORDERBYNAMEASC, namedParameters, this.computerMapper);
 			}
 		else {
