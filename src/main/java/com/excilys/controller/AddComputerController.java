@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.excilys.dto.CompanyDTO;
@@ -40,24 +39,10 @@ public class AddComputerController {
 		modelAndView.addObject("listCompanyDTO", listCompanyDTO);
 		return modelAndView;
 	}
-
+	
 	@PostMapping(value = "/add")
-	public ModelAndView addComputer(@RequestParam(required = false, value = "companyId") String companyId,
-			@RequestParam(required = false, value = "computerId") String computerId,
-			@RequestParam(required = false, value = "computerName") String computerName,
-			@RequestParam(required = false, value = "introduced") String introduced,
-			@RequestParam(required = false, value = "discontinued") String discontinued) {
-		
+	public ModelAndView addComputer(ComputerDTO computerDto) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/Dashboard");
-
-		computerDto = new ComputerDTO.ComputerDTOBuilder()
-				.setName(computerName)
-				.setIntroduced(introduced)
-				.setDiscontinued(discontinued)
-				.setCompanyId(companyId)
-				.setCompanyName(companyService.getCompanyById(companyId).get().getName().toString())
-				.build();
-
 		dashboardService.createComputer(computerDto);
 		return modelAndView;
 	}

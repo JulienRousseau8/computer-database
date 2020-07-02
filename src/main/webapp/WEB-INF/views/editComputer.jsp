@@ -58,25 +58,25 @@
 					<h1>Edit Computer</h1>
 
 					<form action="EditComputer/edit" method="POST">
-						<input type="hidden" value="${computerDto.id }" id="computerId"
-							name="computerId" />
+						<input type="hidden" value="${computerDto.id }" id="id"
+							name="id" />
 						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
 							<div class="form-group">
-								<label for="computerName">Computer name</label> <input
-									type="text" class="form-control" id="computerName"
-									name="computerName" placeholder="Computer name"
+								<label for="name">Computer name</label> <input
+									type="text" class="form-control" id="name"
+									name="name" placeholder="Computer name"
 									value="${computerDto.name }" required>
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date (yyyy-MM-dd)</label> <input
-									type="date" class="form-control" id="introduced"
+									type="date" class="form-control" id="introduced" value="${computerDto.introduced }"
 									name="introduced" placeholder="${computerDto.introduced }"
 									required pattern="\d{1,2}/\d{1,2}/\d{4}">
 							</div>
 							<div class="form-group">
 								<label for="discontinued">Discontinued date (yyyy-MM-dd)</label>
-								<input type="date" class="form-control" id="discontinued"
+								<input type="date" class="form-control" id="discontinued" value="${computerDto.discontinued }"
 									name="discontinued" placeholder="${computerDto.discontinued }"
 									required pattern="\d{1,2}/\d{1,2}/\d{4}">
 							</div>

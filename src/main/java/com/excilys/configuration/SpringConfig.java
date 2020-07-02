@@ -28,7 +28,7 @@ public class SpringConfig extends AbstractContextLoaderInitializer{
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(SpringConfig.class);
+		context.register(SpringConfig.class, HibernateConfig.class);
 		return context;
 	}
 	
@@ -41,4 +41,5 @@ public class SpringConfig extends AbstractContextLoaderInitializer{
 		dataSource.setPassword(environment.getRequiredProperty(PASSWORD));
 		return dataSource;
 	}
+	
 }

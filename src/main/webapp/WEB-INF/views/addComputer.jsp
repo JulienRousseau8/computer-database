@@ -56,9 +56,9 @@
 					<form action="AddComputer/add" method="POST">
 						<fieldset>
 							<div class="form-group">
-								<label for="computerName">Computer name</label> <input
-									type="text" class="form-control" id="computerName"
-									name="computerName" placeholder="Computer name" required>
+								<label for="name">Computer name</label> <input
+									type="text" class="form-control" id="name"
+									name="name" placeholder="Computer name" required>
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date (yyyy-MM-dd)</label> <input

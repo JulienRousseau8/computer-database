@@ -3,40 +3,48 @@ package com.excilys.DAO;
 import java.util.List;
 import java.util.Optional;
 
-import javax.sql.DataSource;
+import javax.persistence.TypedQuery;
 
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.mapper.CompanyRSMapper;
 import com.excilys.model.Company;
 
 @Repository
 public class DAOcompany {
+	
+	private SessionFactory sessionFactory;
 
-	private NamedParameterJdbcTemplate namedJdbcTemplate;
-	private CompanyRSMapper companyMapper = new CompanyRSMapper();
-
-	public DAOcompany(DataSource dataSource) {
-		this.namedJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	public DAOcompany(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
+	@Transactional
+	@SuppressWarnings("unchecked")
 	public List<Company> getCompanies(){
-		return namedJdbcTemplate.query(SQLRequest.GETCOMPANIES.getQuery(),this.companyMapper);
+		Session session = this.sessionFactory.getCurrentSession();
+		String queryString = HQLRequest.GETCOMPANIES.getQuery();
+		TypedQuery<Company> query = session.createQuery(queryString);
+		return query.getResultList();
 	}
 
+	@Transactional
+	@SuppressWarnings("unchecked")
 	public Optional<Company> getCompanyById(long id){
-		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("id", id);
-		Company company = namedJdbcTemplate.queryForObject(SQLRequest.GETCOMPANYBYID.getQuery(),namedParameters, this.companyMapper);
-		return Optional.of(company);
+		Session session = this.sessionFactory.getCurrentSession();
+		String queryString = HQLRequest.GETCOMPANYBYID.getQuery();
+		TypedQuery<Company> query = session.createQuery(queryString).setParameter("id",id);
+		return Optional.of(query.getSingleResult());
 	}
 	
+	@Transactional
+	@SuppressWarnings("unchecked")
 	public void deleteCompany(long id){
-		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("id", id);
-		namedJdbcTemplate.update(SQLRequest.DELETECOMPANY.getQuery(), namedParameters);
+		Session session = this.sessionFactory.getCurrentSession();
+		String queryString = HQLRequest.DELETECOMPANY.getQuery();
+		TypedQuery<Company> query = session.createQuery(queryString).setParameter("id",id);
+		query.executeUpdate();
 	}
 }

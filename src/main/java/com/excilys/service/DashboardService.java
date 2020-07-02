@@ -29,7 +29,7 @@ public class DashboardService {
 		this.computerDTOMapper = computerDTOMapper;
 	}
 
-	public int countAllComputer() {
+	public long countAllComputer() {
 		return daoComputer.countAllComputer();
 	}
 
@@ -73,7 +73,7 @@ public class DashboardService {
 	}
 	
 	public void setAttributes(String search, String orderBy, Integer direction,
-	        ModelAndView modelAndView, Pagination page, int nbComputers, List<ComputerDTO> listComputerDTO) {
+	        ModelAndView modelAndView, Pagination page, long nbComputers, List<ComputerDTO> listComputerDTO) {
 		modelAndView.addObject("search", search);
 		modelAndView.addObject("pageMax", page.getPageMax());
 		modelAndView.addObject("pageNum", page.getPageNum());
@@ -114,7 +114,7 @@ public class DashboardService {
 		return listComputerDTO;
 	}
 
-	public int getNbComputers(String search, String orderBy) {
+	public long getNbComputers(String search, String orderBy) {
 		if(search!=null && (orderBy==null || orderBy.isEmpty())) {
 			return computerDTOMapper.listComputerToDto(getSearchComputers(search)).size();
 		}

@@ -51,23 +51,8 @@ public class EditComputerController {
 	}
 
 	@PostMapping(value = "/edit")
-	public ModelAndView editComputer(@RequestParam(required = false, value = "companyId") String companyId,
-			@RequestParam(required = false, value = "computerName") String computerName,
-			@RequestParam(required = false, value = "introduced") String introduced,
-			@RequestParam(required = false, value = "discontinued") String discontinued){
-		
-		ModelAndView modelAndView = new ModelAndView("redirect:/Dashboard");
-		CompanyDTO companyDto = companyMapper.companyToDto(companyService.getCompanyById(companyId).get());
-		String companyName = companyDto.getName();
-		
-		computerDto = new ComputerDTO.ComputerDTOBuilder()
-				.setName(computerName)
-				.setIntroduced(introduced)
-				.setDiscontinued(discontinued)
-				.setCompanyId(companyId)
-				.setCompanyName(companyName)
-				.build();
-		
+	public ModelAndView editComputer(ComputerDTO computerDto){	
+		ModelAndView modelAndView = new ModelAndView("redirect:/Dashboard");		
 		computerService.updateComputer(computerDto);
 		return modelAndView;
 	}
