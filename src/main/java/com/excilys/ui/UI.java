@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.excilys.configuration.HibernateConfig;
 import com.excilys.configuration.SpringConfig;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
@@ -47,9 +48,9 @@ public class UI {
 			switch (CliMenu.menuChoice(choice)) {
 				case LISTCOMPANIES:
 					List<Company> companies = actionsMenu.getAllCompanies();
-					//					for (Company companies : companyService.getAllCompanies()) {
-					//						System.out.println(companies.toString());
-					//					}
+					//for (Company companies : companyService.getAllCompanies()) {
+					//	System.out.println(companies.toString());
+					//}
 					companies.stream().forEach(System.out::println);
 					afficherChoix();
 					break;
@@ -93,11 +94,12 @@ public class UI {
 		}
 		sc.close();
 	}
+	
 	public static void main(String[] args) throws SQLException {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.register(SpringConfig.class);
+		context.register(SpringConfig.class, HibernateConfig.class);
 		context.refresh();
-		ActionsMenu actionsMenu = context.getBean(ActionsMenu.class);
+		ActionsMenu actionsMenu = (ActionsMenu)context.getBean(ActionsMenu.class);
 		UI ui = new UI(actionsMenu);
 		ui.afficherMenu();
 		context.close();

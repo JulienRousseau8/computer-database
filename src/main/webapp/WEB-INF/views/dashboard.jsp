@@ -4,6 +4,7 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
 <html>
@@ -13,18 +14,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"
-	media="screen">
-<link href="css/font-awesome.css" rel="stylesheet" type="text/css"
-	media="screen">
-<link href="css/main.css" rel="stylesheet" type="text/css"
-	media="screen">
+<spring:url value="/resources/css/bootstrap.min.css"
+	var="bootstrapStyle" />
+<spring:url value="/resources/css/font-awesome.css"
+	var="fontAweSomeStyle" />
+<spring:url value="/resources/css/main.css" var="mainCss" />
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<link href="${bootstrapStyle}" rel="stylesheet" media="screen">
+<link href="${fontAweSomeStyle}" rel="stylesheet" media="screen">
+<link href="${mainCss}" rel="stylesheet" media="screen">
 </head>
 
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({
+					pageLanguage : 'en'
+				}, 'google_translate_element');
+			}
+		</script>
+
+		<script type="text/javascript"
+			src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+		<script type="text/javascript"
+			src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application - Computer
+			<a class="navbar-brand" href="dashboard"> Application - Computer
 				Database </a>
 		</div>
 	</header>
@@ -33,7 +55,7 @@
 			<h1 id="homeTitle">${nbComputers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="Dashboard" method="GET"
+					<form id="searchForm" action="dashboard" method="GET"
 						class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
@@ -43,14 +65,14 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="AddComputer">Add
+					<a class="btn btn-success" id="addComputer" href="addComputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
 
-		<form id="deleteForm" action="Dashboard" method="POST">
+		<form id="deleteForm" action="dashboard/deleteComputer" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -70,12 +92,20 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><a href="Dashboard?pageNum=0&orderBy=name&direction=${direction + 1}">Computer name</a></th>
-						<th><a href="Dashboard?pageNum=0&orderBy=introduced&direction=${direction + 1}">Introduced date</a></th>
+						<th><a
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=name&direction=${direction + 1}">Computer
+								name</a></th>
+						<th><a
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=introduced&direction=${direction + 1}">Introduced
+								date</a></th>
 						<!-- Table header for Discontinued Date -->
-						<th><a href="Dashboard?pageNum=0&orderBy=discontinued&direction=${direction + 1}">Discontinued date</a></th>
+						<th><a
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=discontinued&direction=${direction + 1}">Discontinued
+								date</a></th>
 						<!-- Table header for Company -->
-						<th><a href="Dashboard?pageNum=0&orderBy=company&direction=${direction + 1}">Company Name</a></th>
+						<th><a
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=company&direction=${direction + 1}">Company
+								Name</a></th>
 
 					</tr>
 				</thead>
@@ -98,21 +128,21 @@
 			</table>
 		</div>
 	</section>
-	
+
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
 
 				<c:if test="${pageNum > 0}">
 					<li><a
-						href="Dashboard?pageNum=${pageNum-1}&search=${search}&orderBy=${orderBy}&direction=${direction}"
+						href="dashboard?pageNum=${pageNum-1}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
 				</c:if>
 
 				<c:forEach var="i" begin="1" end="5">
 					<c:if test="${pageNum+i <= pageMax}">
 						<li><a
-							href="Dashboard?pageNum=${pageNum+i}&search=${search}&orderBy=${orderBy}&direction=${direction}">
+							href="dashboard?pageNum=${pageNum+i}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}">
 								<c:out value="${pageNum+i}"></c:out>
 						</a></li>
 					</c:if>
@@ -120,7 +150,7 @@
 
 				<c:if test="${pageNum < pageMax}">
 					<li><a
-						href="Dashboard?pageNum=${pageNum+1}&search=${search}&orderBy=${orderBy}&direction=${direction}"
+						href="dashboard?pageNum=${pageNum+1}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
@@ -128,20 +158,27 @@
 			</ul>
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<a href="Dashboard?pageNum=0&pageTaille=10&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
+				<a
+					href="dashboard?pageNum=0&pageTaille=10&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">10</button> </a> <a
-					href="Dashboard?pageNum=0&pageTaille=50&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
+					href="dashboard?pageNum=0&pageTaille=50&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">50</button></a> <a
-					href="Dashboard?pageNum=0&pageTaille=100&search=${search}&orderBy=${orderBy}&direction=${direction}">
+					href="dashboard?pageNum=0&pageTaille=100&search=${search}&orderBy=${orderBy}&direction=${direction}">
 					<button type="button" class="btn btn-default">100</button>
 				</a>
 			</div>
 		</div>
 	</footer>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/dashboard.js"></script>
-	<script type="text/javascript" src="js/FormulaireValidation.js"></script>
+
+	<spring:url value="/resources/js/jquery.min.js" var="jqueryMinJs" />
+	<spring:url value="/resources/js/bootstrap.min.js" var="bootsrapJs" />
+	<spring:url value="/resources/js/dashboard.js" var="dashboardJs" />
+	<spring:url value="/resources/js/FormulaireValidation.js" var="Form" />
+
+	<script src="${jqueryMinJs }"></script>
+	<script src="${bootsrapJs }"></script>
+	<script src="${dashboardJs }"></script>
+	<script src="${Form}"></script>
 
 </body>
 

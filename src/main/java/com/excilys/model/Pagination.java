@@ -8,10 +8,10 @@ public class Pagination {
 	private int pageMax;
 	private int pageTaille;
 
-	public Pagination(int nbComputers, int pageTaille) {
+	public Pagination(long nbComputers, int pageTaille) {
 		this.pageNum = 0;
 		this.pageTaille = pageTaille;
-		this.pageMax = nbComputers / this.pageTaille;
+		this.pageMax = (int) (nbComputers / this.pageTaille);
 	}
 	
 	public void nextPage() {

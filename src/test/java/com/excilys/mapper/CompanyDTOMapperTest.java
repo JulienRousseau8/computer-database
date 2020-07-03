@@ -8,22 +8,19 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.excilys.DAO.DAOcompany;
 import com.excilys.dto.CompanyDTO;
 import com.excilys.model.Company;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CompanyDTOMapperTest extends Mockito{
 
-	@Mock
-	DAOcompany daoCompany;
+
 	
-	CompanyDTOMapper mapper = new CompanyDTOMapper(daoCompany);
+	CompanyDTOMapper mapper = new CompanyDTOMapper();
 	
 	CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
 			.setId("10")
