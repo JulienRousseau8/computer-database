@@ -18,7 +18,7 @@ import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
 
 @Controller
-@RequestMapping(value = "/EditComputer")
+@RequestMapping(value = "/editComputer")
 public class EditComputerController {
 	
 	ComputerService computerService;
@@ -52,7 +52,7 @@ public class EditComputerController {
 
 	@PostMapping(value = "/edit")
 	public ModelAndView editComputer(ComputerDTO computerDto){	
-		ModelAndView modelAndView = new ModelAndView("redirect:/Dashboard");		
+		ModelAndView modelAndView = new ModelAndView("redirect:/dashboard");		
 		computerService.updateComputer(computerDto);
 		return modelAndView;
 	}

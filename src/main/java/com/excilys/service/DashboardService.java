@@ -43,9 +43,7 @@ public class DashboardService {
 	
 	public void deleteListComputers(String selection) {
 		List<String> idaSupprimer = Arrays.asList(selection.split(","));
-		for(String id : idaSupprimer) {
-			daoComputer.deleteComputer(Integer.parseInt(id));
-		}
+		idaSupprimer.stream().forEach(id -> daoComputer.deleteComputer(Integer.parseInt(id)));
 	}
 	
 	public List<Computer> getSearchComputers(String recherche){

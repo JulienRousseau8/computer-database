@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.excilys.model.Company;
 
 @Repository
+@Transactional
 public class DAOcompany {
 	
 	private SessionFactory sessionFactory;
@@ -21,7 +22,6 @@ public class DAOcompany {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@Transactional
 	@SuppressWarnings("unchecked")
 	public List<Company> getCompanies(){
 		Session session = this.sessionFactory.getCurrentSession();
@@ -30,7 +30,6 @@ public class DAOcompany {
 		return query.getResultList();
 	}
 
-	@Transactional
 	@SuppressWarnings("unchecked")
 	public Optional<Company> getCompanyById(long id){
 		Session session = this.sessionFactory.getCurrentSession();
@@ -39,7 +38,6 @@ public class DAOcompany {
 		return Optional.of(query.getSingleResult());
 	}
 	
-	@Transactional
 	@SuppressWarnings("unchecked")
 	public void deleteCompany(long id){
 		Session session = this.sessionFactory.getCurrentSession();

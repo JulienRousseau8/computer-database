@@ -42,7 +42,7 @@ public class WebConfig implements WebApplicationInitializer, WebMvcConfigurer{
 		webContext.setServletContext(servletContext);
 
 		DispatcherServlet dispatcherServlet = new DispatcherServlet(webContext);
-		ServletRegistration.Dynamic appServlet = servletContext.addServlet("Dashboard", dispatcherServlet);
+		ServletRegistration.Dynamic appServlet = servletContext.addServlet("dashboard", dispatcherServlet);
 		appServlet.setLoadOnStartup(1);
 		appServlet.addMapping("/");
 

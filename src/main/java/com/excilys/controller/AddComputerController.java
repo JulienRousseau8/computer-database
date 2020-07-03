@@ -16,7 +16,7 @@ import com.excilys.service.CompanyService;
 import com.excilys.service.DashboardService;
 
 @Controller
-@RequestMapping(value = "/AddComputer")
+@RequestMapping(value = "/addComputer")
 public class AddComputerController {
 
 	DashboardService dashboardService;
@@ -42,7 +42,7 @@ public class AddComputerController {
 	
 	@PostMapping(value = "/add")
 	public ModelAndView addComputer(ComputerDTO computerDto) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/Dashboard");
+		ModelAndView modelAndView = new ModelAndView("redirect:/dashboard");
 		dashboardService.createComputer(computerDto);
 		return modelAndView;
 	}

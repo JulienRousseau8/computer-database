@@ -1,17 +1,9 @@
 package com.excilys.dto;
 
-import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 public class ComputerDTO {
 	private String id;
-	@NotNull(message = "Name cannot be null")
 	private String name;
-	@DateTimeFormat(iso = ISO.DATE)
 	private String introduced;
-	@DateTimeFormat(iso = ISO.DATE)
 	private String discontinued;
 	private String companyId;
 	private String companyName;

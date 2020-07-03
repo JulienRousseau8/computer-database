@@ -18,7 +18,7 @@ public class ComputerService {
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
 	CompanyService companyService;
 	Validators validators = new Validators(companyService);
-	ComputerDTOMapper mapper = new ComputerDTOMapper(companyService);
+	ComputerDTOMapper mapper = new ComputerDTOMapper();
 	DAOcomputer daoComputer;
 	
 	public ComputerService(DAOcomputer daoComputer) {
@@ -88,8 +88,7 @@ public class ComputerService {
 	
 	private void updateName(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {
 		if (computerDto.getName().isEmpty()) {
-			String name = newComputerDto.getName();
-			oldComputerDto.setName(name);
+			oldComputerDto.setName(newComputerDto.getName());
 		} else {
 			newComputerDto.setName(computerDto.getName());
 		}
@@ -97,8 +96,7 @@ public class ComputerService {
 	
 	private void updateIntroduced(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {
 		if (computerDto.getIntroduced().isEmpty()) {
-			String introduced = newComputerDto.getIntroduced();
-			oldComputerDto.setIntroduced(introduced);
+			oldComputerDto.setIntroduced(newComputerDto.getIntroduced());
 		} else {
 			newComputerDto.setIntroduced(computerDto.getIntroduced());
 		}
@@ -106,8 +104,7 @@ public class ComputerService {
 	
 	private void updateDiscontinued(ComputerDTO computerDto, ComputerDTO oldComputerDto, ComputerDTO newComputerDto) {
 		if (computerDto.getDiscontinued().isEmpty()) {
-			String discontinued = newComputerDto.getDiscontinued();
-			oldComputerDto.setDiscontinued(discontinued);
+			oldComputerDto.setDiscontinued(newComputerDto.getDiscontinued());
 		} else 
 			newComputerDto.setDiscontinued(computerDto.getDiscontinued());
 	}
@@ -118,8 +115,7 @@ public class ComputerService {
 			newComputerDto.setCompanyName(oldComputerDto.getCompanyName());
 		} else {
 			newComputerDto.setCompanyId(computerDto.getCompanyId());
-			newComputerDto.setCompanyName(computerDto.getCompanyName());
-			
+			newComputerDto.setCompanyName(computerDto.getCompanyName());	
 		}
 	}
 }

@@ -45,7 +45,7 @@
 		
 		
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application - Computer
+			<a class="navbar-brand" href="dashboard"> Application - Computer
 				Database </a>
 		</div>
 	</header>
@@ -57,7 +57,7 @@
 						${computerDto.id }</div>
 					<h1>Edit Computer</h1>
 
-					<form action="EditComputer/edit" method="POST">
+					<form action="editComputer/edit" method="POST">
 						<input type="hidden" value="${computerDto.id }" id="id"
 							name="id" />
 						<!-- TODO: Change this value with the computer id -->

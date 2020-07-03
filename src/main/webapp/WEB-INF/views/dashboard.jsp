@@ -46,7 +46,7 @@
 			src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application - Computer
+			<a class="navbar-brand" href="dashboard"> Application - Computer
 				Database </a>
 		</div>
 	</header>
@@ -55,7 +55,7 @@
 			<h1 id="homeTitle">${nbComputers} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
-					<form id="searchForm" action="Dashboard" method="GET"
+					<form id="searchForm" action="dashboard" method="GET"
 						class="form-inline">
 
 						<input type="search" id="searchbox" name="search"
@@ -65,14 +65,14 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="AddComputer">Add
+					<a class="btn btn-success" id="addComputer" href="addComputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
 
-		<form id="deleteForm" action="Dashboard/deleteComputer" method="POST">
+		<form id="deleteForm" action="dashboard/deleteComputer" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -93,18 +93,18 @@
 							</a>
 						</span></th>
 						<th><a
-							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=name&direction=${direction + 1}">Computer
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=name&direction=${direction + 1}">Computer
 								name</a></th>
 						<th><a
-							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=introduced&direction=${direction + 1}">Introduced
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=introduced&direction=${direction + 1}">Introduced
 								date</a></th>
 						<!-- Table header for Discontinued Date -->
 						<th><a
-							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=discontinued&direction=${direction + 1}">Discontinued
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=discontinued&direction=${direction + 1}">Discontinued
 								date</a></th>
 						<!-- Table header for Company -->
 						<th><a
-							href="Dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=company&direction=${direction + 1}">Company
+							href="dashboard?pageNum=0&pageTaille=${pageTaille}&orderBy=company&direction=${direction + 1}">Company
 								Name</a></th>
 
 					</tr>
@@ -135,14 +135,14 @@
 
 				<c:if test="${pageNum > 0}">
 					<li><a
-						href="Dashboard?pageNum=${pageNum-1}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}"
+						href="dashboard?pageNum=${pageNum-1}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
 				</c:if>
 
 				<c:forEach var="i" begin="1" end="5">
 					<c:if test="${pageNum+i <= pageMax}">
 						<li><a
-							href="Dashboard?pageNum=${pageNum+i}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}">
+							href="dashboard?pageNum=${pageNum+i}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}">
 								<c:out value="${pageNum+i}"></c:out>
 						</a></li>
 					</c:if>
@@ -150,7 +150,7 @@
 
 				<c:if test="${pageNum < pageMax}">
 					<li><a
-						href="Dashboard?pageNum=${pageNum+1}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}"
+						href="dashboard?pageNum=${pageNum+1}&search=${search}&orderBy=${orderBy}&pageTaille=${pageTaille}&direction=${direction}"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
@@ -159,11 +159,11 @@
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
 				<a
-					href="Dashboard?pageNum=0&pageTaille=10&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
+					href="dashboard?pageNum=0&pageTaille=10&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">10</button> </a> <a
-					href="Dashboard?pageNum=0&pageTaille=50&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
+					href="dashboard?pageNum=0&pageTaille=50&search=${search}&orderBy=${orderBy}&direction=${direction}"><button
 						type="button" class="btn btn-default">50</button></a> <a
-					href="Dashboard?pageNum=0&pageTaille=100&search=${search}&orderBy=${orderBy}&direction=${direction}">
+					href="dashboard?pageNum=0&pageTaille=100&search=${search}&orderBy=${orderBy}&direction=${direction}">
 					<button type="button" class="btn btn-default">100</button>
 				</a>
 			</div>

@@ -48,9 +48,9 @@ public class UI {
 			switch (CliMenu.menuChoice(choice)) {
 				case LISTCOMPANIES:
 					List<Company> companies = actionsMenu.getAllCompanies();
-					//					for (Company companies : companyService.getAllCompanies()) {
-					//						System.out.println(companies.toString());
-					//					}
+					//for (Company companies : companyService.getAllCompanies()) {
+					//	System.out.println(companies.toString());
+					//}
 					companies.stream().forEach(System.out::println);
 					afficherChoix();
 					break;

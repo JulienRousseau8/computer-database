@@ -1,21 +1,18 @@
 package com.excilys.mapper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
-import com.excilys.service.CompanyService;
 
 @Component
 public class ComputerDTOMapper {
-	CompanyService companyService;
 
-	public ComputerDTOMapper(CompanyService companyService) {
-		this.companyService = companyService;
+	public ComputerDTOMapper() {
 	}
 
 	public Computer dtoToComputer(ComputerDTO computerDto){
@@ -30,9 +27,7 @@ public class ComputerDTOMapper {
 	}
 
 	public ComputerDTO computerToDto(Computer computer) {
-		ComputerDTO computerDTO;
-		
-		computerDTO = new ComputerDTO.ComputerDTOBuilder()
+		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder()
 				.setId(String.valueOf(computer.getId()))
 				.setName(computer.getName())
 				.setIntroduced(String.valueOf(computer.getIntroduced()))
@@ -40,27 +35,14 @@ public class ComputerDTOMapper {
 				.setCompanyId(computer.getCompany() != null ? String.valueOf(computer.getCompany().getId()) : null)
 				.setCompanyName(computer.getCompany() != null ? String.valueOf(computer.getCompany().getName()) : "null")
 				.build();
-
 		return computerDTO;
 	}
 
 	public List<ComputerDTO> listComputerToDto(List<Computer> computerList){
-		List<ComputerDTO> computerDTOList = new ArrayList<ComputerDTO>();
-
-		for(int i=0; i<computerList.size(); i++) {
-			computerDTOList.add(computerToDto(computerList.get(i)));
-		}
-
-		return computerDTOList;
+		return computerList.stream().map(computer -> computerToDto(computer)).collect(Collectors.toList());
 	}
 
 	public List<Computer> listDtoToComputer(List<ComputerDTO> computerDtoList){
-		List<Computer> computerList = new ArrayList<Computer>();
-
-		for(int i=0; i<computerList.size(); i++) {
-			computerList.add(dtoToComputer(computerDtoList.get(i)));
-		}
-
-		return computerList;
+		return computerDtoList.stream().map(computer -> dtoToComputer(computer)).collect(Collectors.toList());
 	}
 }

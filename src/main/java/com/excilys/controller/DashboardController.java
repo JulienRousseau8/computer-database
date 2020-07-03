@@ -3,15 +3,11 @@ package com.excilys.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.excilys.dto.ComputerDTO;
@@ -20,7 +16,7 @@ import com.excilys.service.ComputerService;
 import com.excilys.service.DashboardService;
 
 @Controller
-@RequestMapping(value = "/Dashboard")
+@RequestMapping(value = "/dashboard")
 public class DashboardController {
 	List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
 	long nbComputers;
@@ -55,14 +51,8 @@ public class DashboardController {
 
 	@PostMapping(value = "/deleteComputer")
 	public ModelAndView deleteComputer(@RequestParam(value = "selection") String selection) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/Dashboard");
+		ModelAndView modelAndView = new ModelAndView("redirect:/dashboard");
 		dashboardService.deleteListComputers(selection);
 		return modelAndView;
-	}
-
-	@RequestMapping(value = "/controller", method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<String> sendViaResponseEntity() {
-		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
 }

@@ -25,7 +25,7 @@
 	<h1>Application - Computer Database</h1>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Go to Dashboard </a>
+			<a class="navbar-brand" href="dashboard"> Go to Dashboard </a>
 		</div>
 	</header>
 	

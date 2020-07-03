@@ -15,7 +15,6 @@ public enum HQLRequest {
 	GETCOMPANYBYID("select company from Company company where company.id = :id"),
 	DELETECOMPANY ("delete from Company company where id=:id");
 	
-	
 	private String requete;
 
 	HQLRequest(String query) {
