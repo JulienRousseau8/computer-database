@@ -5,9 +5,16 @@ import static org.junit.Assert.*;
 import java.time.LocalDate;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.excilys.configuration.HibernateConfig;
+import com.excilys.configuration.SpringConfig;
 import com.excilys.mapper.DateMapper;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { SpringConfig.class, HibernateConfig.class})
 public class ConvertDateTest {
 
 	@Test

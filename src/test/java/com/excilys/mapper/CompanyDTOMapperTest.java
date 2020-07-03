@@ -2,24 +2,17 @@ package com.excilys.mapper;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.dto.CompanyDTO;
 import com.excilys.model.Company;
 
-@RunWith(MockitoJUnitRunner.class)
-public class CompanyDTOMapperTest extends Mockito{
+public class CompanyDTOMapperTest{
 
-
-	
 	CompanyDTOMapper mapper = new CompanyDTOMapper();
 	
 	CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
@@ -28,28 +21,36 @@ public class CompanyDTOMapperTest extends Mockito{
 			.build();
 
 	Company company = new Company.CompanyBuilder().setId((long) 10).setName("Digital Equipment Corporation").build();
-
 	Optional<Company> optComp = Optional.of(company);
 	
-	@Before
-	public void setUp() {
-		
-		MockitoAnnotations.initMocks(this);
+	List<CompanyDTO> companiesDtoList = new ArrayList<CompanyDTO>();
+	List<Company> companiesList = new ArrayList<Company>();
+	
+	@Test
+	public void dtoToCompany() {
+		Company companyRes = mapper.dtoToCompany(companyDto);
+		assertEquals(company, companyRes);
+	}
+
+	@Test
+	public void companyToDto() {
+		CompanyDTO companyRes = mapper.companyToDto(company);
+		assertEquals(companyDto, companyRes);
 	}
 	
 	@Test
-	public void testDtoToCompany() throws SQLException {
-		Company companyRes = mapper.dtoToCompany(companyDto);
-
-		assertEquals(company.getId(), companyRes.getId());
-		assertEquals(company.getName(), companyRes.getName());
+	public void listDtoToCompany() {
+		companiesDtoList.add(companyDto);
+		companiesList.add(company);
+		List<Company> listCompanies = mapper.listDtoToCompany(companiesDtoList);
+		assertEquals(listCompanies, companiesList);
 	}
-
+	
 	@Test
-	public void testCompanyToDto() {
-		CompanyDTO companyRes = mapper.companyToDto(company);
-
-		assertEquals(companyDto.getId(), companyRes.getId());
-		assertEquals(companyDto.getName(), companyRes.getName());
+	public void listCompanyToDto() {
+		companiesDtoList.add(companyDto);
+		companiesList.add(company);
+		List<CompanyDTO> listDTOCompanies = mapper.listCompanyToDto(companiesList);
+		assertEquals(listDTOCompanies, companiesDtoList);
 	}
 }

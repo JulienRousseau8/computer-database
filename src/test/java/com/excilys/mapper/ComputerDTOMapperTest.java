@@ -4,70 +4,74 @@ import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.excilys.dto.CompanyDTO;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ComputerDTOMapperTest {
-
-	
-	DataSource connexion;
 	
 	ComputerDTOMapper mapper = new ComputerDTOMapper();
 	
-	String date1 = "2010-04-22";
-	String date2 = "2010-04-23";
-
-	CompanyDTO companyDTO = new CompanyDTO.CompanyDTOBuilder().setId("10").setName("Digital Equipment Corporation")
+	CompanyDTO companyDTO = new CompanyDTO.CompanyDTOBuilder()
+			.setId("1")
+			.setName("Apple Inc.")
 			.build();
+	
+	Company company = new Company.CompanyBuilder()
+			.setId((long) 1)
+			.setName("Apple Inc.").build();
 
-	Company company = new Company.CompanyBuilder().setId((long) 10).setName("Digital Equipment Corporation").build();
-
-	ComputerDTO computerDto = new ComputerDTO.ComputerDTOBuilder().setId("10").setName("Ordinateur")
-			.setIntroduced(date1).setDiscontinued(date2)
-			.setCompanyId(String.valueOf(company.getId()))
+	ComputerDTO computerDto = new ComputerDTO.ComputerDTOBuilder()
+			.setId("17")
+			.setName("Apple III Plus")
+			.setIntroduced("1983-12-01")
+			.setDiscontinued("1984-04-01")
+			.setCompanyId(companyDTO.getId())
+			.setCompanyName(companyDTO.getName())
 			.build();
-
-	Computer computer = new Computer.ComputerBuilder().setId((long) 10).setName("Ordinateur")
-			.setIntroduced(LocalDate.of(2010, 04, 22)).setDiscontinued(LocalDate.of(2010, 04, 23)).setCompany(company)
+	
+	Computer computer = new Computer.ComputerBuilder()
+			.setId((long) 17)
+			.setName("Apple III Plus")
+			.setIntroduced(LocalDate.of(1983, 12, 01))
+			.setDiscontinued(LocalDate.of(1984, 04, 01))
+			.setCompany(company)
 			.build();
-
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-	}
+	
+	List<ComputerDTO> computersDtoList = new ArrayList<ComputerDTO>();
+	List<Computer> computersList = new ArrayList<Computer>();
 	
 	@Test
 	public void testDtoToComputer() throws SQLException {
 		Computer computerRes = mapper.dtoToComputer(computerDto);
-
-		assertEquals(computer.getName(), computerRes.getName());
-		assertEquals(computer.getIntroduced(), computerRes.getIntroduced());
-		assertEquals(computer.getDiscontinued(), computerRes.getDiscontinued());
-		assertEquals(computer.getCompany().getId(), computerRes.getCompany().getId());
-		assertEquals(computer.getCompany().getName(), computerRes.getCompany().getName());
+		assertEquals(computer, computerRes);
 	}
 
 	@Test
 	public void testComputerToDto() {
 		ComputerDTO computerRes = mapper.computerToDto(computer);
-
-		assertEquals(computerDto.getId(), computerRes.getId());
-		assertEquals(computerDto.getName(), computerRes.getName());
-		assertEquals(computerDto.getIntroduced(), computerRes.getIntroduced());
-		assertEquals(computerDto.getDiscontinued(), computerRes.getDiscontinued());
-		assertEquals(computerDto.getCompanyId(), computerRes.getCompanyId());
+		assertEquals(computerDto, computerRes);
 	}
 
+	@Test
+	public void listDtoToComputer() {
+		computersDtoList.add(computerDto);
+		computersList.add(computer);
+		List<Computer> listCompanies = mapper.listDtoToComputer(computersDtoList);
+		assertEquals(computersList, listCompanies);
+	}
+	
+	@Test
+	public void listCompanyToDto() {
+		computersDtoList.add(computerDto);
+		computersList.add(computer);
+		List<ComputerDTO> listDTOComputers = mapper.listComputerToDto(computersList);
+		assertEquals(computersDtoList, listDTOComputers);
+	}
 }
