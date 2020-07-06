@@ -7,8 +7,8 @@
 
 	<groupId>com.excilys</groupId>
 	<artifactId>CDB</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>6.0</version>
+	<packaging>pom</packaging>
 
 	<name>CDB Maven Webapp</name>
 
@@ -243,4 +243,12 @@
 		</plugins>
 	</reporting>
 
+	<modules>
+		<module>core</module>
+		<module>persistence</module>
+		<module>service</module>
+		<module>binding</module>
+		<module>console</module>
+		<module>webapp</module>
+	</modules>
 </project>
