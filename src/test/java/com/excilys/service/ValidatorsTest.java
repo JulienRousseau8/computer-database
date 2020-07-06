@@ -25,7 +25,6 @@ public class ValidatorsTest extends Mockito{
 	
 	@Mock
 	Computer computer;
-	
 	@Mock
 	CompanyService companyService;
 	

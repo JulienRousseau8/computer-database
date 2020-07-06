@@ -1,7 +1,5 @@
 package com.excilys.service;
 
-import javax.sql.DataSource;
-
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -21,7 +19,6 @@ public class ComputerServiceTest {
 	DAOcompany daoCompany;
 	@Mock
 	DAOcomputer daoComputer;
-	DataSource connexion;
 	
 	@Before
 	public void init() {

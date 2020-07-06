@@ -1,4 +1,4 @@
-package com.excilys.service;
+package com.excilys.mapper;
 
 import static org.junit.Assert.*;
 
