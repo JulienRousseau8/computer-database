@@ -11,14 +11,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.excilys.DAO.DAOcompany;
+import com.excilys.configuration.HibernateConfig;
+import com.excilys.configuration.SpringConfig;
 import com.excilys.model.Company;
 
 //@RunWith(MockitoJUnitRunner.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = {SpringConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes = {SpringConfig.class, HibernateConfig.class})
 public class CompanyServiceTest extends Mockito {
 
 	@Mock

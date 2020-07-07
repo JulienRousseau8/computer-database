@@ -4,7 +4,6 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +12,12 @@ public class DateMapper {
 
 	private static Logger logger = LoggerFactory.getLogger(DateMapper.class);
 
-	public static Optional<LocalDate> stringToDate(String date) {
+	public static LocalDate stringToDate(String date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate localDate = null;
 		try {
 			localDate = LocalDate.parse(date, formatter);
-			return Optional.of(localDate);
+			return localDate;
 
 		} catch (DateTimeParseException DTPexc) {
 			logger.info("La date saisie n'est pas bonne");
@@ -30,6 +29,6 @@ public class DateMapper {
 			logger.info("La date saisie n'est pas bonne");
 			e.printStackTrace();
 		}
-		return Optional.of(localDate);
+		return null;
 	}
 }

@@ -11,7 +11,7 @@ public class ConvertDateTest {
 	@Test
 	public void testConvertDateTrue() {
 		String date = "2010-04-22";
-		LocalDate local = DateMapper.stringToDate(date).get();
+		LocalDate local = DateMapper.stringToDate(date);
 		LocalDate localDate = LocalDate.of(2010, 04, 22);
 		assertEquals(localDate, local);
 	}
@@ -19,21 +19,21 @@ public class ConvertDateTest {
 	@Test
 	public void testConvertDateEmpty() {
 		String date = "";
-		LocalDate local = DateMapper.stringToDate(date).get();
+		LocalDate local = DateMapper.stringToDate(date);
 		assertEquals(null, local);
 	}
 
 	@Test
 	public void testConvertDateFormat() {
 		String date = "dsfefe";
-		LocalDate local = DateMapper.stringToDate(date).get();
+		LocalDate local = DateMapper.stringToDate(date);
 		assertEquals(null, local);
 	}
 
 	@Test
 	public void testConvertDateSlash() {
 		String date = "2010/04/22";
-		LocalDate local = DateMapper.stringToDate(date).get();
+		LocalDate local = DateMapper.stringToDate(date);
 		assertEquals(null, local);
 	}
 }

@@ -18,6 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		
 	</properties>
 
 	<dependencies>
@@ -44,7 +45,8 @@
 			<artifactId>binding</artifactId>
 			<version>6.0</version>
 		</dependency>
-	</dependencies> 
+	</dependencies>
+
 
 	<build>
 		<finalName>webapp</finalName>

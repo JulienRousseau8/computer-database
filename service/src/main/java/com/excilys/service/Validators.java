@@ -46,8 +46,8 @@ public class Validators {
 	}
 
 	public boolean verifierDateOrdre(String dateIntroduction, String dateArret) {
-		LocalDate intro = DateMapper.stringToDate(dateIntroduction).get();
-		LocalDate arret = DateMapper.stringToDate(dateArret).get();
+		LocalDate intro = DateMapper.stringToDate(dateIntroduction);
+		LocalDate arret = DateMapper.stringToDate(dateArret);
 		boolean dateIntroNow = verifierDateNow(dateIntroduction);
 		boolean dateArretNow = verifierDateNow(dateArret);
 		if (dateIntroduction.isEmpty() || dateArret.isEmpty()) {
@@ -79,7 +79,7 @@ public class Validators {
 	}
 	
 	public boolean verifierDateNow(String date) {
-		LocalDate localDate = DateMapper.stringToDate(date).get();
+		LocalDate localDate = DateMapper.stringToDate(date);
 		return localDate.isBefore(LocalDate.now());
 	}
 	

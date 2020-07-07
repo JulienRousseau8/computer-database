@@ -9,6 +9,7 @@
 	</parent>
 	<artifactId>persistence</artifactId>
 	<packaging>jar</packaging>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.excilys</groupId>
@@ -16,4 +17,5 @@
 			<version>6.0</version>
 		</dependency>
 	</dependencies>
+
 </project>
