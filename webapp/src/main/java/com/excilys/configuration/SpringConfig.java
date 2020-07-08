@@ -15,7 +15,7 @@ public class SpringConfig extends AbstractContextLoaderInitializer{
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(SpringConfig.class, HibernateConfig.class);
+		context.register(SpringConfig.class, HibernateConfig.class, WebConfig.class, SecurityConfig.class, SpringSecurityInitializer.class);
 		return context;
 	}
 }
