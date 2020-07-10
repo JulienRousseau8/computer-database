@@ -13,7 +13,11 @@ public enum HQLRequest {
 	
 	GETCOMPANIES("select company from Company company"),
 	GETCOMPANYBYID("select company from Company company where company.id = :id"),
-	DELETECOMPANY ("delete from Company company where id=:id");
+	DELETECOMPANY ("delete from Company company where id=:id"),
+	
+	GETUSERBYID ("select user from User user where user.id = :id"),
+	GETUSERBYNAME ("select user from User user where user.username = :name"), 
+	DELETEUSER ("delete from User user where id=:id");
 	
 	private String requete;
 

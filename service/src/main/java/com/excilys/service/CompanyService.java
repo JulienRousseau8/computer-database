@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.excilys.DAO.DAOcompany;
@@ -16,13 +17,10 @@ import com.excilys.model.Computer;
 public class CompanyService {
 
 	private static Logger logger = LoggerFactory.getLogger(CompanyService.class);
+	@Autowired
 	DAOcompany daoCompany;
+	@Autowired
 	ComputerService computerService;
-	
-	public CompanyService(ComputerService computerService, DAOcompany daoCompany) {
-		this.computerService = computerService;
-		this.daoCompany = daoCompany;
-	}
 	
 	public Optional<Company> getCompanyById(String companyID){
 		try {

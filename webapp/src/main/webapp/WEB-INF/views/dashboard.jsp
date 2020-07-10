@@ -49,6 +49,9 @@
 			<a class="navbar-brand" href="dashboard"> Application - Computer
 				Database </a>
 		</div>
+				<div class="container">
+			<a href="logout">Logout</a>
+		</div>
 	</header>
 	<section id="main">
 		<div class="container">

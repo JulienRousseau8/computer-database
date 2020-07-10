@@ -24,7 +24,7 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="ListComputers"> Application - Computer Database </a>
+			<a class="navbar-brand" href="login"> Application - Computer Database </a>
 		</div>
 	</header>
 

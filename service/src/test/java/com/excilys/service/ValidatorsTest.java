@@ -28,7 +28,7 @@ public class ValidatorsTest extends Mockito{
 	@Mock
 	CompanyService companyService;
 	
-	Validators validators = new Validators(companyService);
+	Validators validators;
 	
 	@Before
 	public void init() {

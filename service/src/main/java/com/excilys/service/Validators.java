@@ -5,19 +5,19 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.excilys.dto.ComputerDTO;
 import com.excilys.mapper.DateMapper;
 import com.excilys.model.Company;
 
+@Component
 public class Validators {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
+	@Autowired
 	CompanyService companyService;
-
-	public Validators(CompanyService companyService) {
-		this.companyService = companyService;
-	}
 
 	public boolean verifierDateUtilisateurSaisie(String date) {
 		if (date == null || date.isEmpty()) {

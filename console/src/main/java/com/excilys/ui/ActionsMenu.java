@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.excilys.dto.ComputerDTO;
@@ -23,15 +24,12 @@ public class ActionsMenu {
 	private static Logger logger = LoggerFactory.getLogger(ActionsMenu.class);
 
 	private Scanner scan = new Scanner(System.in);
+	@Autowired
 	ComputerService computerService;
+	@Autowired
 	CompanyService companyService;
+	@Autowired
 	DashboardService dashboardService;
-
-	public ActionsMenu(ComputerService computerService, CompanyService companyService, DashboardService dashboardService) {
-		this.computerService = computerService;
-		this.companyService = companyService;
-		this.dashboardService = dashboardService;
-	}
 	
 	public void showDetails(){
 		System.out.println("Entrer un ID");

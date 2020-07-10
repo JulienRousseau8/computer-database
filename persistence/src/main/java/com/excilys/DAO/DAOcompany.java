@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +15,11 @@ import com.excilys.model.Company;
 
 @Repository
 @Transactional
+@SuppressWarnings("unchecked")
 public class DAOcompany {
-	
+	@Autowired
 	private SessionFactory sessionFactory;
 
-	public DAOcompany(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	@SuppressWarnings("unchecked")
 	public List<Company> getCompanies(){
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETCOMPANIES.getQuery();
@@ -30,7 +27,6 @@ public class DAOcompany {
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	public Optional<Company> getCompanyById(long id){
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETCOMPANYBYID.getQuery();
@@ -38,7 +34,6 @@ public class DAOcompany {
 		return Optional.of(query.getSingleResult());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void deleteCompany(long id){
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.DELETECOMPANY.getQuery();

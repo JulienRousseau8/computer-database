@@ -1,31 +1,15 @@
-package com.excilys.model;
+package com.excilys.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="user")
-public class User {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Long id;
-	@Column(name = "username")
+public class MyUserDTO {
+	private String id;
 	private String username;
-	@Column(name = "password")
 	private String password;
-	@Column(name = "role")
 	private String role;
 	
-	private User() {
+	private MyUserDTO() {
 	}
 	
-	private User(Builder builder) {
+	private MyUserDTO(Builder builder) {
 		this.id = builder.id;
 		this.username = builder.username;
 		this.password = builder.password;
@@ -59,7 +43,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		MyUserDTO other = (MyUserDTO) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -83,7 +67,7 @@ public class User {
 		return true;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -99,7 +83,7 @@ public class User {
 		return role;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -117,16 +101,16 @@ public class User {
 
 
 	public static class Builder{
-		private Long id;
+		private String id;
 		private String username;
 		private String password;
 		private String role;
 		
-		public User build() {
-			return new User(this);
+		public MyUserDTO build() {
+			return new MyUserDTO(this);
 		}
 		
-		public Builder setId(Long id) {
+		public Builder setId(String id) {
 			this.id = id;
 			return this;
 		}

@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,15 +17,12 @@ import com.excilys.model.Pagination;
 
 @Repository
 @Transactional
+@SuppressWarnings("unchecked")
 public class DAOcomputer {
 
+	@Autowired
 	private SessionFactory sessionFactory;
 
-	public DAOcomputer(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	@SuppressWarnings("unchecked")
 	public List<Computer> getComputers(){
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETCOMPUTERS.getQuery();
@@ -33,7 +31,6 @@ public class DAOcomputer {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public Optional<Computer> getComputerById(long id){
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETCOMPUTERBYID.getQuery();
@@ -42,7 +39,6 @@ public class DAOcomputer {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Computer> getComputersByCompanyId(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETCOMPUTERSBYCOMPANYID.getQuery();
@@ -56,7 +52,6 @@ public class DAOcomputer {
 		session.save(computer);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void updateComputer(Computer computer) {
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.UPDATECOMPUTER.getQuery();
@@ -69,7 +64,6 @@ public class DAOcomputer {
 		query.executeUpdate();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void deleteComputer(long id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.DELETECOMPUTER.getQuery();
@@ -77,7 +71,6 @@ public class DAOcomputer {
 		query.executeUpdate();
 	}
 
-	@SuppressWarnings("unchecked")
 	public long countAllComputer() {
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.COUNTCOMPUTERS.getQuery();
@@ -85,7 +78,6 @@ public class DAOcomputer {
 		return (long) query.uniqueResult();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Computer> getPageComputers(Pagination page) {
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETCOMPUTERS.getQuery();
@@ -95,7 +87,6 @@ public class DAOcomputer {
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Computer> getSearchComputersPage(String recherche, Pagination page) {	
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.SEARCHCOMPUTER.getQuery();
@@ -107,7 +98,6 @@ public class DAOcomputer {
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Computer> getSearchComputers(String recherche) {
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.SEARCHCOMPUTER.getQuery();
@@ -116,7 +106,6 @@ public class DAOcomputer {
 		return query.getResultList();
 	}
 
-	@Transactional
 	public List<Computer> getPageComputersOrdered(Pagination page, String orderBy, int direction) {
 		final int DIR = 1;
 		Session session = this.sessionFactory.getCurrentSession();
@@ -133,7 +122,6 @@ public class DAOcomputer {
 		}	
 	}
 
-	@SuppressWarnings("unchecked")
 	private TypedQuery<Computer> setParameterOrderBy(Pagination page, Session session, String queryString) {
 		TypedQuery<Computer> query = session.createQuery(queryString);
 		query.setFirstResult( page.getPageNum() * page.getPageTaille());

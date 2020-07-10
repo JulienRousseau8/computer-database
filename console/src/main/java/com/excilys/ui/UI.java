@@ -99,7 +99,7 @@ public class UI {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.register(SpringConfig.class, HibernateConfig.class);
 		context.refresh();
-		ActionsMenu actionsMenu = (ActionsMenu)context.getBean(ActionsMenu.class);
+		ActionsMenu actionsMenu = context.getBean(ActionsMenu.class);
 		UI ui = new UI(actionsMenu);
 		ui.afficherMenu();
 		context.close();

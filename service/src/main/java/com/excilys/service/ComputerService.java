@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.excilys.DAO.DAOcomputer;
@@ -16,14 +17,12 @@ import com.excilys.model.Computer;
 public class ComputerService {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
-	CompanyService companyService;
-	Validators validators = new Validators(companyService);
-	ComputerDTOMapper mapper = new ComputerDTOMapper();
+	@Autowired
 	DAOcomputer daoComputer;
-	
-	public ComputerService(DAOcomputer daoComputer) {
-		this.daoComputer = daoComputer;
-	}
+	@Autowired
+	Validators validators;
+	@Autowired
+	ComputerDTOMapper mapper;
 	
 	public List<Computer> getAllComputers(){
 		return daoComputer.getComputers();

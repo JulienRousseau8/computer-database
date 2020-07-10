@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,16 +19,12 @@ import com.excilys.model.Pagination;
 public class DashboardService {
 	private static Logger logger = LoggerFactory.getLogger(DashboardService.class);
 	
+	@Autowired
 	DAOcomputer daoComputer;
-	CompanyService companyService;
+	@Autowired
 	ComputerDTOMapper computerDTOMapper;
-	Validators validators = new Validators(companyService);
-
-	
-	public DashboardService(DAOcomputer daoComputer, ComputerDTOMapper computerDTOMapper) {
-		this.daoComputer = daoComputer;
-		this.computerDTOMapper = computerDTOMapper;
-	}
+	@Autowired
+	Validators validators;
 
 	public long countAllComputer() {
 		return daoComputer.countAllComputer();
