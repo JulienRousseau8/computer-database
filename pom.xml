@@ -7,8 +7,8 @@
 
 	<groupId>com.excilys</groupId>
 	<artifactId>CDB</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>6.0</version>
+	<packaging>pom</packaging>
 
 	<name>CDB Maven Webapp</name>
 
@@ -19,24 +19,24 @@
 		<!-- DATABASE -->
 		<mysql-version>8.0.20</mysql-version>
 		<com.h2database>1.4.200</com.h2database>
-		<HikariCP>3.4.1</HikariCP>
 		<!-- SPRING -->
-		<springVersion>5.2.6 RELEASE</springVersion>
-		<!-- HIBERNATE -->
-		<org.hibernate>5.4.10.Final</org.hibernate>
+		<springVersion>5.2.5 RELEASE</springVersion>
+		<spring-security.version>5.3.2 RELEASE</spring-security.version>
 		<!-- SERVLET / JSTL -->
 		<javax.servlet-api>4.0.1</javax.servlet-api>
 		<jstl>1.2</jstl>
 		<org.apache.taglib>1.2.5</org.apache.taglib>
 		<javax.validation>1.1.0.Final</javax.validation>
 		<javax.persistence>2.2</javax.persistence>
+		<!-- SERVEUR -->
+		<org.apache.tomcat>9.0.31</org.apache.tomcat>
+		<!-- HIBERNATE -->
+		<org.hibernate>5.4.10.Final</org.hibernate>
 		<!-- TEST -->
-		<junit-version>4.11</junit-version>
+		<junit-version>4.12</junit-version>
 		<org.mockito>1.9.5</org.mockito>
 		<!-- LOGGING -->
 		<org.slf4j>1.7.30</org.slf4j>
-		<!-- SERVEUR -->
-		<org.apache.tomcat>9.0.31</org.apache.tomcat>
 	</properties>
 
 	<dependencyManagement>
@@ -65,12 +65,6 @@
 			<artifactId>h2</artifactId>
 			<version>${com.h2database}</version>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>${HikariCP}</version>
 		</dependency>
 
 		<!-- HIBERNATE -->
@@ -102,6 +96,52 @@
 			<artifactId>spring-orm</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.3.2.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.3.2.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.3.2.RELEASE</version>
+		</dependency>
+
+		<!-- TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${org.mockito}</version>
+		</dependency>
+
+		<!-- LOGGING -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${org.slf4j}</version>
+			<scope>runtime</scope>
+		</dependency>
 		<!-- SERVLET / JSTL -->
 
 		<dependency>
@@ -139,36 +179,6 @@
 			<artifactId>javax.persistence-api</artifactId>
 			<version>${javax.persistence}</version>
 		</dependency>
-
-		<!-- TEST -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${org.mockito}</version>
-		</dependency>
-
-		<!-- LOGGING -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${org.slf4j}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>${org.slf4j}</version>
-			<scope>runtime</scope>
-		</dependency>
-
 
 		<!-- SERVEUR -->
 		<dependency>
@@ -242,5 +252,14 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
+	<modules>
+		<module>core</module>
+		<module>persistence</module>
+		<module>service</module>
+		<module>binding</module>
+		<module>console</module>
+		<module>webapp</module>
+	</modules>
 
 </project>
