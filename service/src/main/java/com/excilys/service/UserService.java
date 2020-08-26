@@ -26,8 +26,8 @@ public class UserService implements UserDetailsService {
 	DAOuser daoUser;
 	@Autowired
 	UserDTOMapper userMapper;
-	@Autowired
-	BCryptPasswordEncoder encoder;
+	//@Autowired
+	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{

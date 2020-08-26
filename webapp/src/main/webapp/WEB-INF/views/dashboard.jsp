@@ -75,7 +75,7 @@
 			</div>
 		</div>
 
-		<form id="deleteForm" action="dashboard/deleteComputer" method="POST">
+		<form id="deleteForm" action="deleteComputer" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 

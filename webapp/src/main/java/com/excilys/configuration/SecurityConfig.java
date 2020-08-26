@@ -1,5 +1,6 @@
 package com.excilys.configuration;
 
+import com.excilys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint;
-
-import com.excilys.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -38,9 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 			.antMatchers("/login").permitAll()
 			.antMatchers("/dashboard").access("hasAnyRole('USER', 'ADMIN')")
-			.antMatchers("/editComputer", "/addComputer").access("hasRole('ADMIN')");
+			.antMatchers("/editComputer", "/addComputer", "/deleteComputer").access("hasRole('ADMIN')");
 			
-		
 		http
 		.authorizeRequests().and().formLogin()
 			.loginPage("/login")
@@ -56,7 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.permitAll();
 		
 		http
-		.authorizeRequests().and().exceptionHandling().accessDeniedPage("/WEB-INF/views/403.jsp");
+		.authorizeRequests().and().exceptionHandling()
+			.accessDeniedPage("/WEB-INF/views/403.jsp");	
 	}
 
 	@Bean
