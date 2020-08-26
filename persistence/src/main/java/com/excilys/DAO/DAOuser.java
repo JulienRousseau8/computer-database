@@ -1,5 +1,6 @@
 package com.excilys.DAO;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.TypedQuery;
@@ -26,7 +27,14 @@ public class DAOuser {
 		TypedQuery<MyUser> query = session.createQuery(queryString).setParameter("id",id);
 		return Optional.of(query.getSingleResult());
 	}
-	
+
+	public List<MyUser> getUsers(){
+		Session session = this.sessionFactory.getCurrentSession();
+		String queryString = HQLRequest.GETUSERS.getQuery();
+		TypedQuery<MyUser> query = session.createQuery(queryString);
+		return query.getResultList();
+	}
+
 	public Optional<MyUser> getUserByName(String name){
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETUSERBYNAME.getQuery();

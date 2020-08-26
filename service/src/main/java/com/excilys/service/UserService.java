@@ -34,11 +34,10 @@ public class UserService implements UserDetailsService {
 		Optional<MyUser> optUser = daoUser.getUserByName(username);
 		if (optUser.isPresent()) {
 			MyUser user = optUser.get();
-			List<GrantedAuthority> grantedList= new ArrayList<GrantedAuthority>();
+			List<GrantedAuthority> grantedList= new ArrayList<>();
 			SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRole());
 			grantedList.add(authority);
-			UserDetails userDetails = new User(user.getUsername(), user.getPassword(), grantedList);
-			return userDetails;
+			return new User(user.getUsername(), user.getPassword(), grantedList);
 		}
 		else {
 			throw new UsernameNotFoundException("username " + username + " not found !!");
@@ -48,5 +47,9 @@ public class UserService implements UserDetailsService {
 	public void createUser(MyUserDTO user) {
 		user.setPassword(encoder.encode(user.getPassword()));
 		daoUser.createUser(userMapper.DtoToUser(user));
+	}
+
+	public List<MyUser> getUsers(){
+		return daoUser.getUsers();
 	}
 }

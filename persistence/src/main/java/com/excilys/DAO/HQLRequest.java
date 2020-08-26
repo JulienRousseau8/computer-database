@@ -17,7 +17,8 @@ public enum HQLRequest {
 	
 	GETUSERBYID ("select user from User user where user.id = :id"),
 	GETUSERBYNAME ("select user from User user where user.username = :name"), 
-	DELETEUSER ("delete from User user where id=:id");
+	DELETEUSER ("delete from User user where id=:id"),
+	GETUSERS ( "select user from User user");
 	
 	private String requete;
 
