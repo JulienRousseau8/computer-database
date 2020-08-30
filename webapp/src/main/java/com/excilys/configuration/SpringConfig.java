@@ -9,7 +9,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 @Configuration
 @PropertySource("classpath:DatabaseConnection.properties")
-@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.controller", "com.excilys.persistence", "com.excilys.mapper", "com.excilys.ui"})
+@ComponentScan({"com.excilys.DAO", "com.excilys.service", "com.excilys.controller", "com.excilys.mapper", "com.excilys.restController"})
 public class SpringConfig extends AbstractContextLoaderInitializer{
 	
 	@Override

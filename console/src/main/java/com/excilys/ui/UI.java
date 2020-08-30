@@ -29,8 +29,8 @@ public class UI {
 		System.out.println("	6 - Supprimer un ordinateur");
 		System.out.println("	7 - Pagination ordinateur");
 		System.out.println("	8 - Quitter");
-		System.out.println("    	9 - Afficher le menu");
-		System.out.println("    	10- Supprimer une entreprise");
+		System.out.println("   	9 - Afficher le menu");
+		System.out.println("    10- Supprimer une entreprise");
 		System.out.println("*************************************************");
 		actionsMenu();
 	}
@@ -51,12 +51,12 @@ public class UI {
 					//for (Company companies : companyService.getAllCompanies()) {
 					//	System.out.println(companies.toString());
 					//}
-					companies.stream().forEach(System.out::println);
+					companies.forEach(System.out::println);
 					afficherChoix();
 					break;
 				case LISTCOMPUTERS:
 					List<Computer> computers = actionsMenu.getAllComputers();
-					computers.stream().forEach(System.out::println);
+					computers.forEach(System.out::println);
 					afficherChoix();
 					break;
 				case SHOWDETAILS:
