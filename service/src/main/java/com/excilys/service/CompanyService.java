@@ -17,13 +17,15 @@ import com.excilys.model.Computer;
 public class CompanyService {
 
 	private static Logger logger = LoggerFactory.getLogger(CompanyService.class);
-	private final DAOcompany daoCompany;
-	private final ComputerService computerService;
+	@Autowired
+	private DAOcompany daoCompany;
+	@Autowired
+	private ComputerService computerService;
 
-	public CompanyService(DAOcompany daoCompany, ComputerService computerService) {
-		this.daoCompany = daoCompany;
-		this.computerService = computerService;
-	}
+//	public CompanyService(DAOcompany daoCompany, ComputerService computerService) {
+//		this.daoCompany = daoCompany;
+//		this.computerService = computerService;
+//	}
 
 	public Optional<Company> getCompanyById(String companyID){
 		try {

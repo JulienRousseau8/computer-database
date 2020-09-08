@@ -17,15 +17,18 @@ import com.excilys.model.Computer;
 public class ComputerService {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
-	private final DAOcomputer daoComputer;
-	private final Validators validators;
-	private final ComputerDTOMapper mapper;
+	@Autowired
+	private DAOcomputer daoComputer;
+	@Autowired
+	private Validators validators;
+	@Autowired
+	private ComputerDTOMapper mapper;
 
-	public ComputerService(DAOcomputer daoComputer, Validators validators, ComputerDTOMapper mapper) {
-		this.daoComputer = daoComputer;
-		this.validators = validators;
-		this.mapper = mapper;
-	}
+//	public ComputerService(DAOcomputer daoComputer, Validators validators, ComputerDTOMapper mapper) {
+//		this.daoComputer = daoComputer;
+//		this.validators = validators;
+//		this.mapper = mapper;
+//	}
 
 	public List<Computer> getAllComputers(){
 		return daoComputer.getComputers();

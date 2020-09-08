@@ -20,7 +20,7 @@ public class CompanyDTOMapperTest{
 			.setName("Digital Equipment Corporation")
 			.build();
 
-	Company company = new Company.CompanyBuilder().setId((long) 10).setName("Digital Equipment Corporation").build();
+	Company company = new Company.Builder().setId((long) 10).setName("Digital Equipment Corporation").build();
 	Optional<Company> optComp = Optional.of(company);
 	
 	List<CompanyDTO> companiesDtoList = new ArrayList<CompanyDTO>();
