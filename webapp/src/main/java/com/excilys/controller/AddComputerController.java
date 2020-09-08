@@ -17,13 +17,13 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/addComputer")
 public class AddComputerController {
-
-	DashboardService dashboardService;
-	CompanyService companyService;
-	CompanyDTOMapper companyMapper;
-
+	
 	List<CompanyDTO> listCompanyDTO = new ArrayList<CompanyDTO>();
-	ComputerDTO computerDto;
+
+	private final DashboardService dashboardService;
+	private final CompanyService companyService;
+	private final CompanyDTOMapper companyMapper;
+
 	public AddComputerController(DashboardService dashboardService,
 			CompanyService companyService, CompanyDTOMapper companyMapper) {
 		this.dashboardService = dashboardService;

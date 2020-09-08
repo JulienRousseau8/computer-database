@@ -23,7 +23,7 @@ public class CompanyDTOMapper {
 	}
 
 	public CompanyDTO companyToDto(Company company) {
-		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
+		CompanyDTO companyDto = new CompanyDTO.Builder()
 				.setId(String.valueOf(company.getId()))
 				.setName(company.getName()).build();
 		return companyDto;

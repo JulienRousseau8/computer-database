@@ -117,6 +117,7 @@ public class MyUser {
 
 
 	public static class Builder{
+
 		private Long id;
 		private String username;
 		private String password;

@@ -15,7 +15,7 @@ public class CompanyDTOMapperTest{
 
 	CompanyDTOMapper mapper = new CompanyDTOMapper();
 	
-	CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
+	CompanyDTO companyDto = new CompanyDTO.Builder()
 			.setId("10")
 			.setName("Digital Equipment Corporation")
 			.build();

@@ -22,12 +22,14 @@ import com.excilys.model.MyUser;
 @Service
 public class UserService implements UserDetailsService {
 
-	@Autowired
-	DAOuser daoUser;
-	@Autowired
-	UserDTOMapper userMapper;
-	//@Autowired
-	BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	private final DAOuser daoUser;
+	private final UserDTOMapper userMapper;
+	private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+	public UserService(DAOuser daoUser, UserDTOMapper userMapper) {
+		this.daoUser = daoUser;
+		this.userMapper = userMapper;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{

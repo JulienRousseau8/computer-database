@@ -17,14 +17,17 @@ import com.excilys.model.Pagination;
 
 @Service
 public class DashboardService {
+
 	private static Logger logger = LoggerFactory.getLogger(DashboardService.class);
-	
-	@Autowired
 	DAOcomputer daoComputer;
-	@Autowired
 	ComputerDTOMapper computerDTOMapper;
-	@Autowired
 	Validators validators;
+
+	public DashboardService(DAOcomputer daoComputer, ComputerDTOMapper computerDTOMapper, Validators validators) {
+		this.daoComputer = daoComputer;
+		this.computerDTOMapper = computerDTOMapper;
+		this.validators = validators;
+	}
 
 	public long countAllComputer() {
 		return daoComputer.countAllComputer();

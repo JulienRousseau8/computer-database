@@ -23,6 +23,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 public class JwtRequestFilter extends OncePerRequestFilter{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
 
