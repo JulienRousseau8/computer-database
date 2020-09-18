@@ -17,8 +17,11 @@ import com.excilys.model.Company;
 @Transactional
 @SuppressWarnings("unchecked")
 public class DAOcompany {
-	@Autowired
-	private SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
+
+	public DAOcompany(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	public List<Company> getCompanies(){
 		Session session = this.sessionFactory.getCurrentSession();

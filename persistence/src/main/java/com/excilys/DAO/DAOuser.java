@@ -18,9 +18,12 @@ import com.excilys.model.MyUser;
 @SuppressWarnings("unchecked")
 public class DAOuser {
 
-	@Autowired
-	private SessionFactory sessionFactory;
-	
+	private final SessionFactory sessionFactory;
+
+	public DAOuser(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	public Optional<MyUser> getUserById(long id){
 		Session session = this.sessionFactory.getCurrentSession();
 		String queryString = HQLRequest.GETUSERBYID.getQuery();

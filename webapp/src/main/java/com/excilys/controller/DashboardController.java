@@ -17,11 +17,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/dashboard")
 public class DashboardController {
+
 	List<ComputerDTO> listComputerDTO = new ArrayList<ComputerDTO>();
 	long nbComputers;
 
-	DashboardService dashboardService;
-	ComputerService computerService;
+	private final DashboardService dashboardService;
+	private final ComputerService computerService;
 
 	public DashboardController(DashboardService dashboardService, ComputerService computerService) {
 		this.dashboardService = dashboardService;

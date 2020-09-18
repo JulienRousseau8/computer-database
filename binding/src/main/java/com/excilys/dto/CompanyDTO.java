@@ -1,6 +1,6 @@
 package com.excilys.dto;
 
-public class CompanyDTO {
+public final class CompanyDTO {
 
 	private String id;
 	private String name;
@@ -8,7 +8,7 @@ public class CompanyDTO {
 	private CompanyDTO() {
 	}
 
-	private CompanyDTO(CompanyDTOBuilder companyDTOBuilder) {
+	private CompanyDTO(Builder companyDTOBuilder) {
 		this.id = companyDTOBuilder.id;
 		this.name = companyDTOBuilder.name;
 	}
@@ -65,7 +65,7 @@ public class CompanyDTO {
 		this.name = name;
 	}
 
-	public static class CompanyDTOBuilder {
+	public static class Builder {
 		private String id;
 		private String name;
 
@@ -73,12 +73,12 @@ public class CompanyDTO {
 			return new CompanyDTO(this);
 		}
 
-		public CompanyDTOBuilder setId(String id) {
+		public Builder setId(String id) {
 			this.id = id;
 			return this;
 		}
 
-		public CompanyDTOBuilder setName(String name) {
+		public Builder setName(String name) {
 			this.name = name;
 			return this;
 		}

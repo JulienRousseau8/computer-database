@@ -18,12 +18,18 @@ public class ComputerService {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
 	@Autowired
-	DAOcomputer daoComputer;
+	private DAOcomputer daoComputer;
 	@Autowired
-	Validators validators;
+	private Validators validators;
 	@Autowired
-	ComputerDTOMapper mapper;
-	
+	private ComputerDTOMapper mapper;
+
+//	public ComputerService(DAOcomputer daoComputer, Validators validators, ComputerDTOMapper mapper) {
+//		this.daoComputer = daoComputer;
+//		this.validators = validators;
+//		this.mapper = mapper;
+//	}
+
 	public List<Computer> getAllComputers(){
 		return daoComputer.getComputers();
 	}
@@ -53,7 +59,7 @@ public class ComputerService {
 	}
 	
 	public void updateComputer(ComputerDTO computerDto){
-		ComputerDTO newComputerDto = new ComputerDTO.ComputerDTOBuilder().build();
+		ComputerDTO newComputerDto = new ComputerDTO.Builder().build();
 		newComputerDto.setId(computerDto.getId());
 
 		Optional<Computer> oldComputer = getComputerById(computerDto.getId());

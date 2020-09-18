@@ -31,7 +31,7 @@ public class ComputerServiceTest extends Mockito{
 	@InjectMocks
 	ComputerService computerService;
 	
-	Computer mockComputer = new Computer.ComputerBuilder()
+	Computer mockComputer = new Computer.Builder()
 			.setId((long)1)
 			.setName("MacBook Pro 15.4 inch")
 			.build();

@@ -50,7 +50,7 @@ public class ActionsMenu {
 		System.out.println("ID de l'entreprise");
 		String companyId = scan.nextLine();
 
-		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setName(computerName).setIntroduced(dateIntro)
+		ComputerDTO computerDTO = new ComputerDTO.Builder().setName(computerName).setIntroduced(dateIntro)
 				.setDiscontinued(dateArret).setCompanyId(companyId).build();
 		computerService.createComputer(computerDTO);
 	}
@@ -77,7 +77,7 @@ public class ActionsMenu {
 		System.out.println("Modifier ID de l'entreprise : ");
 		String companyId = scan.nextLine();
 
-		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder().setId(stringId).setName(computerName)
+		ComputerDTO computerDTO = new ComputerDTO.Builder().setId(stringId).setName(computerName)
 				.setIntroduced(dateIntro).setDiscontinued(dateArret).setCompanyId(companyId).build();
 
 		computerService.updateComputer(computerDTO);

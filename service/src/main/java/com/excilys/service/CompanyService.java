@@ -18,10 +18,15 @@ public class CompanyService {
 
 	private static Logger logger = LoggerFactory.getLogger(CompanyService.class);
 	@Autowired
-	DAOcompany daoCompany;
+	private DAOcompany daoCompany;
 	@Autowired
-	ComputerService computerService;
-	
+	private ComputerService computerService;
+
+//	public CompanyService(DAOcompany daoCompany, ComputerService computerService) {
+//		this.daoCompany = daoCompany;
+//		this.computerService = computerService;
+//	}
+
 	public Optional<Company> getCompanyById(String companyID){
 		try {
 			long compId = Long.parseLong(companyID);

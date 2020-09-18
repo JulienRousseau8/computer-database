@@ -18,16 +18,16 @@ public class ComputerDTOMapperTest {
 	
 	ComputerDTOMapper mapper = new ComputerDTOMapper();
 	
-	CompanyDTO companyDTO = new CompanyDTO.CompanyDTOBuilder()
+	CompanyDTO companyDTO = new CompanyDTO.Builder()
 			.setId("1")
 			.setName("Apple Inc.")
 			.build();
 	
-	Company company = new Company.CompanyBuilder()
+	Company company = new Company.Builder()
 			.setId((long) 1)
 			.setName("Apple Inc.").build();
 
-	ComputerDTO computerDto = new ComputerDTO.ComputerDTOBuilder()
+	ComputerDTO computerDto = new ComputerDTO.Builder()
 			.setId("17")
 			.setName("Apple III Plus")
 			.setIntroduced("1983-12-01")
@@ -36,7 +36,7 @@ public class ComputerDTOMapperTest {
 			.setCompanyName(companyDTO.getName())
 			.build();
 	
-	Computer computer = new Computer.ComputerBuilder()
+	Computer computer = new Computer.Builder()
 			.setId((long) 17)
 			.setName("Apple III Plus")
 			.setIntroduced(LocalDate.of(1983, 12, 01))

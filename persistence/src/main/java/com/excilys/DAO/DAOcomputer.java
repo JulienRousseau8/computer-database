@@ -20,8 +20,11 @@ import com.excilys.model.Pagination;
 @SuppressWarnings("unchecked")
 public class DAOcomputer {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+	private final SessionFactory sessionFactory;
+
+	public DAOcomputer(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	public List<Computer> getComputers(){
 		Session session = this.sessionFactory.getCurrentSession();

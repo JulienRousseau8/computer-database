@@ -11,7 +11,7 @@ public class ComputerDTO {
 	private ComputerDTO() {
 	}
 
-	private ComputerDTO(ComputerDTOBuilder computerDTOBuilder) {
+	private ComputerDTO(Builder computerDTOBuilder) {
 		this.id = computerDTOBuilder.id;
 		this.name = computerDTOBuilder.name;
 		this.introduced = computerDTOBuilder.introduced;
@@ -132,7 +132,7 @@ public class ComputerDTO {
 		this.companyName = companyName;
 	}
 
-	public static class ComputerDTOBuilder {
+	public static class Builder {
 
 		private String id;
 		private String name;
@@ -145,32 +145,32 @@ public class ComputerDTO {
 			return new ComputerDTO(this);
 		}
 
-		public ComputerDTOBuilder setId(String id) {
+		public Builder setId(String id) {
 			this.id = id;
 			return this;
 		}
 
-		public ComputerDTOBuilder setName(String name) {
+		public Builder setName(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public ComputerDTOBuilder setIntroduced(String introduced) {
+		public Builder setIntroduced(String introduced) {
 			this.introduced = introduced;
 			return this;
 		}
 
-		public ComputerDTOBuilder setDiscontinued(String discontinued) {
+		public Builder setDiscontinued(String discontinued) {
 			this.discontinued = discontinued;
 			return this;
 		}
 
-		public ComputerDTOBuilder setCompanyId(String companyId) {
+		public Builder setCompanyId(String companyId) {
 			this.companyId = companyId;
 			return this;
 		}
 		
-		public ComputerDTOBuilder setCompanyName(String companyName) {
+		public Builder setCompanyName(String companyName) {
 			this.companyName = companyName;
 			return this;
 		}

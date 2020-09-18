@@ -16,8 +16,11 @@ import com.excilys.model.Company;
 public class Validators {
 
 	private static Logger logger = LoggerFactory.getLogger(ComputerService.class);
-	@Autowired
-	CompanyService companyService;
+	private final CompanyService companyService;
+
+	public Validators(CompanyService companyService) {
+		this.companyService = companyService;
+	}
 
 	public boolean verifierDateUtilisateurSaisie(String date) {
 		if (date == null || date.isEmpty()) {

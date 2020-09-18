@@ -15,7 +15,7 @@ public class CompanyDTOMapper {
 	}
 
 	public Company dtoToCompany(CompanyDTO companyDto){
-		Company company = new Company.CompanyBuilder()
+		Company company = new Company.Builder()
 				.setId(Long.parseLong(companyDto.getId()))
 				.setName(companyDto.getName())
 				.build();
@@ -23,7 +23,7 @@ public class CompanyDTOMapper {
 	}
 
 	public CompanyDTO companyToDto(Company company) {
-		CompanyDTO companyDto = new CompanyDTO.CompanyDTOBuilder()
+		CompanyDTO companyDto = new CompanyDTO.Builder()
 				.setId(String.valueOf(company.getId()))
 				.setName(company.getName()).build();
 		return companyDto;

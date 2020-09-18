@@ -28,11 +28,6 @@
 			<version>6.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.excilys</groupId>
-			<artifactId>webapp</artifactId>
-			<version>6.0</version>
-		</dependency>
 	</dependencies>
 
 </project>

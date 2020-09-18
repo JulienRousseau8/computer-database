@@ -39,7 +39,7 @@ public class Computer {
 	private Computer() {
 	}
 
-	private Computer(ComputerBuilder computerBuilder) {
+	private Computer(Builder computerBuilder) {
 		this.id = computerBuilder.id;
 		this.name = computerBuilder.name;
 		this.introduced = computerBuilder.introduced;
@@ -143,7 +143,7 @@ public class Computer {
 		this.company = company;
 	}
 
-	public static class ComputerBuilder {
+	public static class Builder {
 
 		private Long id;
 		private String name;
@@ -155,27 +155,27 @@ public class Computer {
 			return new Computer(this);
 		}
 
-		public ComputerBuilder setId(Long id) {
+		public Builder setId(Long id) {
 			this.id = id;
 			return this;
 		}
 
-		public ComputerBuilder setName(String name) {
+		public Builder setName(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public ComputerBuilder setIntroduced(LocalDate introduced) {
+		public Builder setIntroduced(LocalDate introduced) {
 			this.introduced = introduced;
 			return this;
 		}
 
-		public ComputerBuilder setDiscontinued(LocalDate discontinued) {
+		public Builder setDiscontinued(LocalDate discontinued) {
 			this.discontinued = discontinued;
 			return this;
 		}
 
-		public ComputerBuilder setCompany(Company company) {
+		public Builder setCompany(Company company) {
 			this.company = company;
 			return this;
 		}
