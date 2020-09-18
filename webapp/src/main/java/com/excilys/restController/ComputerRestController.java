@@ -21,10 +21,10 @@ import java.util.Optional;
 public class ComputerRestController {
 
     ObjectMapper obj = new ObjectMapper();
+
     private final ComputerService computerService;
     private final DashboardService dashboardService;
-
-    @Autowired
+    
     public ComputerRestController(ComputerService computerService, DashboardService dashboardService) {
         this.computerService = computerService;
         this.dashboardService = dashboardService;

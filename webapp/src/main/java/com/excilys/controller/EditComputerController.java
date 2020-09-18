@@ -19,14 +19,14 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/editComputer")
 public class EditComputerController {
-	
-	ComputerService computerService;
-	CompanyService companyService;
-	ComputerDTOMapper computerMapper;
-	CompanyDTOMapper companyMapper;
-	
+
 	List<CompanyDTO> listCompanyDTO = new ArrayList<CompanyDTO>();
 	ComputerDTO computerDto;
+
+	private final ComputerService computerService;
+	private final CompanyService companyService;
+	private final ComputerDTOMapper computerMapper;
+	private final CompanyDTOMapper companyMapper;
 	
 	public EditComputerController(ComputerService computerService,
 	        CompanyService companyService, ComputerDTOMapper computerMapper,

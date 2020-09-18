@@ -13,9 +13,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "")
 public class LoginController {
 
-	@Autowired
-	UserService userService;
-	
+	private final UserService userService;
+
+	public LoginController(UserService userService) {
+		this.userService = userService;
+	}
+
 	@GetMapping(value = "/login")
 	public ModelAndView loginPage() {
 		ModelAndView modelAndView = new ModelAndView("login");

@@ -17,10 +17,10 @@ import java.util.Optional;
 public class CompanyRestController {
 
     ObjectMapper obj = new ObjectMapper();
+
     private final CompanyService companyService;
 
     public CompanyRestController(CompanyService companyService) {
-
         this.companyService = companyService;
     }
 

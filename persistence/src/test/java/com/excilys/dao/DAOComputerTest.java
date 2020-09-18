@@ -25,26 +25,26 @@ public class DAOComputerTest {
 	@Autowired
 	DAOcomputer daoComputer;
 	
-	Company company = new Company.CompanyBuilder()
+	Company company = new Company.Builder()
 			.setId((long)1)
 			.setName("Apple Inc.")
 			.build();
 	
-	Computer computer = new Computer.ComputerBuilder()
+	Computer computer = new Computer.Builder()
 			.setCompany(company)
 			.setName("MacBook Pro")
 			.setId((long)6)
 			.setIntroduced(LocalDate.of(2006, 01, 10))
 			.build();
 	
-	Computer updatecomputer = new Computer.ComputerBuilder()
+	Computer updatecomputer = new Computer.Builder()
 			.setCompany(company)
 			.setName("MacBook Pro update")
 			.setId((long)6)
 			.setIntroduced(LocalDate.of(2006, 01, 10))
 			.build();
 	
-	Computer newComputer = new Computer.ComputerBuilder()
+	Computer newComputer = new Computer.Builder()
 			.setCompany(company)
 			.setName("Test")
 			.setIntroduced(LocalDate.of(2006, 01, 10))
@@ -72,7 +72,7 @@ public class DAOComputerTest {
 
 	@Test
 	public void getByIDFalse() {
-		Computer falseComputer = new Computer.ComputerBuilder()
+		Computer falseComputer = new Computer.Builder()
 				.setCompany(company)
 				.setName("Apple III")
 				.setId((long)13)

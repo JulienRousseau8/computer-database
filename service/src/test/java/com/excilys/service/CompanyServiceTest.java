@@ -31,7 +31,7 @@ public class CompanyServiceTest extends Mockito {
 	@InjectMocks
 	CompanyService companyService;
 	
-	Company mockCompany = new Company.CompanyBuilder()
+	Company mockCompany = new Company.Builder()
 			.setId((long)3)
 			.setName("RCA")
 			.build();

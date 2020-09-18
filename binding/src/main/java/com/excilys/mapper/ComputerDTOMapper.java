@@ -16,12 +16,12 @@ public class ComputerDTOMapper {
 	}
 
 	public Computer dtoToComputer(ComputerDTO computerDto){
-		Company company = new Company.CompanyBuilder()
+		Company company = new Company.Builder()
 				.setId(Long.parseLong(computerDto.getCompanyId()))
 				.setName(computerDto.getCompanyName())
 				.build();
 		
-		Computer computer = new Computer.ComputerBuilder()
+		Computer computer = new Computer.Builder()
 				.setId(computerDto.getId() == null ? 0 : Long.parseLong(computerDto.getId()))
 				.setName(computerDto.getName())
 				.setIntroduced(DateMapper.stringToDate(computerDto.getIntroduced()))
@@ -32,7 +32,7 @@ public class ComputerDTOMapper {
 	}
 
 	public ComputerDTO computerToDto(Computer computer) {
-		ComputerDTO computerDTO = new ComputerDTO.ComputerDTOBuilder()
+		ComputerDTO computerDTO = new ComputerDTO.Builder()
 				.setId(String.valueOf(computer.getId()))
 				.setName(computer.getName())
 				.setIntroduced(String.valueOf(computer.getIntroduced()))

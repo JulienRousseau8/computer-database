@@ -9,11 +9,11 @@ public class MyUserDTO {
 	private MyUserDTO() {
 	}
 	
-	private MyUserDTO(Builder builder) {
-		this.id = builder.id;
-		this.username = builder.username;
-		this.password = builder.password;
-		this.role = builder.role;
+	private MyUserDTO(Builder userDTOBuilder) {
+		this.id = userDTOBuilder.id;
+		this.username = userDTOBuilder.username;
+		this.password = userDTOBuilder.password;
+		this.role = userDTOBuilder.role;
 	}	
 	
 	@Override

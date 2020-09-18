@@ -22,11 +22,9 @@ import java.util.Objects;
 @RequestMapping(value = "/api/register")
 public class RegisterRestController {
 
-    UserService userService;
+    private final UserService userService;
 
-    @Autowired
     public RegisterRestController(UserService userService) {
-
         this.userService = userService;
     }
 

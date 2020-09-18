@@ -13,13 +13,13 @@ import com.excilys.model.Computer;
 
 public class UI {
 
-	ActionsMenu actionsMenu;
+	private final ActionsMenu actionsMenu;
 
-	public UI(ActionsMenu actionsMenu) {
+	private UI(ActionsMenu actionsMenu) {
 		this.actionsMenu = actionsMenu;
 	}
 	
-	public void afficherMenu() throws SQLException {
+	private void afficherMenu() throws SQLException {
 		System.out.println("*************************************************");
 		System.out.println("	1 - Afficher la liste des entreprises");
 		System.out.println("	2 - Afficher la liste des ordinateurs");
@@ -35,12 +35,12 @@ public class UI {
 		actionsMenu();
 	}
 
-	public void afficherChoix() {
+	private void afficherChoix() {
 		System.out.println("");
 		System.out.println("Effectuez une nouvelle requete (9 pour afficher le menu ou 8 pour quitter)");
 	}
 
-	public void actionsMenu() throws SQLException {
+	private void actionsMenu() throws SQLException {
 		boolean quit = true;
 		Scanner sc = new Scanner(System.in);
 		while (quit) {
@@ -48,9 +48,6 @@ public class UI {
 			switch (CliMenu.menuChoice(choice)) {
 				case LISTCOMPANIES:
 					List<Company> companies = actionsMenu.getAllCompanies();
-					//for (Company companies : companyService.getAllCompanies()) {
-					//	System.out.println(companies.toString());
-					//}
 					companies.forEach(System.out::println);
 					afficherChoix();
 					break;
@@ -94,8 +91,8 @@ public class UI {
 		}
 		sc.close();
 	}
-	
-	public static void main(String[] args) throws SQLException {
+
+	private static void startApp() throws SQLException {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.register(SpringConfig.class, HibernateConfig.class);
 		context.refresh();
@@ -103,5 +100,9 @@ public class UI {
 		UI ui = new UI(actionsMenu);
 		ui.afficherMenu();
 		context.close();
+	}
+
+	public static void main(String[] args) throws SQLException {
+		startApp();
 	}
 }

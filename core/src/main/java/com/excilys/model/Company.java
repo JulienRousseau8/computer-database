@@ -21,7 +21,7 @@ public class Company {
 	private Company() {
 	}
 
-	private Company(CompanyBuilder companyBuilder) {
+	private Company(Builder companyBuilder) {
 		this.id = companyBuilder.id;
 		this.name = companyBuilder.name;
 	}
@@ -78,7 +78,8 @@ public class Company {
 		this.name = name;
 	}
 
-	public static class CompanyBuilder {
+	public static class Builder {
+
 		private Long id;
 		private String name;
 
@@ -86,12 +87,12 @@ public class Company {
 			return new Company(this);
 		}
 
-		public CompanyBuilder setId(Long id) {
+		public Builder setId(Long id) {
 			this.id = id;
 			return this;
 		}
 
-		public CompanyBuilder setName(String name) {
+		public Builder setName(String name) {
 			this.name = name;
 			return this;
 		}
