@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.excilys.DAO.DAOcomputer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class CompanyService {
 	@Autowired
 	private DAOcompany daoCompany;
 	@Autowired
-	private ComputerService computerService;
+	private DAOcomputer daOcomputer;
 
 //	public CompanyService(DAOcompany daoCompany, ComputerService computerService) {
 //		this.daoCompany = daoCompany;
@@ -48,10 +49,10 @@ public class CompanyService {
 	public void deleteCompany(int id) {
 		Optional<Company> company = daoCompany.getCompanyById(id);
 		List<Computer> listComputerToDelete = new ArrayList<Computer>();
-		listComputerToDelete = computerService.getComputersByCompanyId(id);
+		listComputerToDelete = daOcomputer.getComputersByCompanyId(id);
 		if (company.isPresent()) {
 			for(Computer c : listComputerToDelete) {
-				computerService.deleteComputer(c.getId());
+				daOcomputer.deleteComputer(c.getId());
 			}
 			daoCompany.deleteCompany(id);
 			logger.info(listComputerToDelete.size() + " ordinateurs supprimés");
