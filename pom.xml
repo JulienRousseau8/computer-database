@@ -33,7 +33,7 @@
 		<!-- HIBERNATE -->
 		<org.hibernate>5.4.10.Final</org.hibernate>
 		<!-- TEST -->
-		<junit-version>4.12</junit-version>
+		<junit-version>4.13.1</junit-version>
 		<org.mockito>1.9.5</org.mockito>
 		<!-- LOGGING -->
 		<org.slf4j>1.7.30</org.slf4j>
