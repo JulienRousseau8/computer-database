@@ -31,7 +31,7 @@
 		<!-- SERVEUR -->
 		<org.apache.tomcat>9.0.31</org.apache.tomcat>
 		<!-- HIBERNATE -->
-		<org.hibernate>5.4.10.Final</org.hibernate>
+		<org.hibernate>5.4.24.Final</org.hibernate>
 		<!-- TEST -->
 		<junit-version>4.12</junit-version>
 		<org.mockito>1.9.5</org.mockito>
